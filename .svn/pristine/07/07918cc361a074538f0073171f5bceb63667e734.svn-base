@@ -1,0 +1,115 @@
+﻿
+.tr-col-50 {
+    height: 340px;
+    position: relative;
+    border: none;
+    padding: 3px;
+    box-sizing: border-box;
+    float: left;
+    width: 240px;
+}
+
+
+.full {
+    width: 100%;
+}
+
+.left {
+    float: left;
+    position:relative;
+}
+
+.tr-prd-bottom .tr-img-price {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.tr-prd-bottom .tr-price-prd2 {
+    text-align: center;
+    line-height: 1.2;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 12px;
+}
+
+    .tr-prd-bottom .tr-price-prd2 > h3 {
+        height: 43px;
+        width: 100%;
+        float: left;
+    }
+
+.chia52hang .tr-prd-bottom .tr-price-prd2 > h3 > a {
+    height: 43px;
+    color: #333;
+    line-height: 1.5;
+    font-size: 14px;
+    font-family: 'RobotoRegular';
+    font-weight: normal;
+    overflow: hidden;
+}
+
+.chia52hang .tr-prd-bottom .tr-price-km {
+    font-size: 16px;
+    display: inline-block;
+    margin-right: 5px;
+    color: #d3364a;
+    font-family: RobotoBold;
+    float: left;
+    margin-top: 5px;
+}
+
+.chia52hang .tr-prd-bottom .tr-line-though {
+    color: #696969;
+    font-size: 12px;
+    font-weight: normal;
+    margin-right: 5px;
+    overflow: hidden;
+    display: block;
+    line-height: 20px;
+    text-decoration: line-through;
+    float: left;
+    margin-top: 5px;
+}
+
+.chia52hang .tr-prd-bottom .nhapma {
+    float: left;
+    font-size: 10.5px;
+    width: 100%;
+    text-align: left;
+    color: #333;
+    line-height: 18px;
+    margin-top: 1px;
+}
+
+.clear {
+    clear: both;
+}
+
+.wrap-chia52hang {
+    width: 100%;
+    /* background-color: #fff; */
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.chia52hang .tr-prd-bottom {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.divRow {
+    position: relative;
+    float:left;
+}

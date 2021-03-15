@@ -1,0 +1,354 @@
+﻿
+@{
+    ViewBag.Header = "Generate Code List Item Tag A";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+
+@section style{
+
+    <style>
+
+        .left {
+            float: left;
+        }
+
+        .full {
+            width: 100%;
+        }
+
+        .table-dl th,
+        .table-dl td {
+            font-size: 12px;
+        }
+
+        .table-dl td {
+            padding: 10px;
+        }
+
+        .table-dl th {
+            background: #464858;
+            color: #fff;
+            text-align: center;
+        }
+
+        .wrapper-display-table {
+            padding: 10px;
+        }
+
+        .scroll-view {
+            margin-top: 20px;
+            height: 700px;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #999999;
+            padding: 10px 0 10px 10px;
+            background: #fff;
+            border-radius: 10px;
+        }
+
+            .scroll-view pre {
+                font-size: 13px;
+                color: #000;
+                font-family: 'Source Code Pro', monospace;
+                cursor: text;
+            }
+
+            .scroll-view .box-content {
+                height: 100%;
+                width: 100%;
+                overflow: auto;
+            }
+
+        span.error {
+            position: absolute;
+            top: 32%;
+            background: red;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 2px 6px;
+            line-height: normal;
+            font-family: ui-monospace;
+            box-shadow: 2px 2px 6px 1px #000;
+        }
+
+            span.error:before {
+                content: "";
+                position: absolute;
+                left: 1%;
+                top: 83%;
+                width: 0;
+                height: 0;
+                border-left: 0px solid transparent;
+                border-right: 12px solid transparent;
+                border-top: 8px solid red;
+                clear: both;
+            }
+
+        .validation-summary-errors ul li {
+            font-size: 12px;
+            color: red;
+        }
+
+        input[type=file] {
+            font-size: 12px;
+        }
+
+        .wapper-btn {
+            width: 100%;
+            float: left;
+            display: block;
+            text-align: center;
+            margin: 16px 0;
+            font-size: 36px;
+        }
+
+            .wapper-btn button {
+                border-radius: 15px;
+                box-sizing: border-box;
+                padding: 15px;
+                text-transform: uppercase;
+            }
+
+        .wrapper-form {
+            border: 1px solid;
+            margin: 48px;
+            box-sizing: border-box;
+            height: 99px;
+            margin: 0px auto;
+            padding: 26px 0;
+            text-align: center;
+        }
+
+            .wrapper-form .form-group {
+                width: 80% !important;
+            }
+
+            .wrapper-form > form {
+                margin: 0 auto;
+                margin-left: 50%;
+                transform: translate(-50%);
+            }
+
+        #pushFile {
+            margin-left: 5%;
+            width: 10%;
+            font-size: 22px;
+        }
+
+        .wrapper-text {
+            box-sizing: border-box;
+            padding: 27px 48px;
+        }
+
+
+        .list-link-pro {
+            width: 100%;
+            height: 100% !important;
+        }
+
+        .wrapper-list-link-pro {
+            width: 677px;
+            height: 320px !important;
+            float: left;
+        }
+
+        .wrapper-text .wrapper-content-right {
+            width: calc(100% - 712px);
+            float: left;
+        }
+
+            .wrapper-text .wrapper-content-right .wapper-name-image {
+                width: 80% !important;
+            }
+
+            .wrapper-text .wrapper-content-right .wrapper-number {
+                margin-left: -16px;
+                box-sizing: border-box;
+            }
+
+        #ResultListPromotion {
+            height: 123px !important;
+            overflow-y: scroll;
+        }
+
+        #ResultLinkPromotion {
+            width: 100% !important;
+            text-align: left;
+            height: 130px;
+            overflow-y: scroll;
+        }
+
+
+
+        .modal-dialog {
+            max-width: 822px !important;
+        }
+    </style>
+}
+@section scripts{
+
+    <script>
+        
+        function copyToClipboard(text) {
+            if (window.clipboardData && window.clipboardData.setData) {
+                // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+                return clipboardData.setData("Text", text);
+
+            }
+            else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+                var textarea = document.createElement("textarea");
+                textarea.textContent = text;
+                textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+                }
+                catch (ex) {
+                    console.warn("Copy to clipboard failed.", ex);
+                    return false;
+                }
+                finally {
+                    document.body.removeChild(textarea);
+                }
+            }
+        }
+
+
+        //Generate Code List Item Tag A
+        var isExportListPro = false;
+        function exportLinkPro() {
+            debugger
+            var _listLinkPro = $('#list-link-pro').val();
+            var __listLinkPro = _listLinkPro.trim();
+
+            var listLinkPro = __listLinkPro.split('\n');
+            var bgColorCode = $('#bgColorCode').val();
+            var nameImage = $('#name-image').val();
+
+            if (bgColorCode == "" || listLinkPro == "" || nameImage == "") {
+                isExportListPro = false;
+            }
+            if (isExportListPro) {
+                return alert('Thao tác không hợp lệ');
+                
+            }
+            isExportListPro = true;
+            if (isExportListPro) {
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    data:
+                    {
+                        BgColorCode: bgColorCode,
+                        ListLinkPro: JSON.stringify(listLinkPro),
+                        NameImage: nameImage
+                    },
+                    url: '/export-link-pro-ajax/',
+                    async: false,
+                    cache: false,
+                    success: function (data) {
+                        if (data.result == 1) {
+                            isExportListPro = false;
+                            var html = '';
+                            var _viewBag = "@@ViewBag.Title";
+                            html += '<div class="divRow" style="background-color:#' + data.model.BgColorCode + '">';
+                            html += '<div class="wrap-promoSlide" style="padding-top: unset;">';
+                            html += ' <div class="full promoSlide" style=" padding: 30px 50px; box-sizing:border-box;">';
+
+                            for (let i = 0; i < data.model.DataSourceImage.length; i++) {
+                                html += '<div class="item">';
+                                html += '<a href="' + data.model.ListLinkPro[i] + '"  title="' + _viewBag + '" target="_blank">';
+                                html += '<img class="full left lazyOwl" data-src="' + data.model.DataSourceImage[i] + '" alt="" />';
+                                html += '</a>';
+                                html += '</div>';
+                            }
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+
+                            $('#ketquaModal .container').text(html);
+                            ketqua(1);
+                            var btnCopyPro = document.createElement("button");
+                            btnCopyPro.innerHTML = "Copy Code";
+                            btnCopyPro.classList.add("btn");
+                            btnCopyPro.classList.add("btn-primary");
+                            $('#ketquaModal .modal-content .modal-footer').append(btnCopyPro);
+
+                            btnCopyPro.addEventListener('click', function () {
+                                var isOk = copyToClipboard(html);
+                                if (isOk) {
+                                    alert('Đã copy');
+                                    window.location.reload();
+                                }
+                            });
+                        } else {
+                            alert(data.msg);
+                        }
+
+                    },
+                    error: function (error) {
+                        isExportListPro = false;
+                        console.log(error);
+                    }
+                });
+            }
+            else {
+                alert('Có lỗi xảy ra');
+            }
+        }
+
+        function ketqua(num) {
+            if (num == 1)
+                $('#ketquaModal').modal("show");
+            else
+                $('#ketquaModal').modal("hide");
+        }
+    </script>
+}
+
+@section modal{
+
+    <div class="modal fade" id="ketquaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Kết quả</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="container modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="ketqua(0)">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="wrapper">
+    <div class="row">
+        <form class="col-lg-10  wrapper-form form-list-link-pro" style="height: unset !important;">
+            <div class="col wrapper-list-link-pro">
+                <textarea id="list-link-pro" class="form-control list-link-pro" placeholder="List link pro"></textarea>
+            </div>
+            <div class="form-row wrapper-text wrapper-content-right">
+                <div class="form-group" style="    width: 90% !important;">
+                    <input id="bgColorCode" type="text" class="form-control" placeholder="Màu của slide">
+                </div>
+                <div class="wapper-name-image form-group" style="    width: 90% !important;">
+                    <input id="name-image" type="text" class="form-control" placeholder="Nhập tên hình ( Ex: MK_EVENT2011_Pro_01)">
+                </div>
+
+                <div class="form-group">
+                    <button id="btnOkGetTagA" onclick="exportLinkPro();" type="button" class="form-control btn btn-primary">OK</button>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</div>

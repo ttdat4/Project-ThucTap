@@ -1,0 +1,123 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <button onclick="javascript:moveCard()">Play</button><br>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <img src="https://solitaired.com/images/style-classic-2/heart_13.png" id="heart_13" style="display:none;">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+    <script>
+
+        //(function (e) {
+
+        //    var canvas = document.querySelector("canvas")
+        //    var context = canvas.getContext("2d");
+        //    player = { width: 30, height: 30, x: 0, y: 110, speedX: 0.0, speedY: 0.0 };
+
+        //    function updateGameArea() {
+        //        context.clearRect(0, 0, canvas.width, canvas.height)
+        //        player.x += player.speedX;
+        //        player.y += player.speedY;
+        //        context.fillRect(player.x, player.y, player.width, player.height);
+
+        //        requestAnimationFrame(updateGameArea);
+        //    }
+
+        //    window.onkeydown = function (event) {
+        //        event.preventDefault() // stop the arrow keys scrolling the page
+        //        if (event.keyCode == 40) { // down
+        //            player.speedY += 1
+        //        } else if (event.keyCode == 38) { // up
+        //            player.speedY -= 1
+        //        } else if (event.keyCode == 39) { // right
+        //            player.speedX += 1
+        //        } else if (event.keyCode == 37) { // left
+        //            player.speedX -= 1
+        //        }
+        //    }
+
+        //    window.onkeyup = function (event) {
+        //        event.preventDefault() // stop the arrow keys scrolling the page
+        //        player.speedX = 0
+        //        player.speedY = 0
+        //    }
+
+        //    requestAnimationFrame(updateGameArea);
+
+        //})(1);
+
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+        const cardName = 'heart_13';
+        const cardWidth = 100;
+        const cardHeight = 145;
+        const cardPadding = 10;
+
+        let position = {
+            x: cardPadding,
+            origX: cardPadding,
+            y: cardPadding,
+            origY: cardPadding,
+            xMax: canvas.width - cardPadding - cardWidth,
+            yMax: canvas.height - cardPadding - cardHeight
+        };
+        let imagesCanvas = {};
+
+        function addImage(params) {
+            let name = params.name;
+            if (imagesCanvas[name] === undefined) {
+                imagesCanvas[name] = document.createElement('canvas');
+            }
+            imagesCanvas[name].width = cardWidth;
+            imagesCanvas[name].height = cardHeight;
+
+            let image = document.getElementById(name);
+
+            let imageCtx = imagesCanvas[name].getContext('2d');
+            imageCtx.clearRect(0, 0, cardWidth, cardHeight);
+            imageCtx.drawImage(image, 0, 0, cardWidth, cardHeight);
+            ctx.drawImage(imagesCanvas[name], params.x, params.y);
+        }
+
+        function drawCanvas() {
+            ctx.fillStyle = 'rgb(0,80,0)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function draw() {
+            drawCanvas();
+            addImage({ name: cardName, x: position.x, y: position.y });
+        }
+
+        function moveCard() {
+            gsap.to(position, {
+                duration: 2,
+                ease: "bounce.out",
+                x: position.xMax,
+                y: position.yMax,
+                //onUpdate: function () {
+                //    draw();
+                //},
+                onComplete: function () {
+                    position.x = position.origX;
+                    position.y = position.origY;
+                }
+            });
+        }
+
+        window.onload = draw;
+    </script>
+</body>
+</html>

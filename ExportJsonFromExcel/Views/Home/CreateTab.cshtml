@@ -1,0 +1,639 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+    ViewBag.Header = "Create html tab";
+}
+
+
+@section style{
+    <link href="~/Content/yes24eventcss.css" rel="stylesheet" />
+    <style>
+
+
+
+        .scroll-viewer {
+            overflow: auto;
+            width: 1240px;
+            border: 1px solid #0094ff;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .wrapper-review {
+            min-height: 500px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+
+        .wrapper-config {
+            float: left;
+            overflow: hidden;
+            min-height: 680px;
+            color:#fff;
+        }
+            .wrapper-config hr {
+                border-top: 1px solid #fff;
+            }
+        .wrapper-tab-line-slider {
+            position: absolute;
+            left: 220px;
+            top: 20px;
+            width: calc(100% - 220px);
+            cursor: move;
+        }
+
+            .wrapper-tab-line-slider .line {
+                display: block;
+            }
+
+        #myTab {
+            background: none;
+        }
+
+            #myTab .nav-item .nav-link {
+                padding: .5rem 1rem;
+            }
+
+        table tr td {
+            vertical-align: middle !important;
+        }
+
+        .btn-plus {
+            background: none;
+            border: none;
+            color: #168423;
+        }
+
+            .btn-plus:focus {
+                outline: none;
+            }
+
+        .abs-square-a {
+            height: 100px;
+            width: 100px;
+            background: #000;
+            opacity: 0.5;
+            color: #fff;
+            font-size: 25px;
+            border: 1px solid rgb(255, 255, 255);
+        }
+
+            .abs-square-a:before {
+                height: 20px;
+                width: 100%;
+                background: #fff;
+                position: absolute;
+                top: -20px;
+                left: 0;
+                border: 1px solid #000;
+                content: attr(data-before);
+                padding: 0 5px;
+                line-height: 20px;
+                font-size: 11px;
+                color: #000;
+                overflow: hidden;
+            }
+
+            .abs-square-a > img {
+                display: none;
+            }
+
+            .abs-square-a:hover {
+                text-decoration: none;
+                color: #fff;
+            }
+
+        .link {
+            min-height: 200px;
+            resize: none;
+        }
+
+        .divRow {
+            overflow: hidden;
+        }
+
+        .divRow-mb {
+            width: 414px;
+            height: auto;
+        }
+
+        .setting-top {
+            padding: 3px 0;
+        }
+
+        .content-bottom {
+            margin-top: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        table#table-link td > span {
+            font-size: 11px;
+            color: #2143ec;
+        }
+
+        button.btn-removelink {
+            background: none;
+            border: none;
+            color: red;
+        }
+
+            button.btn-removelink:focus {
+                outline: none;
+            }
+    </style>
+}
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            var review = $('.wrapper-review');
+
+            const wrapper_tab_class = '.wrapper-tab-line-slider';
+
+            var CreateTab = function () {
+                var sender = this;
+
+                this.registerListener = function () {
+
+                    $('#image-file').change(function (e) {
+
+                        var files = e.target.files;
+                        for (var i = 0; i < files.length; i++) {
+
+                            var file = files[i];
+
+                            var fileReader = new FileReader();
+                            fileReader.onload = function (event) {
+                                var pic = event.target;
+
+
+                                var img = $('<img src="" class="full left lazyload"/>');
+                                img.attr('src', pic.result);
+                                //   img.attr({ src: pic.result, title: pic.name });
+                                var divFullLeft;
+                                if ($('#is-mobile').is(':checked')) {
+                                    divFullLeft = $('<div class="divRow divRow-mb" ></div>');
+                                } else {
+                                    divFullLeft = $('<div class="divRow" ></div>');
+                                }
+
+                                var divRowCount = review.children('.divRow').length;
+
+                                if (divRowCount == 0) { //không có divRow trong review
+                                    review.append(divFullLeft.html(img));
+                                } else {
+                                    var hasDivrow = $('#add-divRow').is(':checked');
+                                    if (hasDivrow) {
+                                        review.append(divFullLeft.html(img));
+                                    } else {
+                                        var lastDivRow = review.find('.divRow:last');
+                                        //if (lastDivRow.children('img').length !== 0) { // có image trong divrow
+                                        //    img.insertAfter(lastDivRow.children('img:last'))
+                                        //} else {
+                                        //    lastDivRow.append(img);
+                                        //}
+                                        if (lastDivRow.find(wrapper_tab_class).length) {
+                                            img.insertBefore(lastDivRow.find(wrapper_tab_class));
+                                        } else {
+                                            lastDivRow.append(img);
+                                        }
+
+                                    }
+                                }
+                            }
+
+
+                            fileReader.readAsDataURL(file);
+
+                        }
+
+                    });
+                    /***************************/
+                    $('#add-tab').click(function () {
+                        var row = parseInt($('input#tab-row').val());
+
+                        sender.add_tab(row);
+                    });
+
+                    /**************************/
+
+                    $('#btn-export').click(function () {
+                        sender.export();
+                    });
+
+
+                };
+                this.contextMenu = function () {
+                    $.contextMenu({
+                        selector: '.divRow img',
+                        items: {
+                            "remove-img": {
+                                name: "Xóa hình",
+                                icon: "fa-ban"
+                            },
+                            "remove-div": {
+                                name: "Xóa divRow",
+                                icon: "delete"
+                            },
+                            "reset-square-a": {
+                                name: 'Reset vị trí thẻ a',
+                                icon: "fa-refresh"
+                            }
+                        },
+                        callback: function (key, options) {
+                            switch (key) {
+                                case 'remove-div':
+                                    $(this).closest('.divRow').remove();
+                                    break;
+                                case 'remove-img':
+                                    $(this).remove();
+                                    break;
+                                case 'reset-square-a':
+                                    var the_a = $(this).closest('.divRow').find('a.abs-square-a');
+
+                                    if (the_a.length > 0) {
+                                        var left = 0, margin = 5;
+                                        $.each(the_a, function (key, item) {
+                                            var a = $(item);
+
+                                            a.animate({ left: left, top: 20 }, 500);
+                                            left += a.width() + margin;
+                                        });
+                                    }
+
+                                    break;
+                            }
+                        }
+                    });
+                };
+                this.run = function () {
+                    this.registerListener();
+                    this.contextMenu();
+                };
+                this.ajax = function (type, url, data, success) {
+                    $.ajax({
+                        url: url,
+                        type: type,
+                        data: data || {},
+                        async: false,
+                        success: function (rs) {
+                            success(rs);
+                        },
+                        error: function (err) {
+                            console.log(err.responseText);
+                        }
+                    })
+                };
+                this.add_tab = function (row = 1) {
+
+                    if (review.children('.divRow').length == 0) {
+                        return;
+                    }
+
+                    if (review.find('.divRow ' + wrapper_tab_class + '').length !== 0) {
+                        var li = '';
+                        for (var i = 1; i <= row; i++) {
+                            li += '<div class="line">';
+
+                            sender.ajax('GET', '/Home/GetAllProductOnCreateTab', null, function (view) {
+                                li += view;
+                            });
+                            li += '</div>';
+                        }
+                        review.find('.divRow ' + wrapper_tab_class + '').append(li);
+
+                        $(wrapper_tab_class + ' .tr-col-50').resizable({
+                            alsoResize: '.tr-col-50'
+                        });
+
+                        return;
+                    }
+
+                    var tab = '<div class="' + wrapper_tab_class.substr(1) + '">';
+                    for (var i = 1; i <= row; i++) {
+                        tab += '<div class="line">';
+
+                        sender.ajax('GET', '/Home/GetAllProductOnCreateTab', null, function (view) {
+                            tab += view;
+                        });
+                        tab += '</div>';
+                    }
+                    tab += '</div>';
+                    review.children('.divRow:last-child').append(tab);
+
+                    $(wrapper_tab_class).draggable({
+                        stop: function (event, ui) {
+                            $(this).css({
+                                width: 'calc(100% - ' + $(this).css('left') + ''
+                            });
+                        }
+                    });
+
+                    $(wrapper_tab_class + ' .tr-col-50').resizable({
+                        alsoResize: '.tr-col-50'
+                    });
+
+
+                };
+
+
+                this.export = function () {
+                    var target = $(wrapper_tab_class);
+                    target.find('.wrap-chia52hang').remove();
+                    var content = target.html();
+
+                    console.log(content);
+                };
+
+                this.run();
+            };
+
+
+            var AddLink = function () {
+                var sender = this;
+
+                var registerMethod = function () {
+
+                    $('#btn-create-square').click(function () {
+                        var _listLinkPro = $('.link').val();
+                        if (_listLinkPro === '') {
+                            return;
+                        }
+                        var __listLinkPro = _listLinkPro.trim();
+
+                        var listLinkPro = __listLinkPro.split('\n');
+                        parent = review.children('.divRow:last-child');
+
+                        if (parent.length) {
+                            for (var i = 0; i < listLinkPro.length; i++) {
+                                sender.square.create_square(parent, listLinkPro[i], i);
+                            }
+
+                            sender.tableLink.createList(sender.square.data.dsUrl);
+
+                        } else {
+                            alert('Thiếu divRow');
+                            $('.link').val('');
+                        }
+                    })
+
+
+                    $('#export-a').click(function () {
+                        var html = sender.square.export();
+                        if (html !== '') {
+                            $('.html-output-modal').find('.modal-content pre').text(html);
+                            $('.html-output-modal').modal('show');
+                        }
+                    })
+                };
+                this.square = {
+                    data: {
+                        href: [],
+                        set dsUrl(val) {
+                            this.href.push(val);
+                        },
+                        get dsUrl() {
+                            return this.href;
+                        },
+                        set remove(val) {
+                            var index = this.href.indexOf(val);
+                            this.href.splice(index, 1);
+                        }
+                    },
+                    create_square: function (parent, link, stt) {
+
+                        if (this.data.dsUrl.includes(link)) {
+                            return;
+                        }
+
+                        var html = '<a class="abs-square-a" href="' + link + '" target="_blank"><span>' + stt + '</span></a>';
+
+                        if ($('#add-img').is(':checked')) {
+                            var html = '<a class="abs-square-a" href="' + link + '" target="_blank"><img class="full left lazyload" src="' + $('#add-img').val() + '" alt="@@ViewBag.Title"/><span>' + stt + '</span></a>';
+                        }
+
+
+                        parent.append(html);
+                        this.data.dsUrl = link;
+
+                        $('.abs-square-a').draggable({
+                            create: function (event, ui) {
+                                debugger
+                                var existsingSubject = $('.abs-square-a');
+                                if (existsingSubject.length) {
+                                    $(this).css({
+                                        position: 'absolute',
+                                        left: sender.square.random_coordinate(parent.width()),
+                                        top: sender.square.random_coordinate(parent.height()),
+                                        width: existsingSubject.first().css('width'),
+                                        height: existsingSubject.first().css('height')
+                                    });
+                                } else {
+                                    $(this).css({
+                                        position: 'absolute',
+                                        left: sender.square.random_coordinate(100),
+                                        top: sender.square.random_coordinate(100)
+                                    });
+                                }
+
+                                if ($('#is-percent').is(':checked')) {
+                                    var l = (100 * parseFloat($(this).position().left / parseFloat($(this).parent().width()))) + "%";
+                                    var t = (100 * parseFloat($(this).position().top / parseFloat($(this).parent().height()))) + "%";
+                                    var w = (100 * parseFloat(parseFloat($(this).css('width')) / parseFloat($(this).parent().width()))) + "%";
+                                    var h = (100 * parseFloat(parseFloat($(this).css('height')) / parseFloat($(this).parent().height()))) + "%";
+
+                                    $(this).css({ left: l, top: t, width: w, height: h });
+                                }
+
+                                $(this).attr('data-before', link);
+
+                            },
+
+                            stop: function (event, ui) {
+                                var isMobile = $('#is-mobile').is(':checked');
+                                var isPercent = $('#is-percent').is(':checked');
+                                if (isMobile || isPercent) {
+                                    var l = (100 * parseFloat($(this).position().left / parseFloat($(this).parent().width()))) + "%";
+                                    var t = (100 * parseFloat($(this).position().top / parseFloat($(this).parent().height()))) + "%";
+                                    var w = (100 * parseFloat(parseFloat($(this).css('width')) / parseFloat($(this).parent().width()))) + "%";
+                                    var h = (100 * parseFloat(parseFloat($(this).css('height')) / parseFloat($(this).parent().height()))) + "%";
+
+                                    $(this).css({ left: l, top: t, width: w, height: h });
+                                }
+
+
+                                var parent = $(this).closest('.divRow');
+                                var allA = parent.find('a.abs-square-a').not(this);
+                                var drag = $(this);
+                                if (allA.length > 0) {
+
+
+                                    var dragPos = drag.jqueryGetBoundingClientRect();
+
+                                    $.each(allA, function (key, item) {
+
+                                        var sDrag = $(item);
+
+                                        var sPos = sDrag.jqueryGetBoundingClientRect();
+
+                                        var isOverlap = !(dragPos.right < sPos.left ||
+                                            dragPos.left > sPos.right ||
+                                            dragPos.bottom < sPos.top ||
+                                            dragPos.top > sPos.bottom);
+
+                                        if (isOverlap) {
+                                            var pW = parent.width();
+                                            var margin = 10;
+
+                                            if (dragPos.right + sPos.width < pW) {
+                                                sDrag.animate({ left: getRandomInt(dragPos.right + margin, pW - sPos.width), top: getRandomInt(margin, parent.height() - sPos.height) });
+                                            } else {
+                                                sDrag.animate({ left: getRandomInt(margin, dragPos.left - dragPos.width), top: getRandomInt(margin, parent.height() - sPos.height) });
+                                            }
+
+                                        }
+
+                                    });
+                                }
+                            }
+                        });
+
+                        $('.abs-square-a').resizable({
+                            //alsoResize: '.abs-square-a',
+                            animate: true,
+                            animateDuration: "fast",
+                            ghost: true,
+                           
+                            distance: 50,
+                            stop: function (event, ui) {
+                                debugger
+                                if ($('#is-percent').is(':checked')) {
+                                    var l = (100 * parseFloat($(this).position().left / parseFloat($(this).parent().width()))) + "%";
+                                    var t = (100 * parseFloat($(this).position().top / parseFloat($(this).parent().height()))) + "%";
+                                    var w = (100 * parseFloat(parseFloat($(this).css('width')) / parseFloat($(this).parent().width()))) + "%";
+                                    var h = (100 * parseFloat(parseFloat($(this).css('height')) / parseFloat($(this).parent().height()))) + "%";
+
+                                    $(this).css({ left: l, top: t, width: w, height: h });
+                                }
+                            }
+                        });
+
+                        $('.abs-square-a').on('click', function (e) {
+                            e.preventDefault();
+                        })
+
+                    },
+
+
+                    export: function () {
+
+                        var divRow = review.find('.divRow:last-child').clone();
+                        divRow.children('img:first-child').remove();
+                        divRow.find('.ui-resizable-handle').remove();
+                        divRow.find('a.abs-square-a').removeClass('ui-draggable ui-draggable-handle ui-resizable abs-square-a').removeAttr('data-before');
+                        divRow.find('span').remove();
+
+
+                        return divRow.html();
+
+
+                    },
+                    random_coordinate: function (max) {
+                        return Math.floor(Math.random() * Math.floor(max)) + 'px';
+                    }
+                };
+                this.tableLink = {
+                    createList: function (dsUrl) {
+                        var object = $('#table-link');
+
+                        var html = '';
+                        $.each(dsUrl, function (key, item) {
+
+                            html += '<tr>';
+
+                            html += '<td><span>' + key + '</span></td><td><span>' + item + '</span></td>' + '<td><button class="btn-removelink" data-href="' + item + '"><i class="fa fa-trash"></i></button></td>';
+
+                            html += '</tr>';
+                        });
+
+                        object.find('tbody').html(html);
+                        object.removeClass('d-none');
+
+                        $('.btn-removelink').click(function () {
+                            var href = $(this).attr('data-href');
+                            var tr = $(this).closest('tr');
+
+                            var a = review.find('a.abs-square-a[href$="' + href + '"]');
+
+                            a.remove();
+                            tr.remove();
+                            sender.square.data.remove = href;
+                            console.log(sender.square.data.dsUrl);
+
+                        })
+                    }
+                };
+                this.run = function () {
+                    registerMethod();
+                };
+                this.run();
+
+            }
+
+
+            new AddLink();
+            new CreateTab();
+
+
+            $.fn.extend({
+                jqueryGetBoundingClientRect: function () {
+                    var elem = $(this);
+
+                    return {
+                        left: elem.position().left,
+                        right: elem.position().left + elem.width(),
+                        top: elem.position().top,
+                        bottom: elem.position().top + elem.height(),
+                        width: elem.width(),
+                        height: elem.height()
+                    };
+                }
+
+            })
+        })
+
+
+
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+        }
+    </script>
+}
+
+@section modal{
+    <div class="modal fade html-output-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content p-5">
+                <pre style="white-space:break-spaces"></pre>
+            </div>
+        </div>
+    </div>
+
+}
+
+<div class="wrapper-content overflow-auto">
+    
+    <div class="scroll-viewer">
+        <div class="wrapper-review">
+
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+

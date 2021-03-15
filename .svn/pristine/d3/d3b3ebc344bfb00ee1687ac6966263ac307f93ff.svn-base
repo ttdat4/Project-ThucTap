@@ -1,0 +1,80 @@
+﻿@*@using SugarUtilities
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
+        <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+        <style>
+            .wrapper {
+                padding: 20px;
+            }
+
+            .module {
+                padding: 0;
+            }
+
+                .module li {
+                    margin-bottom: 10px;
+                    font-size: 18px;
+                    background: #dcecff;
+                    padding: 10px 20px;
+                    list-style: none;
+                    transition: 0.3s all linear;
+                    width: 20%;
+                    border-radius: 20px;
+                }
+
+
+                    .module li > a {
+                        text-decoration:none;
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        user-select: none;
+                        -ms-user-select: none;
+                        color: #2b47ed;
+                        text-transform: capitalize;
+                    }
+                        .module li:hover {
+                           width:25%;
+                        }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <h1>Menu</h1>
+            <ul class="module">
+                @{
+                    var siteMap = new ExportJsonFromExcel.Extensions.XmlSiteMap();
+                    siteMap.LoadFrom("~/Extensions/Modules.config");
+
+                    var rootNode = siteMap.RootNode;
+                }
+
+                @helper RenderMenuItem(ExportJsonFromExcel.Extensions.SiteMapNode item)
+                {
+                    <li>
+                        <a href="@item.route" title="Click me please 🙄"><i class="fa fa-hand-o-right"></i>&nbsp;@item.Name</a>
+                    </li>
+                }
+
+                @foreach (var item in rootNode.ChildNodes)
+                {
+                    @RenderMenuItem(item)
+                }
+            </ul>
+        </div>
+    </body>
+    </html>*@
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+    ViewBag.Header = "Index";
+}

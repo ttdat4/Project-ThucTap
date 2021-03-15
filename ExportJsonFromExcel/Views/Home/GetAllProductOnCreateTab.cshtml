@@ -1,0 +1,39 @@
+﻿@model List<ExportJsonFromExcel.StaticData.StaticData.Product>
+
+<div class="wrap-chia52hang wrap-chia52hang2 hasshowhide ">
+
+    <div class="chia52hang" id="tr-prd-bottomt4">
+        <div class="full left tr-prd-bottom">
+            <div class="item">
+
+                @foreach (var m in Model)
+                {
+                    <div class="tr-col-50">
+                        <div class="tr-img-price full left">
+                            <a href="@m.Link" class="full left" target="_blank" title="@m.Name"><img class="lazyload full left" src="@m.ImgUrl" alt="@m.Name"> </a>
+                        </div>
+                        <div class="tr-price-prd2 full left">
+                            <h3><a href="@m.Link" class="full left" target="_blank" title="@m.Name">@m.Name</a></h3>
+
+                            <div class="tr-price-km">@Html.Raw(m.Price)</div>
+                            <div class="tr-line-though">@Html.Raw(m.SubPrice)</div>
+
+                            <div class="nhapma">
+                                Nhập<span style="color: #000;"> BRAND8 </span> còn<span style="color: #d3364a"> @Html.Raw(m.Promotion)</span>
+                            </div>
+
+
+
+                            <div class="clear"></div>
+
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>

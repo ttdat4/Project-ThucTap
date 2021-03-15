@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Yes24 Event Tools";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        @@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+        @@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            margin-top: 20px;
+            box-sizing: border-box;
+        }
+
+        span.navbar-brand:hover {
+            color: unset !important;
+        }
+    </style>
+    @RenderSection("style", false)
+
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-light" style=" background: linear-gradient(166deg, rgba(49,93,171,1) 0%, rgba(122,111,228,1) 92%);user-select:none;-ms-user-select:none">
+        <div class="navbar-brand">
+            <a class=" h3 text-light text-uppercase text-decoration-none" href="@Url.Action("Index","Home")" title="Home">
+                <img class="d-inline-block align-top" src="https://www.flaticon.com/svg/vstatic/svg/553/553416.svg?token=exp=1610614642~hmac=49cc94584781a7281664f7987708a73b" alt="Home" width="30" height="30"/>
+            </a>
+            <span class="text-light text-uppercase h3 ">
+                @ViewBag.Header
+            </span>
+        </div>
+
+    </nav>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+    @RenderSection("modal", false)
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    @RenderSection("scripts", false)
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿@using SugarUtilities
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .wrapper {
+            padding: 20px;
+        }
+
+        .module {
+            padding: 0;
+        }
+
+            .module li {
+                margin-bottom: 5px;
+                font-size: 18px;
+                background: #eaeaea;
+                padding: 3px;
+                list-style: none;
+                transition:0.3s all linear;
+            }
+
+
+                .module li > a {
+                    text-decoration: none;
+                    display:block;
+                    width:100%;
+                    height:100%;
+                    user-select:none;
+                    -ms-user-select:none;
+                    color:#000;
+                }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Menu</h1>
+        <ul class="module">
+            @{
+                var siteMap = new ExportJsonFromExcel.Extensions.XmlSiteMap();
+                siteMap.LoadFrom(System.IO.Path.Combine(Global.ConfigDirectory, "Modules.config"));
+
+                var rootNode = siteMap.RootNode;
+            }
+
+            @helper RenderMenuItem(ExportJsonFromExcel.Extensions.SiteMapNode item)
+            {
+                <li>
+                    <a href="@item.route" title="Click me please 🙄">@item.name</a>
+                </li>
+            }
+
+            @foreach (var item in rootNode.ChildNodes)
+            {
+                @RenderMenuItem(item)
+            }
+        </ul>
+    </div>
+</body>
+</html>

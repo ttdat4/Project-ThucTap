@@ -1,0 +1,314 @@
+﻿@{
+    ViewBag.Title = "Yes24 Event Tools";
+}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="~/Content/tools_Evf_icon.ico">
+    <link rel="stylesheet" href="~/Content/adminlte.min.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Theme style -->
+
+    <style>
+        @@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+        @@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+        @@font-face {
+            src: url('/fonts/Roboto-Bold.ttf');
+            font-family: RobotoBold;
+        }
+
+        @@font-face {
+            src: url('/fonts/Roboto-Regular.ttf');
+            font-family: RobotoRegular;
+        }
+
+
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            /*margin-top: 20px;*/
+            margin-top: 0 !important;
+            box-sizing: border-box;
+        }
+
+        .control-view hr {
+            border-top: 1px solid #fff;
+        }
+        /* a.nav-link {
+            color: #e4e4e4 !important;
+            text-decoration: none !important;
+        }*/
+
+        /*a.nav-link:hover {
+                color: #fff !important;
+            }*/
+        /* .wapper-menu {
+            float: left;
+            width: 500px;
+            color: #fff;
+            flex-basis: unset !important;
+            display: block !important;
+        }
+
+        .item-nav {
+            text-align: center;
+        }
+        ul.item-nav li {
+            background: #fff;
+            border-radius: 5px;
+            margin: 0 10px;
+            display: inline-block;
+        }
+            ul.item-nav li > a {
+                color: #000;
+                font-family: monospace;
+                font-size: 16px;
+            }
+        .item-nav .navbar-nav .dropdown-menu{
+            position: absolute !important;
+        }*/
+        .active-menu {
+            background-color: rgba(255,255,255,.1);
+            color: #fff;
+        }
+
+
+        #myBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: red;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+            #myBtn:hover {
+                background-color: #555;
+            }
+
+    </style>
+    @RenderSection("style", false)
+
+</head>
+<body class="hold-transition sidebar-mini">
+
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="@Url.Action("Index", "Home")" class="nav-link">Home</a>
+                </li>
+
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" id="op-ctrol" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                        <i class="fa fa-th-large"></i>
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="javascript:void(0)" class="brand-link">
+                <img src="/Content/tools_Evf_icon.ico" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">@ViewBag.Title</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="/Content/Images/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">Crazy guy</a>
+                    </div>
+                </div>
+
+                <!-- SidebarSearch Form -->
+                @*<div class="form-inline">
+                        <div class="input-group" data-widget="sidebar-search">
+                            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-sidebar">
+                                    <i class="fa fa-search fa-fw"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>*@
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
+                        @{
+                            var siteMap = new ExportJsonFromExcel.Extensions.XmlSiteMap();
+                            siteMap.LoadFrom("~/Extensions/Modules.config");
+
+                            var rootNode = siteMap.RootNode;
+                        }
+
+                        @helper RenderMenuItem(ExportJsonFromExcel.Extensions.SiteMapNode item)
+                        {
+
+                            <li class="nav-item">
+                                <a href="@item.route" class="nav-link">
+                                    <i class="nav-icon fa fa-th"></i>
+                                    <p>
+                                        @item.Name
+                                    </p>
+                                </a>
+                            </li>
+                        }
+
+                        @foreach (var item in rootNode.ChildNodes)
+                        {
+                            @RenderMenuItem(item)
+                        }
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">@ViewBag.Header</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active">@ViewBag.Header</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <div class="content">
+                @RenderBody()
+
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark control-view" style="overflow-y:auto">
+            <!-- Control sidebar content goes here -->
+            <div class="p-3">
+                <h5>Control</h5>
+                @{
+                    var controllViewName = ViewBag.Controll as string;
+
+                }
+
+                @if (!string.IsNullOrEmpty(controllViewName))
+                {
+                    Html.RenderPartial(controllViewName);
+                }
+                else
+                {
+                    <p>No View</p>
+                }
+
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- To the right -->
+            <div class="float-right d-none d-sm-inline">
+                @*Anything you want*@
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy;2020 </strong> All rights reserved.
+        </footer>
+    </div>
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+
+    @RenderSection("modal", false)
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/adminlte.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+    @RenderSection("scripts", false)
+    <script>
+        //Get the button
+        var mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+
+        $(function () {
+            document.addEventListener('keydown', function (e) {
+                if (e.keyCode === 81) {
+                    $('#op-ctrol').click();
+                }
+            })
+        })
+        
+    </script>
+</body>
+</html>

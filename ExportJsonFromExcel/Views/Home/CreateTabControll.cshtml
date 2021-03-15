@@ -1,0 +1,71 @@
+﻿<div class="wrapper-config w-100">
+    <form class="overflow-hidden">
+        <div class="form-group">
+            <label><i class="fa fa-image"></i>&nbsp;̀Hình</label>
+            <input type="file" class="form-control-file" multiple id="image-file">
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="add-divRow">
+            <label class="form-check-label">Thêm divRow</label>
+
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="is-mobile">
+            <label class="form-check-label">Mobile</label>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="is-percent">
+            <label class="form-check-label">%</label>
+        </div>
+        <hr />
+        <ul class="nav nav-tabs" id="myTab" role="tablist" style="background:none;">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#create-html-tab" role="tab" aria-controls="create-html-tab" aria-selected="true">Tạo tab</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#add-link" role="tab" aria-controls="add-link" aria-selected="false">Gắn thẻ a</a>
+            </li>
+        </ul>
+        <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="create-html-tab" role="tabpanel" aria-labelledby="create-html-tab-tab">
+                <div class="form-group">
+                    <label><i class="fa fa-yelp"></i>&nbsp;́Số dòng sản phẩm:</label>
+                    <input type="number" class="form-control" id="tab-row" value="1" min="1" max="3">
+                    <button type="button" class="btn btn-outline-info mt-2 w-100" id="add-tab">Thêm tab</button>
+                </div>
+                <hr />
+
+                <div class="form-group">
+                    <button type="button" class="btn btn-outline-success w-100" id="btn-export">Xuất html</button>
+                </div>
+            </div>
+            <div class="tab-pane fade p-1" id="add-link" role="tabpanel" aria-labelledby="add-link-tab">
+                <div class="setting-top">
+                    <div class="form-group form-check">
+                        <input type="checkbox" value="@ViewBag.ImageLink" class="form-check-input" id="add-img">
+                        <label class="form-check-label">Thêm image</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="">Link :</label>
+                        <span class="text-muted" style="font-size:11px;">@ViewBag.ImageLink</span>
+                    </div>
+                </div>
+                <div class="content-bottom">
+                    <textarea class="form-control link"></textarea>
+                    <button type="button" class="btn btn-outline-danger mt-2 w-100" id="btn-create-square">Khởi tạo</button>
+                    <hr />
+                    <table class="w-100 table table-bordered d-none bg-light" id="table-link">
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <button class="btn btn-outline-info mt-2 w-100" type="button" id="export-a">Xuất kết quả</button>
+
+            </div>
+        </div>
+
+
+    </form>
+</div>

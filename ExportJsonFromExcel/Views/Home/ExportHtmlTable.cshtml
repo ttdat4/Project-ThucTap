@@ -1,0 +1,564 @@
+﻿
+@{
+    ViewBag.Header = "Generate Code Tool For Event";
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+}
+
+@section style{
+
+    <style>
+
+        .left {
+            float: left;
+        }
+
+        .full {
+            width: 100%;
+        }
+
+        .table-dl th,
+        .table-dl td {
+            font-size: 12px;
+        }
+
+        .table-dl td {
+            padding: 10px;
+        }
+
+        .table-dl th {
+            background: #464858;
+            color: #fff;
+            text-align: center;
+        }
+
+        .wrapper-display-table {
+            padding: 10px;
+        }
+
+        .scroll-view {
+            margin-top: 20px;
+            height: 700px;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #999999;
+            padding: 10px 0 10px 10px;
+            background: #fff;
+            border-radius: 10px;
+        }
+
+            .scroll-view pre {
+                font-size: 13px;
+                color: #000;
+                font-family: 'Source Code Pro', monospace;
+                cursor: text;
+            }
+
+            .scroll-view .box-content {
+                height: 100%;
+                width: 100%;
+                overflow: auto;
+            }
+
+        span.error {
+            position: absolute;
+            top: 32%;
+            background: red;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 2px 6px;
+            line-height: normal;
+            font-family: ui-monospace;
+            box-shadow: 2px 2px 6px 1px #000;
+        }
+
+            span.error:before {
+                content: "";
+                position: absolute;
+                left: 1%;
+                top: 83%;
+                width: 0;
+                height: 0;
+                border-left: 0px solid transparent;
+                border-right: 12px solid transparent;
+                border-top: 8px solid red;
+                clear: both;
+            }
+
+        .validation-summary-errors ul li {
+            font-size: 12px;
+            color: red;
+        }
+
+        input[type=file] {
+            font-size: 12px;
+        }
+
+        .wapper-btn {
+            width: 100%;
+            float: left;
+            display: block;
+            text-align: center;
+            margin: 16px 0;
+            font-size: 36px;
+        }
+
+            .wapper-btn button {
+                border-radius: 15px;
+                box-sizing: border-box;
+                padding: 15px;
+                text-transform: uppercase;
+            }
+
+        .wrapper-form {
+            border: 1px solid;
+            margin: 48px;
+            box-sizing: border-box;
+            height: 99px;
+            margin: 0px auto;
+            padding: 26px 0;
+            text-align: center;
+        }
+
+            .wrapper-form .form-group {
+                width: 80% !important;
+            }
+
+            .wrapper-form > form {
+                margin: 0 auto;
+                margin-left: 50%;
+                transform: translate(-50%);
+            }
+
+        #pushFile {
+            margin-left: 5%;
+            width: 10%;
+            font-size: 22px;
+        }
+
+        .wrapper-text {
+            box-sizing: border-box;
+            padding: 27px 48px;
+        }
+
+
+        .list-link-pro {
+            width: 100%;
+            height: 100% !important;
+        }
+
+        .wrapper-list-link-pro {
+            width: 677px;
+            height: 320px !important;
+            float: left;
+        }
+
+        .wrapper-text .wrapper-content-right {
+            width: calc(100% - 712px);
+            float: left;
+        }
+
+            .wrapper-text .wrapper-content-right .wapper-name-image {
+                width: 80% !important;
+            }
+
+            .wrapper-text .wrapper-content-right .wrapper-number {
+                margin-left: -16px;
+                box-sizing: border-box;
+            }
+
+        #ResultListPromotion {
+            height: 123px !important;
+            overflow-y: scroll;
+        }
+
+        #ResultLinkPromotion {
+            width: 100% !important;
+            text-align: left;
+            height: 130px;
+            overflow-y: scroll;
+        }
+
+
+
+        .modal-dialog {
+            max-width: 822px !important;
+        }
+    </style>
+}
+@section scripts{
+    <script src="~/Scripts/gencode/minify_code.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+    <script>
+        //Export Excel to Html Table (Update Monthly Membership)
+        $(function () {
+            $('#pushFile').click(function () {
+                $('#form_upload').submit();
+            });
+            $('#btn_show_content').click(function () {
+                var html = document.getElementById('resTable').outerHTML;
+                var tagHeadContent, tagLastContent = '';
+                tagHeadContent = '<html><head><meta name="GENERATOR" content="TAGFREE Active Designer v3.0"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title></title></head><body style="font-family: tahoma; font-size: 9pt;">';
+                html = html.replace(/^/, tagHeadContent);
+                tagLastContent = '</body></html>';
+                html += tagLastContent;
+                $('.tblKetQua > tbody:nth-child(3) > tr:nth-child(1)').remove();
+                console.log(html);
+
+                $("#resTable").text(html);
+
+                var btnCopy = document.createElement("button");
+                btnCopy.innerHTML = "Copy Code";
+                $('.wapper-btn').append(btnCopy);
+
+                btnCopy.addEventListener('click', function () {
+                    var isOk = copyToClipboard(html);
+                    if (isOk) {
+                        alert('Copy thêm ed');
+                    }
+                });
+
+            });
+        })
+        function formatHTML(html) {
+            var indent = '\n';
+            var tab = '\t';
+            var i = 0;
+            var pre = [];
+
+            html = html
+                .replace(new RegExp('<pre>((.|\\t|\\n|\\r)+)?</pre>'), function (x) {
+                    pre.push({ indent: '', tag: x });
+                    return '<--TEMPPRE' + i++ + '/-->'
+                })
+                .replace(new RegExp('<[^<>]+>[^<]?', 'g'), function (x) {
+                    var ret;
+                    var tag = /<\/?([^\s/>]+)/.exec(x)[1];
+                    var p = new RegExp('<--TEMPPRE(\\d+)/-->').exec(x);
+
+                    if (p)
+                        pre[p[1]].indent = indent;
+
+                    if (['area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr'].indexOf(tag) >= 0) // self closing tag
+                        ret = indent + x;
+                    else {
+                        if (x.indexOf('</') < 0) { //open tag
+                            if (x.charAt(x.length - 1) !== '>')
+                                ret = indent + x.substr(0, x.length - 1) + indent + tab + x.substr(x.length - 1, x.length);
+                            else
+                                ret = indent + x;
+                            !p && (indent += tab);
+                        }
+                        else {//close tag
+                            indent = indent.substr(0, indent.length - 1);
+                            if (x.charAt(x.length - 1) !== '>')
+                                ret = indent + x.substr(0, x.length - 1) + indent + x.substr(x.length - 1, x.length);
+                            else
+                                ret = indent + x;
+                        }
+                    }
+                    return ret;
+                });
+
+            for (i = pre.length; i--;) {
+                html = html.replace('<--TEMPPRE' + i + '/-->', pre[i].tag.replace('<pre>', '<pre>\n').replace('</pre>', pre[i].indent + '</pre>'));
+            }
+
+            return html.charAt(0) === '\n' ? html.substr(1, html.length - 1) : html;
+        }
+        function htmlEncode(html) {
+            html = $.trim(html);
+            return html.replace(/[&"'\<\>]/g, function (c) {
+                switch (c) {
+                    case "&":
+                        return "&amp;";
+                    case "'":
+                        return "&#39;";
+                    case '"':
+                        return "&quot;";
+                    case "<":
+                        return "&lt;";
+                    default:
+                        return "&gt;";
+                }
+            });
+        };
+        function copyToClipboard(text) {
+            if (window.clipboardData && window.clipboardData.setData) {
+                // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+                return clipboardData.setData("Text", text);
+
+            }
+            else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+                var textarea = document.createElement("textarea");
+                textarea.textContent = text;
+                textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+                }
+                catch (ex) {
+                    console.warn("Copy to clipboard failed.", ex);
+                    return false;
+                }
+                finally {
+                    document.body.removeChild(textarea);
+                }
+            }
+        }
+
+
+        //Generate Code List Item Tag A
+        var isExportListPro = false;
+        function exportLinkPro() {
+            debugger
+            var _listLinkPro = $('#list-link-pro').val();
+            var __listLinkPro = _listLinkPro.trim();
+
+            var listLinkPro = __listLinkPro.split('\n');
+            var bgColorCode = $('#bgColorCode').val();
+            var nameImage = $('#name-image').val();
+
+            if (bgColorCode == "" || listLinkPro == "" || nameImage == "") {
+                isExportListPro = false;
+            }
+            if (isExportListPro)
+                return;
+            isExportListPro = true;
+            if (isExportListPro) {
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    data:
+                    {
+                        BgColorCode: bgColorCode,
+                        ListLinkPro: JSON.stringify(listLinkPro),
+                        NameImage: nameImage
+                    },
+                    url: '/export-link-pro-tag-a/',
+                    async: false,
+                    cache: false,
+                    success: function (data) {
+                        if (data.result == 1) {
+                            isExportListPro = false;
+                            var html = '';
+                            var _viewBag = "@@ViewBag.Title";
+                            html += '<div class="divRow" style="background-color:#' + data.model.BgColorCode + '">';
+                            html += '<div class="wrap-promoSlide" style="padding-top: unset;">';
+                            html += ' <div class="full promoSlide" style=" padding: 30px 50px; box-sizing:border-box;">';
+
+                            for (let i = 0; i < data.model.DataSourceImage.length; i++) {
+                                html += '<div class="item">';
+                                html += '<a href="' + data.model.ListLinkPro[i] + '"  title="' + _viewBag + '" target="_blank">';
+                                html += '<img class="full left lazyOwl" data-src="' + data.model.DataSourceImage[i] + '" alt="' + _viewBag + '" />';
+                                html += '</a>';
+                                html += '</div>';
+                            }
+                            html += '</div>';
+                            html += '</div>';
+                            html += '</div>';
+
+                            $('#ketquaModal .container').text(html);
+                            ketqua(1);
+                            var btnCopyPro = document.createElement("button");
+                            btnCopyPro.innerHTML = "Copy Code";
+                            btnCopyPro.classList.add("btn");
+                            btnCopyPro.classList.add("btn-primary");
+                            $('#ketquaModal .modal-content .modal-footer').append(btnCopyPro);
+
+                            btnCopyPro.addEventListener('click', function () {
+                                var isOk = copyToClipboard(html);
+                                if (isOk) {
+                                    alert('Đã copy');
+                                    window.location.reload();
+                                }
+                            });
+                        } else {
+                            alert(data.msg);
+                        }
+
+                    },
+                    error: function (error) {
+                        isExportListPro = false;
+                        console.log(error);
+                    }
+                });
+            }
+            else {
+                alert('Có lỗi xảy ra');
+            }
+        }
+
+        function ketqua(num) {
+            if (num == 1)
+                $('#ketquaModal').modal("show");
+            else
+                $('#ketquaModal').modal("hide");
+        }
+
+
+
+        //export excel to json 
+
+        let selectedFile;
+        console.log(window.XLSX);
+        document.getElementById('input').addEventListener("change", (event) => {
+            selectedFile = event.target.files[0];
+        })
+
+        let data = [{
+            "name": "jayanth",
+            "data": "scd",
+            "abc": "sdef"
+        }]
+
+
+        document.getElementById('button').addEventListener("click", () => {
+            $('#result-json').css('display', 'block');
+            XLSX.utils.json_to_sheet(data, 'out.xlsx');
+            if (selectedFile) {
+                let fileReader = new FileReader();
+                fileReader.readAsBinaryString(selectedFile);
+                fileReader.onload = (event) => {
+                    let data = event.target.result;
+                    let workbook = XLSX.read(data, { type: "binary" });
+                    console.log(workbook);
+                    workbook.SheetNames.forEach(sheet => {
+                        let rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
+                        console.log(rowObject);
+                        document.getElementById("jsondata").innerHTML = JSON.stringify(rowObject, undefined, 4)
+                    });
+                }
+            }
+        });
+    </script>
+}
+
+@section modal{
+    <div class="modal fade modal-huongdan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="padding: 20px 25px">
+                <div class="row w-100">
+                    <div class="col-sm-12 border-bottom border-dark">
+                        <span class="h5">&#187;&nbsp;Định dạng file excel hợp lệ</span>
+                    </div>
+                </div>
+                <div class="row w-100 mt-3">
+                    <div class="col-sm-12">
+                        <img src="~/Content/IMAGE_EXPORT_HTML_TABLE.png" alt="" class="img-fluid" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ketquaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Kết quả</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="container modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="ketqua(0)">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="wrapper">
+    <h2 class="alert alert-heading">
+        Export Excel to Html Table (Update Monthly Membership)
+    </h2>
+    @if (ViewData.Model == null)
+    {
+        <div class="row">
+
+            <div class="col-lg-10 wrapper-form form-control">
+                @using (Html.BeginForm("ExportHtmlTable", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "form_upload", @class = "form-inline" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group form-control">
+                        <div class="col-sm-12">
+                            <input class="float-left" type="file" name="file" id="input_file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                        </div>
+                    </div>
+                    <button id="pushFile" type="submit" class="btn btn-primary form-control">OK</button>
+                    <div class="row w-100">
+                        <div class="col-sm-12"> @Html.ValidationSummary(true)</div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+
+        <div class="row mt-2">
+            <div class="col-lg-12 ">
+                <div id="resTable" class="wrapper-display-table table-responsive">
+                    <table width="806" class="tblKetQua" bordercolor="#6e6e6e" style="border: currentColor; border-image: none; color: rgb(0, 0, 0); font-family: Tahoma; font-size: 9pt; border-collapse: collapse;" bgcolor="white" border="1" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td width="158" style="border: 1pt solid rgb(0, 0, 0); border-image: none; padding-left: 5px; font-size: 11pt; background-color: rgb(255, 255, 128);" bgcolor="#ffff80">
+                                    <p 11pt?="">Id</p>
+                                </td>
+                                <td width="218" style="border: 1pt solid rgb(0, 0, 0); border-image: none; padding-left: 5px; font-size: 11pt; background-color: rgb(255, 255, 128);" bgcolor="#ffff80">
+                                    <p 11pt?="">Tên</p>
+                                </td>
+                                <td width="414" style="border: 1pt solid rgb(0, 0, 0); border-image: none; padding-left: 5px; font-size: 11pt; background-color: rgb(255, 255, 128);" bgcolor="#ffff80">Quà</td>
+                            </tr>
+                        </tbody>
+                        <colgroup>
+                            <col width="146" style="width: 110pt; mso-width-source: userset; mso-width-alt: 5339;">
+                            <col width="188" style="width: 141pt; mso-width-source: userset; mso-width-alt: 6875;">
+                            <col width="277" style="width: 208pt; mso-width-source: userset; mso-width-alt: 10130;">
+                        </colgroup>
+                        <tbody>
+                            @foreach (var col in ViewData.Model.Rows)
+                            {
+                                <tr>
+                                    @foreach (var r in ViewData.Model.Columns)
+                                    {
+
+                                        <td>@col[r]</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                        <button type="button" id="btn_show_content" class="float-right btn btn-outline-dark mt-4">Show code + Copy</button>
+                    </table>
+                </div>
+                <div class="wapper-btn">
+
+                </div>
+            </div>
+        </div>
+    }
+    <h2 class="alert alert-heading">
+        Export Excel to Json
+    </h2>
+    <div class="row">
+        <div class="col-lg-10 wrapper-form ">
+            <div class="col-md-3"></div>
+            <div class=" ">
+                <div class="col-sm-12">
+                    <input class="float-left form-control col-sm-8" type="file" id="input" accept=".xls,.xlsx">
+                    <button class="btn btn-primary form-control col-sm-2" id="button">Convert</button>
+                </div>
+            </div>
+        </div>
+        <div id="result-json" class=" col-md-12"  style="background: black;margin: 0 auto; display:none;">
+            <pre id="jsondata" style="color: #0cef40;"></pre>
+        </div>
+    </div>
+</div>

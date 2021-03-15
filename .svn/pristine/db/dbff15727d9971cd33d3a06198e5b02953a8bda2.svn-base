@@ -1,0 +1,523 @@
+﻿@using ExportJsonFromExcel.App_GlobalResources
+@{
+    Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
+    ViewBag.Header = "Setup layout";
+}
+
+<style>
+    body {
+        overflow-x: hidden;
+    }
+
+    .wrapper-content {
+        box-sizing: border-box;
+        width: auto;
+        margin-top: 20px;
+    }
+
+    .divRow {
+        width: 1244px;
+        margin: 0 auto;
+        border: 2px dotted #000;
+        float: none !important;
+    }
+
+    .config-wrap {
+        position: fixed;
+        min-height: 430px;
+        border: 1px solid #000;
+        box-sizing: border-box;
+        background: #ececec;
+        box-shadow: 4px 1px 12px 2px #c3c3c3;
+        cursor: pointer;
+        z-index: 999;
+        left: 10px;
+        top: 70px;
+        transition: 0.3s all linear;
+        width: 2px;
+        overflow: hidden;
+    }
+
+        .config-wrap:hover {
+            width: 280px;
+        }
+
+    .config-title {
+        height: 40px;
+        line-height: 40px;
+        background: #9e5e5e;
+        color: #fff;
+        font-size: 20px;
+        text-transform: uppercase;
+    }
+
+    .config-body {
+        padding: 10px 3px;
+    }
+
+    .add-divrow {
+        border: none;
+        background: #75b9e8;
+        border-radius: 3px;
+        height: 30px;
+        color: #fff;
+    }
+
+    .remove-divrow {
+        border: none;
+        background: #d43a6c;
+        border-radius: 3px;
+        height: 30px;
+        color: #fff;
+    }
+
+        .add-divrow:focus, .remove-divrow:focus {
+            outline: none;
+            border: none;
+        }
+
+    .btn-add-img {
+        float: right;
+        background: #b1e6f3;
+        color: #0a4230;
+        border: 1px solid;
+        margin: 5px;
+    }
+
+        .btn-add-img:focus {
+            outline: unset;
+        }
+
+    .export-html {
+        background: #33a99e;
+    }
+
+    .html-result-m-auto {
+        width: 1240px;
+        height: auto;
+        margin: 50px auto;
+    }
+
+    .html-result {
+        height: 350px;
+        width: 100%;
+        resize: none;
+        font-family: monospace;
+        padding: 5px;
+    }
+
+    #href-wrap {
+        display: none;
+    }
+
+    .bg-config {
+        position: absolute;
+        height: 100px;
+        width: 200px;
+        display: none;
+    }
+
+        .bg-config input {
+            width: 100%;
+            height: 100%;
+        }
+
+    li.context-menu-item {
+        background-image: unset;
+    }
+
+    .control-view input {
+        font-size: 12px;
+    }
+</style>
+
+
+@section scripts{
+
+
+    <script>
+
+
+
+        var _wrapper = $('.wrapper-content');
+        var images = [];
+        var productListCount = 0;
+        const imageLink = '@ViewBag.ImageLink';
+        var bgDivRow,newImgLink;
+
+        $(function () {
+            //$('.config-wrap').draggable({
+            //    drag: function (event, ui) {
+            //        var wrapper = $(this);
+
+            //    },
+            //    stop: function (event, ui) {
+            //        var wrapper = $(this);
+            //        if (wrapper.position().left <= -200) {
+            //            wrapper.css('left', '0px');
+            //        }
+            //        if (wrapper.position().left + wrapper.width() > $('body').width()) {
+            //            wrapper.css('left', $('body').width() - wrapper.width() + 'px');
+            //        }
+            //    }
+            //});
+
+            $(window).scroll(function () {
+
+
+            })
+
+            $.contextMenu({
+                selector: '.divRow',
+                items: {
+                    "add-img": {
+                        name: 'Thêm hình',
+                        icon: "fa-plus"
+                    },
+                    "remove-img": {
+                        name: "Xóa hình",
+                        icon: "fa-ban"
+                    },
+                    "remove-div": {
+                        name: "Xóa divRow",
+                        icon: "delete"
+                    },
+                    "set-bg": {
+                        name: 'Set divRow bg-color',
+                        icon: 'fa-paint-brush'
+                    },
+                    "sep1":'--------',
+                    "add-list-product": {
+                        name: 'Thêm ds sản phẩm',
+                        icon: 'fa-product-hunt',
+                        items: {
+                          "slider": {
+                                name: 'Slider',
+                                icon: 'fa-sliders ',
+                            },
+                            'see-more': {
+                                name: 'Xem thêm',
+                                icon: 'fa-eye'
+                            }
+                        }
+                    }
+
+                },
+                callback: function (key, options) {
+                    switch (key) {
+                        case 'add-img':
+
+                            $('#exampleModalCenter').attr('data-target-id', '#' + $(this).attr('id'));
+                            $('#exampleModalCenter').modal('show');
+                            break;
+                        case 'remove-img':
+                            var imgs = $(this).children('img');
+                            if (imgs.length === 1) {
+                                imgs.remove();
+                            } else if (imgs.length > 1) {
+                                $('.modal-sm-promp').attr('data-target-id', '#' + $(this).attr('id'));
+                                $('.modal-sm-promp').modal('show');
+                            }
+                            break;
+                        case 'remove-div':
+                            $(this).remove();
+                            break;
+                        case 'set-bg':
+
+                            var pos = { x: 0, y: 0 };
+                            var div = $(this);
+
+                            function getPos(callback) {
+                                pos.x = div.width();
+                                pos.y = div.position().top + div.height();
+                                callback();
+                            }
+
+                            getPos(function () {
+                                var bg_config = $('#bg-config');
+                                bg_config.css('display', 'block');
+                                bg_config.animate({ left: pos.x, top: pos.y });
+                                bg_config.draggable();
+                            });
+
+
+                            $('#bg-config-color').change(function () {
+                                var color = $(this).val();
+                                div.css('background-color', color);
+                                bgDivRow = color;
+                            });
+
+                            break;
+                        case 'slider':
+                            var num = ++productListCount;
+                            var htmlSlider = `@Html.Raw(Resources.HtmlResource.HtmlProductSlider.Replace(System.Environment.NewLine, ""))`;
+                            $(this).append(htmlSlider);
+                            break;
+                         case 'see-more':
+                            var num = ++productListCount;
+                            var htmlSeeMore = `@Html.Raw(Resources.HtmlResource.HtmlProductSeeMore.Replace(System.Environment.NewLine, ""))`;
+                            $(this).append(htmlSeeMore);
+                            break;
+                    }
+                }
+            });
+
+            $('#has-tag').change(function () {
+                var checkbox = $(this);
+                if (checkbox.is(':checked')) {
+                    $('#href-wrap').fadeIn('slow');
+                } else {
+                    $('#href-wrap').fadeOut('slow');
+                }
+            })
+
+            $('#exampleModalCenter').on('change', '.url', function () {
+                if ($(this).val() ==='') {
+                    return;
+                }
+                var html = $('<input type="text" value="" class="form-control url mb-1" />');
+                html.insertAfter(this);
+            })
+        })
+
+        function addImage(btn) {
+
+            $('#exampleModalCenter').attr('data-target-id', '#' + $(btn).attr('id'));
+            $('#exampleModalCenter').modal('show');
+
+        }
+
+        function addDivRow() {
+            var divRow = $('<div class="divRow" id="' + randomId() + '"></div>');
+            divRow.css('min-height', '40px');
+            if (bgDivRow !== undefined) {
+                divRow.css('background-color', bgDivRow);
+            }
+            _wrapper.append(divRow);
+
+        }
+        function submitImageUrl(btn) {
+            var modal = $(btn).closest('#exampleModalCenter');
+
+            //   var url = imageLink +  modal.find('input#url').val();
+            var imgLink = getImageLink();
+            var dsUrl = modal.find('input.url');
+            var dsImg = [];
+            $.each(dsUrl, function (key, item) {
+                if ($(item).val() !== '') {
+                    dsImg.push(imgLink + $(item).val() + '.jpg');
+                }
+            });
+
+            if (dsImg.length) {
+
+                var divRow = _wrapper.find(modal.attr('data-target-id'));
+
+                if ($('#has-tag').is(':checked')) {
+                    var url = modal.find('input#url-tag').val();
+
+                    var a = $(`@Html.Raw(Resources.HtmlResource.HtmlTag)`);
+               //     var a = $('<a class="full left" href="' + url_tag + '" target="_blank"></a>');
+
+                    var img = '';
+                    dsImg.forEach(function (src) {
+                       // img += '<img class="full left lazyload" src="' + url + '" alt="@@ViewBag.Title" />';
+                        img += `@Html.Raw(Resources.HtmlResource.HtmlImg)`
+                    });
+                    a.html(img);
+
+                   // divRow.append('<a class="full left" href="' + url_tag + '" target="_blank"><img class="full left lazyload" src="' + url + '" alt="@@ViewBag.Title"/></a>');
+                    divRow.append(a);
+                    modal.find('input#url-tag').val('');
+                } else {
+                    //divRow.append('<img class="full left lazyload" src="' + url + '" alt="@@ViewBag.Title"/>');
+                    var img = '';
+                    dsImg.forEach(function (src) {
+                      //  img += '<img class="full left lazyload" src="' + url + '" alt="@@ViewBag.Title" />';
+                        img += `@Html.Raw(Resources.HtmlResource.HtmlImg)`;
+                    });
+                    divRow.append(img);
+                }
+
+                modal.modal('hide');
+                modal.find('input.url').not(':first').remove();
+                modal.find('input.url').val('');
+            }
+
+
+        }
+
+        function randomId(length = 5) {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+
+        function RemoveAnyImg(btn) {
+            var modal = $(btn).closest('.modal-sm-promp');
+            var divRow = _wrapper.find(modal.attr('data-target-id'));
+            var number = modal.find('input#number').val();
+
+            divRow.find('img:nth-child(' + number + ')').remove();
+            modal.modal('hide');
+            modal.find('input#number').val('');
+        }
+
+        function exPortHtml() {
+            var textArea = $('<div class="html-result-m-auto"><textarea class="html-result" disabled></textarea></div>');
+
+            var div = $('<div></div>');
+            div.html(_wrapper.clone());
+            div.find('.wrapper-content').removeClass('wrapper-content').addClass('wrapper');
+            div.find('.divRow').removeAttr('id');
+            div.find('.divRow').css('min-height', '');
+            if (div.find('.divRow').attr('style') === '') {
+                div.find('.divRow').removeAttr('style');
+            }
+
+            var imgs = div.find('.divRow img');
+            if (imgs.length) {
+                $.each(imgs, function (key, item) {
+                    var img = $(item);
+                    var src = img.attr('src');
+                    var newSrc = src.replace('@Html.Raw(Resources.HtmlResource.Yes24ImageDomain)', '@Html.Raw(Resources.HtmlResource.Yes24Image)');
+                    img.attr('src', newSrc);
+                })
+            }
+
+            textArea.children('.html-result').text(div.html());
+
+            var resultDiv = $('#th-render-content').find('.html-result-m-auto');
+            if (resultDiv.length) {
+                resultDiv.remove();
+            }
+
+            $('#th-render-content').append(textArea);
+        }
+
+        function closeBgConfig() {
+            var bg_config = $('#bg-config');
+            bg_config.hide();
+        }
+
+        function getImageLink() {
+            return newImgLink || imageLink;
+        }
+
+        function setNewImageDomain() {
+            var domain = $('#new-img-link');
+            newImgLink = domain.val();
+            if (!newImgLink.endsWith('\/')) {
+                newImgLink += '/';
+            }
+            alert("Cập nhật xong.");
+
+        }
+    </script>
+}
+
+@*<div class="config-wrap">
+        <div class="config-title w-100 text-center">
+            <span>Điều khiển</span>
+        </div>
+        <div class="config-body">
+            <div class="row">
+                <div class="col-lg">
+                    <button class="w-100 add-divrow" onclick="addDivRow()">Thêm divRow</button>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg">
+                    <button class="w-100 add-divrow export-html" onclick="exPortHtml()">Xuất kết quả</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<div class="container-fluid" id="wrapper-fluid">
+    <div class="row">
+        <div class="col-lg text-center">
+            <span style="font-size: 30px;
+        text-transform: capitalize;
+        text-decoration: underline;">
+                Giao diện demo
+            </span>
+        </div>
+    </div>
+    <div class="w-100 overflow-auto" id="th-render-content">
+        <div class="wrapper-content ">
+
+        </div>
+    </div>
+    
+</div>
+
+<div class="bg-config" id="bg-config">
+    <input type="color" value="#ff0000" id="bg-config-color" />
+    <button class="w-100 btn-outline-success" onclick="closeBgConfig()">OK</button>
+</div>
+
+@section modal{
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Thêm hình cho divRow</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="url">Tên Hình :</label>
+                            <input type="text" value="" class="form-control url mb-1" placeholder="Exp: mkt_f_sale0203_20210218_nh_01" />
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" value="" id="has-tag" />
+                            <label for="has-tag">Gắn tag</label>
+                        </div>
+                        <div class="form-group" id="href-wrap">
+                            <label for="url-tag">Url :</label>
+                            <input type="text" value="" class="form-control" id="url-tag" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitImageUrl(this)">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal-sm-promp" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xóa hình</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="url">Hình thứ :</label>
+                            <input type="number" value="" class="form-control" min="1" id="number" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="RemoveAnyImg(this)">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
