@@ -158,18 +158,18 @@
         background: white;
         position: relative;
         border-radius: 5px;
-        
     }
+
     #droppable {
-        width: 1000px;
-        height: 1000px;
+        width: 991px;
+        height: 500px;
         padding: 0.5em;
         float: left;
         margin: 10px;
         background-color: darkgrey;
         border-radius: 5px;
-
     }
+
     #count {
         position: absolute;
         top: 50%;
@@ -177,11 +177,10 @@
         transform: translate(-50%, -50%);
         color: blue;
     }
+
     .draggable:hover {
         background-color: wheat;
-        
     }
-    
 </style>
 
 
@@ -189,27 +188,64 @@
 
 
     <script>
+        $.fn.extend({
+            jqueryGetBoundingClientRect: function () {
+                var elem = $(this);
+                return {
+                    left: elem.position().left,
+                    right: elem.position().left + elem.width(),
+                    top: elem.position().top,
+                    bottom: elem.position().top + elem.height(),
+                    width: elem.width(),
+                    height: elem.height()
+                };
+            }
+
+        });
         var count = 1;
         function addModule() {
             //debugger
             count++;
-            
+            var sDrag = $(".draggable");
+
+            var sPos = sDrag.jqueryGetBoundingClientRect();
+            var left = sDrag.offset().left - sDrag.parent().offset().left;
+
+            var top = sDrag.offset().top - sDrag.parent().offset().top;
             var wrapResult = $('#droppable');
             var boxLink = '';
-            boxLink += '<div class="draggable resize" style="left: 0px;top:2px;width: 100px;height: 100px;"> ';
-           
+            boxLink += '<div class="draggable resize" style="left: ${left};top:2px;width: 100px;height: 100px;"> ';
+
             boxLink += '<div id="count">' + count +' ';
             boxLink += '</div>';
             boxLink += '</div>';
 
-       
-      
+
+
             wrapResult.append(boxLink);
 
 
             Add();
 
         }
+
+        function xuatKetQua() {
+            $(document).ready(function (key,item) {
+               
+                var sDrag = $(".draggable");
+               
+                var sPos = sDrag.jqueryGetBoundingClientRect();
+                var left = sDrag.offset().left - sDrag.parent().offset().left;
+             
+                var top = sDrag.offset().top - sDrag.parent().offset().top;
+               
+               
+                alert(`width=${sPos.width} x height=${sPos.height} x left=${left} x right=${sPos.width + left} x top=${top} x bottom=${sPos.height + top}`);
+
+            });
+        }
+
+
 
         var _wrapper = $('.wrapper-content');
         var images = [];
@@ -374,8 +410,8 @@
             _wrapper.append(divRow);
 
         }
-      
-     
+
+
         function submitImageUrl(btn) {
             var modal = $(btn).closest('#exampleModalCenter');
 
@@ -513,9 +549,9 @@
             });
 
         }
- 
 
-       
+
+
     </script>
 }
 
@@ -523,19 +559,19 @@
     <div class="config-title w-100 text-center">
         <span>Điều khiển</span>
     </div>
-    <div class="config-body">
+    <div class="config-body" id="content">
         <div class="row">
             <div class="col-lg">
                 <a href="javascript:;" class="w-100 add-divrow" onclick="return addModule();">Thêm divRow</a>
-            
+
 
             </div>
         </div>
 
-        
+
         <div class="row mt-2">
             <div class="col-lg">
-                <button class="w-100 add-divrow export-html" onclick="exPortHtml()">Xuất kết quả</button>
+                <button class="w-100 add-divrow export-html" onclick="xuatKetQua()">Xuất kết quả</button>
             </div>
         </div>
     </div>
@@ -559,7 +595,7 @@
 
 </div>
 
-
+<button id="kq" onclick="xuatKetQua()">KQ</button>
 <div class="module">
     <div id="droppable" class="ui-widget-header">
         <div class="draggable resize  ">
@@ -567,7 +603,11 @@
                 1
             </div>
         </div>
+
     </div>
+
+
+
 </div>
 
 
