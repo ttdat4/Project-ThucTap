@@ -203,18 +203,31 @@
 
         });
         var count = 1;
+       
         function addModule() {
-            //debugger
+            debugger
             count++;
+            
+            var pos = {
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0
+            };
             var sDrag = $(".draggable");
-
+            //var sDrag = $(this);
+            
             var sPos = sDrag.jqueryGetBoundingClientRect();
             var left = sDrag.offset().left - sDrag.parent().offset().left;
-
             var top = sDrag.offset().top - sDrag.parent().offset().top;
+            pos.left = left;
+           
+            
+            pos.top = top;
+
             var wrapResult = $('#droppable');
             var boxLink = '';
-            boxLink += '<div class="draggable resize" style="left: ${left};top:2px;width: 100px;height: 100px;"> ';
+            boxLink += '<div class="draggable resize" style=" left: ' + pos.left  + ' px; top:' + pos.top + 'px; width: 100px; height:100px;"> ';
 
             boxLink += '<div id="count">' + count +' ';
             boxLink += '</div>';
@@ -226,21 +239,23 @@
 
 
             Add();
-
+          
         }
 
         function xuatKetQua() {
-            $(document).ready(function (key,item) {
+            $(document).ready(function (key, item) {
+     
                
                 var sDrag = $(".draggable");
+                //var sDrag = $(item);
                
                 var sPos = sDrag.jqueryGetBoundingClientRect();
                 var left = sDrag.offset().left - sDrag.parent().offset().left;
-             
+                
                 var top = sDrag.offset().top - sDrag.parent().offset().top;
-               
-               
-                alert(`width=${sPos.width} x height=${sPos.height} x left=${left} x right=${sPos.width + left} x top=${top} x bottom=${sPos.height + top}`);
+                
+
+                alert(`width=${sPos.width} x height=${sPos.height} x left=${left}  x top=${top} `);
 
             });
         }
@@ -533,15 +548,16 @@
             alert("Cập nhật xong.");
 
         }
-        function  Add() {
+        function Add() {
+
             $(".draggable").draggable();
             $("#droppable").droppable();
             $(".resize ").resizable({
                 animate: true,
-                animateDuration: "fast",
+                animateDuration: "slow",
                 distance: 50,
                 ghost: true,
-                handles: "n, e, s,w,ne,sw,nw,se",
+                handles: "all",
                 maxHeight: 300,
                 maxWidth: 300,
                 minHeight: 150,
