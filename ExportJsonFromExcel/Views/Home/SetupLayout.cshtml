@@ -152,7 +152,7 @@
         width: 100px;
         height: 100px;
         padding: 0.5em;
-        float: left;
+       float: left;
         margin-left: 10px;
         background-color: grey;
         background: white;
@@ -194,7 +194,7 @@
                 return {
                     left: elem.position().left,
                     right: elem.position().left + elem.width(),
-                    top: elem.position().top,
+                    top: elem.position().top ,
                     bottom: elem.position().top + elem.height(),
                     width: elem.width(),
                     height: elem.height()
@@ -206,35 +206,44 @@
        
         function addModule() {
             debugger
+            var wrapResult = $('#droppable');
+          
             count++;
-            
             var pos = {
                 left: 0,
                 top: 0,
                 width: 0,
                 height: 0
             };
-            var sDrag = $(".draggable");
-            //var sDrag = $(this);
             
+         
+          
+
+
+         
+         
+            
+            var numPrev = count - 1;
+            var sDrag = $("#box-" + numPrev);
+           
             var sPos = sDrag.jqueryGetBoundingClientRect();
             var left = sDrag.offset().left - sDrag.parent().offset().left;
-            var top = sDrag.offset().top - sDrag.parent().offset().top;
-            pos.left = left;
-           
+            var width = sDrag.outerWidth();
+            var height = sDrag.outerHeight();
+            var top = (sDrag.offset().top - sDrag.parent().offset().top) ;
+            pos.left =  left + width;
+            pos.height = height;
+            pos.width = width;
             
             pos.top = top;
-
-            var wrapResult = $('#droppable');
+           
+          
             var boxLink = '';
-            boxLink += '<div class="draggable resize" style=" left: ' + pos.left  + ' px; top:' + pos.top + 'px; width: 100px; height:100px;"> ';
-
-            boxLink += '<div id="count">' + count +' ';
+            boxLink += '<div id="box-' + count + '" class="draggable resize" style=" left: ' + pos.left + ' px; top:' + pos.top + 'px; width: '+pos.width+'px; height:'+pos.height+'px;"> ';
+            boxLink += '<div id="count">"l:"'+pos.left+' + "t:" + '+pos.top+' + ' + count + ' ';
             boxLink += '</div>';
             boxLink += '</div>';
-
-
-
+        
             wrapResult.append(boxLink);
 
 
@@ -251,11 +260,12 @@
                
                 var sPos = sDrag.jqueryGetBoundingClientRect();
                 var left = sDrag.offset().left - sDrag.parent().offset().left;
-                
+                var width = sDrag.outerWidth();
+                var height = sDrag.outerHeight();
                 var top = sDrag.offset().top - sDrag.parent().offset().top;
                 
 
-                alert(`width=${sPos.width} x height=${sPos.height} x left=${left}  x top=${top} `);
+                alert(`width=${width} x height=${height} x left=${left}  x top=${top} x right=${sPos.right}`);
 
             });
         }
@@ -614,7 +624,7 @@
 <button id="kq" onclick="xuatKetQua()">KQ</button>
 <div class="module">
     <div id="droppable" class="ui-widget-header">
-        <div class="draggable resize  ">
+        <div id="box-1" class="draggable resize ">
             <div id="count">
                 1
             </div>
