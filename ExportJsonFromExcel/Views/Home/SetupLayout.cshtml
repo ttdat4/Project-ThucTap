@@ -145,15 +145,14 @@
         border: 1px solid;
         margin-left: 500px;
         background-color: white;
-        position: relative;
+        position:   relative;
     }
 
     .draggable {
         width: 100px;
         height: 100px;
         padding: 0.5em;
-       float: left;
-        margin-left: 10px;
+        float: left;
         background-color: grey;
         background: white;
         position: relative;
@@ -168,6 +167,7 @@
         margin: 10px;
         background-color: darkgrey;
         border-radius: 5px;
+
     }
 
     #count {
@@ -180,6 +180,10 @@
 
     .draggable:hover {
         background-color: wheat;
+    }
+    .move {
+        border: 1px solid #000 !important;
+        background: yellow !important;
     }
 </style>
 
@@ -194,7 +198,7 @@
                 return {
                     left: elem.position().left,
                     right: elem.position().left + elem.width(),
-                    top: elem.position().top ,
+                    top: elem.position().top,
                     bottom: elem.position().top + elem.height(),
                     width: elem.width(),
                     height: elem.height()
@@ -203,7 +207,8 @@
 
         });
         var count = 1;
-       
+        
+
         function addModule() {
             debugger
             var wrapResult = $('#droppable');
@@ -216,13 +221,7 @@
                 height: 0
             };
             
-         
-          
 
-
-         
-         
-            
             var numPrev = count - 1;
             var sDrag = $("#box-" + numPrev);
            
@@ -230,13 +229,12 @@
             var left = sDrag.offset().left - sDrag.parent().offset().left;
             var width = sDrag.outerWidth();
             var height = sDrag.outerHeight();
-            var top = (sDrag.offset().top - sDrag.parent().offset().top) ;
+            var top = sDrag.offset().top - sDrag.parent().offset().top;
             pos.left =  left + width;
             pos.height = height;
             pos.width = width;
-            
-            pos.top = top;
-           
+            pos.top = top  ;
+          
           
             var boxLink = '';
             boxLink += '<div id="box-' + count + '" class="draggable resize" style=" left: ' + pos.left + ' px; top:' + pos.top + 'px; width: '+pos.width+'px; height:'+pos.height+'px;"> ';
@@ -245,17 +243,18 @@
                 //'top:' + pos.top + '';
             boxLink += '</div>';
             boxLink += '</div>';
-        
+
+            console.table(pos);
             wrapResult.append(boxLink);
 
 
             Add();
-          
+      
         }
 
         function xuatKetQua() {
             $(document).ready(function (key, item) {
-     
+        
                
                 var sDrag = $(".draggable");
                 //var sDrag = $(item);
@@ -267,7 +266,7 @@
                 var top = sDrag.offset().top - sDrag.parent().offset().top;
                 
 
-                alert(`width=${width} x height=${height} x left=${left}  x top=${top} x right=${sPos.right}`);
+                alert(`width=${width} x height=${height} x left=${left}  x top=${top} `);
 
             });
         }
@@ -283,7 +282,7 @@
         $(function () {
 
             Add();
-
+    ;
 
 
             $('.config-wrap').draggable({
@@ -301,6 +300,7 @@
                     }
                 }
             });
+
 
             $(window).scroll(function () {
 
@@ -562,7 +562,16 @@
         }
         function Add() {
 
-            $(".draggable").draggable();
+            $(".draggable").draggable({
+                containment: "parent",
+               
+                start: function (event, ui) {
+                    $(this).addClass('move');
+                },
+                stop: function (event, ui) {
+                    $(this).removeClass('move');
+                },
+            });
             $("#droppable").droppable();
             $(".resize ").resizable({
                 animate: true,
