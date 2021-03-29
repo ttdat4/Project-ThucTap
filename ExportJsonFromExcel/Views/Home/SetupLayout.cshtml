@@ -147,7 +147,19 @@
         background-color: white;
         position:   relative;
     }
-
+    .box-link, .box-link-edit {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border: 1px solid #000;
+        background: #fff;
+        opacity: .6;
+    }
+    .wrapper-boxlink-edit .box-link-edit:hover {
+        cursor: move;
+    }
     .draggable {
         width: 100px;
         height: 100px;
@@ -202,13 +214,14 @@
                     bottom: elem.position().top + elem.height(),
                     width: elem.width(),
                     height: elem.height()
+
                 };
             }
 
         });
-        var count = 1;
-        
 
+        var count = 1;
+   
         function addModule() {
             debugger
             var wrapResult = $('#droppable');
@@ -218,13 +231,15 @@
                 left: 0,
                 top: 0,
                 width: 0,
-                height: 0
+                height: 0,
+               
+        
             };
             
 
             var numPrev = count - 1;
             var sDrag = $("#box-" + numPrev);
-           
+          
             var sPos = sDrag.jqueryGetBoundingClientRect();
             var left = sDrag.offset().left - sDrag.parent().offset().left;
             var width = sDrag.outerWidth();
@@ -234,19 +249,18 @@
             pos.height = height;
             pos.width = width;
             pos.top = top  ;
-          
+           
           
             var boxLink = '';
-            boxLink += '<div id="box-' + count + '" class="draggable resize" style=" left: ' + pos.left + ' px; top:' + pos.top + 'px; width: '+pos.width+'px; height:'+pos.height+'px;"> ';
+            boxLink += '<div id="box-' + count + '" class="draggable resize box-link-edit " style=" left: ' + pos.left + ' px; top:' + pos.top + 'px; width: ' + pos.width + 'px; height:' + pos.height + 'px; " > ';
             boxLink += '<div id="count">' + count + '';
                 //'left:' + pos.left +
                 //'top:' + pos.top + '';
             boxLink += '</div>';
             boxLink += '</div>';
 
-            console.table(pos);
+        
             wrapResult.append(boxLink);
-
 
             Add();
       
@@ -277,31 +291,32 @@
         var images = [];
         var productListCount = 0;
         const imageLink = '@ViewBag.ImageLink';
-        var bgDivRow,newImgLink;
-        var IsDuplicatePos = 0;
+        var bgDivRow, newImgLink;
+    
+       
         $(function () {
 
             Add();
-    ;
+  
 
 
             $('.config-wrap').draggable({
                 drag: function (event, ui) {
                     var wrapper = $(this);
                
-                        //list history box 
-                        var listHistoryBox = $('.wrapper-boxlink-edit .box-link');
-                        if (listHistoryBox.length > 0) {
-                            $.each(listHistoryBox, function (key, item) {
-                                var sDrag = $(item);
-                                var sPos = sDrag.jqueryGetBoundingClientRect();
-                                var posBox = BoxLinkEdit.box.box.jqueryGetBoundingClientRect();
-                                var isOverlap = !(posBox.right < sPos.left || posBox.left > sPos.right || posBox.bottom < sPos.top || posBox.top > sPos.bottom);
-                                IsDuplicatePos = isOverlap ? 1 : 0;
-                                if (IsDuplicatePos == 1) return false;
-                            });
-                            BoxLinkEdit.box.box.attr('data-duplicate-pos', IsDuplicatePos);
-                        }
+                        ////list history box 
+                        //var listHistoryBox = $('.wrapper-boxlink-edit .box-link');
+                        //if (listHistoryBox.length > 0) {
+                        //    $.each(listHistoryBox, function (key, item) {
+                        //        var sDrag = $(item);
+                        //        var sPos = sDrag.jqueryGetBoundingClientRect();
+                        //        var posBox = BoxLinkEdit.box.box.jqueryGetBoundingClientRect();
+                        //        var isOverlap = !(posBox.right < sPos.left || posBox.left > sPos.right || posBox.bottom < sPos.top || posBox.top > sPos.bottom);
+                        //        IsDuplicatePos = isOverlap ? 1 : 0;
+                        //        if (IsDuplicatePos == 1) return false;
+                        //    });
+                        //    BoxLinkEdit.box.box.attr('data-duplicate-pos', IsDuplicatePos);
+                        //}
                     
                 },
                 stop: function (event, ui) {
@@ -313,6 +328,7 @@
                         wrapper.css('left', $('body').width() - wrapper.width() + 'px');
                     }
                 }
+               
             });
 
 
@@ -574,37 +590,115 @@
             alert("Cập nhật xong.");
 
         }
+        
         function Add() {
-
-            $(".draggable").draggable({
-                containment: "parent",
-               
-                //start: function (event, ui) {
-                //    $(this).addClass('move');
-                //},
-                //stop: function (event, ui) {
-                //    $(this).removeClass('move');
-                //},
-                drag: function (event, ui) {
-                //list history box 
-                var listHistoryBox = $('.wrapper-boxlink-edit .box-link');
-                if (listHistoryBox.length > 0) {
-                    $.each(listHistoryBox, function (key, item) {
-                        var sDrag = $(item);
-                        var sPos = sDrag.jqueryGetBoundingClientRect();
-                        var posBox = BoxLinkEdit.box.box.jqueryGetBoundingClientRect();
-                        var isOverlap = !(posBox.right < sPos.left || posBox.left > sPos.right || posBox.bottom < sPos.top || posBox.top > sPos.bottom);
-                        IsDuplicatePos = isOverlap ? 1 : 0;
-                        if (IsDuplicatePos == 1) return false;
+            var IsDuplicatePos = 0;
+            var BoxLinkEdit = {
+                box: {
+                    _box: '',
+                    get box() {
+                        return $('.box-link-edit');
+                    }
+                },
+                wrapper: {
+                    _wrapper: '',
+                    get wrapper() {
+                        return $('.wrapper-boxlink-edit');
+                    }
+                },
+                inIt: function () {
+                    BoxLinkEdit.box.box.css({
+                        "left": "10%",
+                        "top": "0%",
+                        "width": "10%",
+                        "height": "10%"
                     });
-                    BoxLinkEdit.box.box.attr('data-duplicate-pos', IsDuplicatePos);
-                }
+                    BoxLinkEdit.box.box.attr({
+                        "data-left": "10",
+                        "data-top": "10",
+                        "data-width": "10",
+                        "data-height": "10",
+                        
+                    });
+                    BoxLinkEdit.box.box.find('.ui-resizable-handle').css({
+                        "background": "#fff",
+                        "border": "1px solid #000"
+                    });
+                    //update stt for links 
+                    if (arrayDetail.length > 0) BoxLinkEdit.updateStateCurrent(arrayDetail, 1);
+                    else
+                        //not exists any links in banner
+                        BoxLinkEdit.appendNumber('1');
+                },
+                appendBoxLinkHistory: function (currentStt, leftLink, topLink, widthLink, heightLink) {
+                    var boxLinkHtml = '';
+                    boxLinkHtml += '<div id="' + currentStt + '" class="box-link" data-id="' + currentStt + '" style="left: ' + leftLink + '% ; top:' + topLink + '%; width:' + widthLink + '%; height:' + heightLink + '%;">';
+                    boxLinkHtml += ' <div  id="count"><p>' + currentStt + '</p></div>';
+                    boxLinkHtml += ' </div>';
+
+                    BoxLinkEdit.wrapper.wrapper.append(boxLinkHtml);
+                },
+                //makeDraggable: function () {
+                //    BoxLinkEdit.box.box.draggable({
+                //        zIndex: 99999999,
+                //        revert: 'invalid',
+                //        containment: "parent",
+                        
+                //        drag: function (event, ui) {
+                          
+                //            var listHistoryBox = $('.wrapper-boxlink-edit .box-link');
+                //            if (listHistoryBox.length > 0) {
+                //                $.each(listHistoryBox, function (key, item) {
+                //                    var sDrag = $(item);
+                //                    var sPos = sDrag.jqueryGetBoundingClientRect();
+                //                    var posBox = BoxLinkEdit.box.box.jqueryGetBoundingClientRect();
+                //                    var isOverlap = !(posBox.right < sPos.left || posBox.left > sPos.right || posBox.bottom < sPos.top || posBox.top > sPos.bottom);
+                //                    IsDuplicatePos = isOverlap ? 1 : 0;
+                //                    if (IsDuplicatePos == 1) return false;
+                //                });
+                //                BoxLinkEdit.box.box.attr('data-duplicate-pos', IsDuplicatePos);
+                //            }
+                //        }
+                //    });
+                //},
             }
+            $(".draggable").draggable({
+
+                containment: "parent",
+                
+          
+                   
+                start: function (event, ui) {
+                    $(this).addClass('move');
+
+                },
+                
+                stop: function (event, ui) {
+                    $(this).removeClass('move');
+
+                    var listHistoryBox = $('.wrapper-boxlink-edit .box-link');
+                    if (listHistoryBox.length > 0) {
+                        $.each(listHistoryBox, function (key, item) {
+                            //var numPrev = count - 1;
+                            //var sDrag = $("#box-" + numPrev);
+                            var sDrag = $(item);
+                            var sPos = sDrag.jqueryGetBoundingClientRect();
+                            var posBox = BoxLinkEdit.box.box.jqueryGetBoundingClientRect();
+                            var isOverlap = !(posBox.right < sPos.left || posBox.left > sPos.right || posBox.bottom < sPos.top || posBox.top > sPos.bottom);
+                            IsDuplicatePos = isOverlap ? 1 : 0;
+                            if (IsDuplicatePos == 1) return false;
+                        });
+                        BoxLinkEdit.box.box.attr('data-duplicate-pos', IsDuplicatePos);
+                    }
+                },
+                
+            
+             
             });
             $("#droppable").droppable();
             $(".resize ").resizable({
                 animate: true,
-                animateDuration: "slow",
+                animateDuration: "fast",
                 distance: 50,
                 ghost: true,
                 handles: "all",
@@ -663,8 +757,8 @@
 
 <button id="kq" onclick="xuatKetQua()">KQ</button>
 <div class="module">
-    <div id="droppable" class="ui-widget-header">
-        <div id="box-1" class="draggable resize ">
+    <div id="droppable" class="ui-widget-header wrapper-boxlink-edit">
+        <div id="box-1" class="draggable resize box-link-edit" >
             <div id="count">
                 1
             </div>
