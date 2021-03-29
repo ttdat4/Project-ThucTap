@@ -278,7 +278,7 @@
         var productListCount = 0;
         const imageLink = '@ViewBag.ImageLink';
         var bgDivRow,newImgLink;
-
+        var IsDuplicatePos = 0;
         $(function () {
 
             Add();
@@ -288,7 +288,21 @@
             $('.config-wrap').draggable({
                 drag: function (event, ui) {
                     var wrapper = $(this);
-
+               
+                        //list history box 
+                        var listHistoryBox = $('.wrapper-boxlink-edit .box-link');
+                        if (listHistoryBox.length > 0) {
+                            $.each(listHistoryBox, function (key, item) {
+                                var sDrag = $(item);
+                                var sPos = sDrag.jqueryGetBoundingClientRect();
+                                var posBox = BoxLinkEdit.box.box.jqueryGetBoundingClientRect();
+                                var isOverlap = !(posBox.right < sPos.left || posBox.left > sPos.right || posBox.bottom < sPos.top || posBox.top > sPos.bottom);
+                                IsDuplicatePos = isOverlap ? 1 : 0;
+                                if (IsDuplicatePos == 1) return false;
+                            });
+                            BoxLinkEdit.box.box.attr('data-duplicate-pos', IsDuplicatePos);
+                        }
+                    
                 },
                 stop: function (event, ui) {
                     var wrapper = $(this);
@@ -565,12 +579,27 @@
             $(".draggable").draggable({
                 containment: "parent",
                
-                start: function (event, ui) {
-                    $(this).addClass('move');
-                },
-                stop: function (event, ui) {
-                    $(this).removeClass('move');
-                },
+                //start: function (event, ui) {
+                //    $(this).addClass('move');
+                //},
+                //stop: function (event, ui) {
+                //    $(this).removeClass('move');
+                //},
+                drag: function (event, ui) {
+                //list history box 
+                var listHistoryBox = $('.wrapper-boxlink-edit .box-link');
+                if (listHistoryBox.length > 0) {
+                    $.each(listHistoryBox, function (key, item) {
+                        var sDrag = $(item);
+                        var sPos = sDrag.jqueryGetBoundingClientRect();
+                        var posBox = BoxLinkEdit.box.box.jqueryGetBoundingClientRect();
+                        var isOverlap = !(posBox.right < sPos.left || posBox.left > sPos.right || posBox.bottom < sPos.top || posBox.top > sPos.bottom);
+                        IsDuplicatePos = isOverlap ? 1 : 0;
+                        if (IsDuplicatePos == 1) return false;
+                    });
+                    BoxLinkEdit.box.box.attr('data-duplicate-pos', IsDuplicatePos);
+                }
+            }
             });
             $("#droppable").droppable();
             $(".resize ").resizable({
