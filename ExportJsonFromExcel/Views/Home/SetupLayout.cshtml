@@ -304,19 +304,7 @@
                 drag: function (event, ui) {
                     var wrapper = $(this);
                
-                        ////list history box 
-                        //var listHistoryBox = $('.wrapper-boxlink-edit .box-link');
-                        //if (listHistoryBox.length > 0) {
-                        //    $.each(listHistoryBox, function (key, item) {
-                        //        var sDrag = $(item);
-                        //        var sPos = sDrag.jqueryGetBoundingClientRect();
-                        //        var posBox = BoxLinkEdit.box.box.jqueryGetBoundingClientRect();
-                        //        var isOverlap = !(posBox.right < sPos.left || posBox.left > sPos.right || posBox.bottom < sPos.top || posBox.top > sPos.bottom);
-                        //        IsDuplicatePos = isOverlap ? 1 : 0;
-                        //        if (IsDuplicatePos == 1) return false;
-                        //    });
-                        //    BoxLinkEdit.box.box.attr('data-duplicate-pos', IsDuplicatePos);
-                        //}
+                    
                     
                 },
                 stop: function (event, ui) {
@@ -632,8 +620,10 @@
                 },
                 appendBoxLinkHistory: function (currentStt, leftLink, topLink, widthLink, heightLink) {
                     var boxLinkHtml = '';
-                    boxLinkHtml += '<div id="' + currentStt + '" class="box-link" data-id="' + currentStt + '" style="left: ' + leftLink + '% ; top:' + topLink + '%; width:' + widthLink + '%; height:' + heightLink + '%;">';
-                    boxLinkHtml += ' <div  id="count"><p>' + currentStt + '</p></div>';
+                    boxLinkHtml += '<div id="box-' + currentStt + '" class="draggable resize box-link-edit  "  style="left: ' + leftLink + '% ; top:' + topLink + '%; width:' + widthLink + '%; height:' + heightLink + '%;">';
+                    boxLinkHtml += ' <div  id="count">' + currentStt + '';
+                    boxLinkHtml += ' </div>';
+                   
                     boxLinkHtml += ' </div>';
 
                     BoxLinkEdit.wrapper.wrapper.append(boxLinkHtml);
@@ -674,9 +664,10 @@
                 },
                 
                 stop: function (event, ui) {
+                    debugger;
                     $(this).removeClass('move');
 
-                    var listHistoryBox = $('.wrapper-boxlink-edit .box-link');
+                    var listHistoryBox = $('.wrapper-boxlink-edit .box-link-edit');
                     if (listHistoryBox.length > 0) {
                         $.each(listHistoryBox, function (key, item) {
                             //var numPrev = count - 1;
@@ -697,6 +688,7 @@
             });
             $("#droppable").droppable();
             $(".resize ").resizable({
+                handles: "ne, nw, se, sw,n, e, s, w",
                 animate: true,
                 animateDuration: "fast",
                 distance: 50,
@@ -758,7 +750,7 @@
 <button id="kq" onclick="xuatKetQua()">KQ</button>
 <div class="module">
     <div id="droppable" class="ui-widget-header wrapper-boxlink-edit">
-        <div id="box-1" class="draggable resize box-link-edit" >
+        <div id="box-1" class="draggable resize box-link-edit " >
             <div id="count">
                 1
             </div>
