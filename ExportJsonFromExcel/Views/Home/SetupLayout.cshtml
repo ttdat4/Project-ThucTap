@@ -172,7 +172,7 @@
     }
 
     #droppable {
-        width: 991px;
+        width: 800px;
         height: 500px;
         padding: 0.5em;
         float: left;
@@ -196,6 +196,173 @@
     .move {
         border: 1px solid #000 !important;
         background: yellow !important;
+    }
+
+    .header-menu-fix {
+        height: 30px;
+        clear: both;
+    }
+
+    html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, input, textarea, select, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        vertical-align: baseline;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    user agent stylesheet
+    div {
+        display: block;
+    }
+
+    body {
+        font-family: RobotoRegular;
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        color: #777;
+        width: 100vw;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+
+    body {
+        height: 100%;
+        background: #fff;
+        color: #000;
+        line-height: 1;
+        -webkit-text-size-adjust: none;
+    }
+
+    body, input, button, option, textarea, label, legend, h4, h5, h6, h2 a, h3 a, h4 a, h5 a, h6 a {
+        font: 12px RobotoRegular,Arial;
+        outline: none;
+    }
+    #th-menu-fix-mobile {
+        float: left;
+        width: 100%;
+        display: block;
+        position: fixed;
+        top: -40px;
+        background: #fff;
+        z-index: 99;
+        -moz-transition: all .4s;
+        -webkit-transition: all .4s;
+        -o-transition: all .4s;
+        -ms-transition: all .4s;
+        transition: all .4s;
+        display: block;
+    }
+    element.style {
+        display: block;
+    }
+
+    ul.menu-home {
+        background: transparent;
+    }
+
+    ul.menu-home {
+        background: #fff;
+    }
+
+    ul.menu-home {
+        padding: 5px 0 10px 10px;
+    }
+
+    ul.menu-home {
+        display: block;
+        width: -webkit-calc(100% - 10px);
+        width: -o-calc(100% - 10px);
+        width: calc(100% - 10px);
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+        padding: 0 0 0 10px;
+        background: #d33649;
+        border-bottom: none;
+        padding-bottom: 15px;
+    }
+
+    ul.menu-home {
+        display: block;
+        width: -webkit-calc(100% - 10px);
+        width: -o-calc(100% - 10px);
+        width: calc(100% - 10px);
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+        padding: 10px 10px;
+        background: #fff;
+        border-bottom: 1px solid #d2d2d2;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    ol, ul {
+        list-style: none;
+    }
+        ul.menu-home li {
+            text-transform: none;
+        }
+
+        ul.menu-home li {
+            margin-right: 10px;
+            text-transform: uppercase;
+        }
+
+        ul.list-inline li {
+            display: inline-block;
+        }
+
+        ul li {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+        ul.menu-home li a.active {
+            border-bottom: 3px solid #d33649;
+            font-family: RobotoRegular;
+        }
+
+        ul.menu-home li a.active {
+            font-family: RobotoBold;
+        }
+
+        ul.menu-home li a {
+            color: #003;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        ul.menu-home li a {
+            color: #fff;
+            font-size: 14px;
+            position: relative;
+        }
+
+        ul.menu-home li a {
+            color: #000;
+            font-size: 14px;
+        }
+
+    a {
+        color: #777;
+        text-decoration: none;
+    }
+
+    a {
+        color: #000;
+        text-decoration: none;
     }
 </style>
 
@@ -585,7 +752,7 @@
                 box: {
                     _box: '',
                     get box() {
-                        return $('.box-link-edit');
+                        return $('.ui-draggable-dragging');
                     }
                 },
                 wrapper: {
@@ -652,6 +819,11 @@
                 //    });
                 //},
             }
+            //$('#scroll').each(function () {
+
+            //    var duration = Math.abs($(this).scrollLeft() - x) * 2; //2ms trên mỗi pixel
+            //    $(this).animate({ scrollLeft: x }, duration);
+            //});
             $(".draggable").draggable({
 
                 containment: "parent",
@@ -667,9 +839,10 @@
                     debugger;
                     $(this).removeClass('move');
 
-                    var listHistoryBox = $('.wrapper-boxlink-edit .box-link-edit');
+                    var listHistoryBox = $('.wrapper-boxlink-edit .box-link-edit').not('.ui-draggable-dragging');
                     if (listHistoryBox.length > 0) {
                         $.each(listHistoryBox, function (key, item) {
+                            debugger;
                             //var numPrev = count - 1;
                             //var sDrag = $("#box-" + numPrev);
                             var sDrag = $(item);
@@ -701,9 +874,19 @@
             });
 
         }
+        $('#scroll').scrollLeft(0);
+        
+        function someMethodIThinkMightBeSlow() {
+            const startTime = performance.now();
 
+            $('ul.menu-home li').change(function () {
+                alert("Handler for .change() called.");
+            });
 
-
+            const duration = performance.now() - startTime;
+            console.log(`someMethodIThinkMightBeSlow took ${duration}ms`);
+        }
+      
     </script>
 }
 
@@ -747,7 +930,47 @@
 
 </div>
 
-<button id="kq" onclick="xuatKetQua()">KQ</button>
+@*<button id="kq" onclick="xuatKetQua()">KQ</button>*@
+
+
+
+   
+   
+        <ul class="menu-home list-inline" style="display:block;" id="scroll">
+            <li>
+                <a href=" " class="active" id="home">Trang chủ</a>
+            </li>
+            <li>
+                <a href="" id="mypham" class="" >YES24 BEAUTY</a>
+            </li>
+            <li>
+                <a href="" id="yes24black" class="" >YES24 BLACK</a>
+            </li>
+            <li>
+                <a href="" class="" id="shop-giao-nhanh" >Yes24 Quick</a>
+            </li>
+            <li>
+                <a href="" class="" id="khuyenmai" >Khuyến mãi</a>
+            </li>
+            <li>
+                <a href="" class="" id="magiamgia">Mã giảm giá</a>
+            </li>
+            <li>
+                <a href="" id="flashsale" class="">Flash Sale</a>
+            </li>
+            <li>
+                <a href="" class="" id="topseller" >Bán chạy</a>
+            </li>
+            <li>
+                <a href="" class="" id="tatcathuonghieu" >Thương hiệu</a>
+            </li>
+            <li>
+                <a href="" title="WEBTOON">WEBTOON</a>
+            </li>
+        </ul>
+        <div id="th-menu-fix-mobile"></div>
+
+
 <div class="module">
     <div id="droppable" class="ui-widget-header wrapper-boxlink-edit">
         <div id="box-1" class="draggable resize box-link-edit " >
