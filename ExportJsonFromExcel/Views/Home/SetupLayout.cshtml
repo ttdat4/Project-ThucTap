@@ -879,12 +879,19 @@
         function someMethodIThinkMightBeSlow() {
             const startTime = performance.now();
 
-            $('ul.menu-home li').change(function () {
-                alert("Handler for .change() called.");
-            });
-
+            //$('ul.menu-home li').change(function () {
+            //    alert("Handler for .change() called.");
+            //});
+            //function myFunction() {
+            //    var x = document.getElementById("scroll").duration;
+            //    document.getElementById("demo").innerHTML = x;
+            //}
+            $('scroll').change(function(){
+                /*alert("The id has been changed.");*/
+           
             const duration = performance.now() - startTime;
-            console.log(`someMethodIThinkMightBeSlow took ${duration}ms`);
+                console.log(`someMethodIThinkMightBeSlow took ${duration}ms`);
+            });
         }
       
     </script>
@@ -920,6 +927,7 @@
         text-decoration: underline;">
                 Giao diện demo
             </span>
+            <p id="demo"></p>
         </div>
     </div>
     <div class="w-100 overflow-auto" id="th-render-content">
@@ -970,7 +978,7 @@
         </ul>
         <div id="th-menu-fix-mobile"></div>
 
-
+        
 <div class="module">
     <div id="droppable" class="ui-widget-header wrapper-boxlink-edit">
         <div id="box-1" class="draggable resize box-link-edit " >
