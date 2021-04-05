@@ -173,7 +173,7 @@
 
     #droppable {
         width: 800px;
-        height: 500px;
+        height: 200px;
         padding: 0.5em;
         float: left;
         margin: 10px;
@@ -210,6 +210,7 @@
         outline: 0;
         background: transparent;
         vertical-align: baseline;
+        scroll-behavior: smooth !important;
     }
 
     * {
@@ -363,6 +364,56 @@
     a {
         color: #000;
         text-decoration: none;
+    }
+    .tab-wrapper {
+        width: 500px;
+        margin: 50px auto;
+        border: solid 1px #acacac;
+        border-radius: 5px;
+        width: 600px;
+        height: 150px;
+    }
+
+        .tab-wrapper ul {
+            overflow: hidden;
+            background: #ececec;
+            margin: 0px;
+            padding: 0px;
+           
+        }
+
+            .tab-wrapper ul li {
+                float: left;
+                list-style: none;
+                padding: 10px 20px;
+                background: rgba(104, 166, 208, 0.88);
+                border-radius: 5px 5px 0px 0px;
+                margin-right: 5px;
+                margin-top: 5px;
+               
+            }
+
+                .tab-wrapper ul li.active {
+                    background: #Fff;
+                    
+                }
+
+                    .tab-wrapper ul li.active a {
+                        color: blue;
+                    }
+
+                .tab-wrapper ul li a {
+                    color: #fff;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                }
+
+    .tab-content {
+        padding: 20px;
+    }
+
+    .tab-item {
+        display: none;
     }
 </style>
 
@@ -876,24 +927,34 @@
         }
         $('#scroll').scrollLeft(0);
         
-        function someMethodIThinkMightBeSlow() {
-            const startTime = performance.now();
-
-            //$('ul.menu-home li').change(function () {
-            //    alert("Handler for .change() called.");
-            //});
-            //function myFunction() {
-            //    var x = document.getElementById("scroll").duration;
-            //    document.getElementById("demo").innerHTML = x;
-            //}
-            $('scroll').change(function(){
-                /*alert("The id has been changed.");*/
+     //function chuyển tab
+        $(document).ready(function () {
            
-            const duration = performance.now() - startTime;
-                console.log(`someMethodIThinkMightBeSlow took ${duration}ms`);
+            function activeTab(obj) {  // Hàm active tab nào đó
+               
+                $('.tab-wrapper ul li').removeClass('active');  // Xóa class active tất cả các tab
+
+               
+                $(obj).addClass('active');  // Thêm class active vào tab đang click 
+                
+                var id = $(obj).find('a').attr('href'); // Lấy href của tab để show content tương ứng
+
+                $('.tab-item').hide(100); // Ẩn hết nội dung các tab đang hiển thị
+
+                
+                $(id).show(100); // Hiển thị nội dung của tab hiện tại
+
+            }
+
+            
+            $('.tab li').click(function () {  // Sự kiện click đổi tab
+                activeTab(this);
+                return false;
             });
-        }
-      
+
+           
+            activeTab($('.tab li:first-child'));  // Active tab đầu tiên khi trang web được chạy
+        });
     </script>
 }
 
@@ -940,13 +1001,11 @@
 
 @*<button id="kq" onclick="xuatKetQua()">KQ</button>*@
 
-
-
    
    
         <ul class="menu-home list-inline" style="display:block;" id="scroll">
             <li>
-                <a href=" " class="active" id="home">Trang chủ</a>
+                <a href="" class="active" id="home">Trang chủ</a>
             </li>
             <li>
                 <a href="" id="mypham" class="" >YES24 BEAUTY</a>
@@ -977,6 +1036,32 @@
             </li>
         </ul>
         <div id="th-menu-fix-mobile"></div>
+
+
+        <div class="tab-wrapper">
+            <ul class="tab">
+                <li>
+                    <a href="#tab-main">trang chủ</a>
+                </li>
+                <li>
+                    <a href="#tab1">d</a>
+                </li>
+                <li>
+                    <a href="#tab2">d1</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-item" id="tab-main">
+                    Giao diện Trang chủ
+                </div>
+                <div class="tab-item" id="tab1">
+                    Giao diện D
+                </div>
+                <div class="tab-item" id="tab2">
+                    Giao diện D1
+                </div>
+            </div>
+        </div>
 
         
 <div class="module">
