@@ -2,6 +2,9 @@
 @{
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
     ViewBag.Header = "Setup layout";
+   
+   // int hour = ViewBag.hour;
+
 }
 
 <style>
@@ -414,6 +417,12 @@
 
     .tab-item {
         display: none;
+    }
+    .divTab {
+        width: 1240px;
+        position: relative;
+        float: left;
+        width: 100%;
     }
 </style>
 
@@ -926,35 +935,52 @@
 
         }
         $('#scroll').scrollLeft(0);
-        
-     //function chuyển tab
+        var today = new Date();
+        var time = today.getHours() + '-' + today.getMinutes() + '-' + today.getSeconds(); // đo thời gian hiện tại
+
+        document.getElementById("time").innerHTML = time;
+
+        //function chuyển tab
         $(document).ready(function () {
-           
+            
             function activeTab(obj) {  // Hàm active tab nào đó
-               
+         
                 $('.tab-wrapper ul li').removeClass('active');  // Xóa class active tất cả các tab
 
-               
+             
                 $(obj).addClass('active');  // Thêm class active vào tab đang click 
                 
                 var id = $(obj).find('a').attr('href'); // Lấy href của tab để show content tương ứng
 
                 $('.tab-item').hide(100); // Ẩn hết nội dung các tab đang hiển thị
-
+               
                 
                 $(id).show(100); // Hiển thị nội dung của tab hiện tại
+               
+                //for (let i = 1; i <= 3; i++) {
+                //    let g = i;
+                //    if (i == 3) g = 0;
+                //    let d = new Date();
+                //    let $button = $('#tab1').clone();
+                //    $button.css("display", "inline-block");
+                    
+                //    if (i == d.getHours()) {
+                //        $button.addClass("active");
+                //    }
 
+                //    $(".tab").append($button);
+                //}
             }
-
+            
             
             $('.tab li').click(function () {  // Sự kiện click đổi tab
                 activeTab(this);
                 return false;
             });
 
-           
             activeTab($('.tab li:first-child'));  // Active tab đầu tiên khi trang web được chạy
         });
+     
     </script>
 }
 
@@ -1038,31 +1064,34 @@
         <div id="th-menu-fix-mobile"></div>
 
 
-        <div class="tab-wrapper">
-            <ul class="tab">
-                <li>
-                    <a href="#tab-main">trang chủ</a>
-                </li>
-                <li>
-                    <a href="#tab1">d</a>
-                </li>
-                <li>
-                    <a href="#tab2">d1</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-item" id="tab-main">
-                    Giao diện Trang chủ
-                </div>
-                <div class="tab-item" id="tab1">
-                    Giao diện D
-                </div>
-                <div class="tab-item" id="tab2">
-                    Giao diện D1
+<p id="time"> </p>
+
+        <div class="divTab">
+            <div class="tab-wrapper">
+                <ul class="tab">
+                    <li>
+                        <a href="#tab-main">9h</a>
+                    </li>
+                    <li>
+                        <a href="#tab1">12h</a>
+                    </li>
+                    <li>
+                        <a href="#tab2">15h</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-item" id="tab-main">
+                       Sale 9h - 11h59
+                    </div>
+                    <div class="tab-item" id="tab1">
+                        Sale 12h - 14h59
+                    </div>
+                    <div class="tab-item" id="tab2">
+                        Sale 15h 
+                    </div>
                 </div>
             </div>
         </div>
-
         
 <div class="module">
     <div id="droppable" class="ui-widget-header wrapper-boxlink-edit">

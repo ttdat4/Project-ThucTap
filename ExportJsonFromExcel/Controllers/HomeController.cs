@@ -373,8 +373,10 @@ namespace ExportJsonFromExcel.Controllers
             ViewBag.Controll = "SetupLayoutControll";
             return View();
         }
-        public ActionResult SetupLayoutControll()
+        public ActionResult SetupLayoutControll( int hour)
         {
+            
+            ViewBag.hour = new DateTime(DateTime.Now.Hour,DateTime.Now.Minute, DateTime.Now.Second);
             return PartialView();
         }
         #endregion
