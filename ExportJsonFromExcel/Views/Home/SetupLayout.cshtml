@@ -2,9 +2,9 @@
 @{
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
     ViewBag.Header = "Setup layout";
-   
-   // int hour = ViewBag.hour;
 
+
+    int hour = ViewBag.hour;
 }
 
 <style>
@@ -148,8 +148,9 @@
         border: 1px solid;
         margin-left: 500px;
         background-color: white;
-        position:   relative;
+        position: relative;
     }
+
     .box-link, .box-link-edit {
         position: absolute;
         top: 0;
@@ -160,9 +161,11 @@
         background: #fff;
         opacity: .6;
     }
+
     .wrapper-boxlink-edit .box-link-edit:hover {
         cursor: move;
     }
+
     .draggable {
         width: 100px;
         height: 100px;
@@ -182,7 +185,6 @@
         margin: 10px;
         background-color: darkgrey;
         border-radius: 5px;
-
     }
 
     #count {
@@ -196,6 +198,7 @@
     .draggable:hover {
         background-color: wheat;
     }
+
     .move {
         border: 1px solid #000 !important;
         background: yellow !important;
@@ -249,6 +252,7 @@
         font: 12px RobotoRegular,Arial;
         outline: none;
     }
+
     #th-menu-fix-mobile {
         float: left;
         width: 100%;
@@ -264,6 +268,7 @@
         transition: all .4s;
         display: block;
     }
+
     element.style {
         display: block;
     }
@@ -315,6 +320,7 @@
     ol, ul {
         list-style: none;
     }
+
         ul.menu-home li {
             text-transform: none;
         }
@@ -333,6 +339,7 @@
             padding: 0;
             list-style-type: none;
         }
+
         ul.menu-home li a.active {
             border-bottom: 3px solid #d33649;
             font-family: RobotoRegular;
@@ -368,13 +375,14 @@
         color: #000;
         text-decoration: none;
     }
+
     .tab-wrapper {
-        width: 500px;
         margin: 50px auto;
         border: solid 1px #acacac;
         border-radius: 5px;
-        width: 600px;
+        width: 550px;
         height: 150px;
+        margin-left: 100px;
     }
 
         .tab-wrapper ul {
@@ -382,7 +390,7 @@
             background: #ececec;
             margin: 0px;
             padding: 0px;
-           
+            margin-left: 10px;
         }
 
             .tab-wrapper ul li {
@@ -393,16 +401,15 @@
                 border-radius: 5px 5px 0px 0px;
                 margin-right: 5px;
                 margin-top: 5px;
-               
+                width: 62.03px;
             }
 
                 .tab-wrapper ul li.active {
                     background: #Fff;
-                    
                 }
 
                     .tab-wrapper ul li.active a {
-                        color: blue;
+                        color: red;
                     }
 
                 .tab-wrapper ul li a {
@@ -413,11 +420,13 @@
 
     .tab-content {
         padding: 20px;
+        text-align: center;
     }
 
     .tab-item {
         display: none;
     }
+
     .divTab {
         width: 1240px;
         position: relative;
@@ -448,25 +457,25 @@
         });
 
         var count = 1;
-   
+
         function addModule() {
             debugger
             var wrapResult = $('#droppable');
-          
+
             count++;
             var pos = {
                 left: 0,
                 top: 0,
                 width: 0,
                 height: 0,
-               
-        
+
+
             };
-            
+
 
             var numPrev = count - 1;
             var sDrag = $("#box-" + numPrev);
-          
+
             var sPos = sDrag.jqueryGetBoundingClientRect();
             var left = sDrag.offset().left - sDrag.parent().offset().left;
             var width = sDrag.outerWidth();
@@ -476,8 +485,8 @@
             pos.height = height;
             pos.width = width;
             pos.top = top  ;
-           
-          
+
+
             var boxLink = '';
             boxLink += '<div id="box-' + count + '" class="draggable resize box-link-edit " style=" left: ' + pos.left + ' px; top:' + pos.top + 'px; width: ' + pos.width + 'px; height:' + pos.height + 'px; " > ';
             boxLink += '<div id="count">' + count + '';
@@ -486,26 +495,26 @@
             boxLink += '</div>';
             boxLink += '</div>';
 
-        
+
             wrapResult.append(boxLink);
 
             Add();
-      
+
         }
 
         function xuatKetQua() {
             $(document).ready(function (key, item) {
-        
-               
+
+
                 var sDrag = $(".draggable");
                 //var sDrag = $(item);
-               
+
                 var sPos = sDrag.jqueryGetBoundingClientRect();
                 var left = sDrag.offset().left - sDrag.parent().offset().left;
                 var width = sDrag.outerWidth();
                 var height = sDrag.outerHeight();
                 var top = sDrag.offset().top - sDrag.parent().offset().top;
-                
+
 
                 alert(`width=${width} x height=${height} x left=${left}  x top=${top} `);
 
@@ -519,20 +528,20 @@
         var productListCount = 0;
         const imageLink = '@ViewBag.ImageLink';
         var bgDivRow, newImgLink;
-    
-       
+
+
         $(function () {
 
             Add();
-  
+
 
 
             $('.config-wrap').draggable({
                 drag: function (event, ui) {
                     var wrapper = $(this);
-               
-                    
-                    
+
+
+
                 },
                 stop: function (event, ui) {
                     var wrapper = $(this);
@@ -543,7 +552,7 @@
                         wrapper.css('left', $('body').width() - wrapper.width() + 'px');
                     }
                 }
-               
+
             });
 
 
@@ -805,7 +814,7 @@
             alert("Cập nhật xong.");
 
         }
-        
+
         function Add() {
             var IsDuplicatePos = 0;
             var BoxLinkEdit = {
@@ -833,13 +842,13 @@
                         "data-top": "10",
                         "data-width": "10",
                         "data-height": "10",
-                        
+
                     });
                     BoxLinkEdit.box.box.find('.ui-resizable-handle').css({
                         "background": "#fff",
                         "border": "1px solid #000"
                     });
-                    //update stt for links 
+                    //update stt for links
                     if (arrayDetail.length > 0) BoxLinkEdit.updateStateCurrent(arrayDetail, 1);
                     else
                         //not exists any links in banner
@@ -850,7 +859,7 @@
                     boxLinkHtml += '<div id="box-' + currentStt + '" class="draggable resize box-link-edit  "  style="left: ' + leftLink + '% ; top:' + topLink + '%; width:' + widthLink + '%; height:' + heightLink + '%;">';
                     boxLinkHtml += ' <div  id="count">' + currentStt + '';
                     boxLinkHtml += ' </div>';
-                   
+
                     boxLinkHtml += ' </div>';
 
                     BoxLinkEdit.wrapper.wrapper.append(boxLinkHtml);
@@ -860,9 +869,9 @@
                 //        zIndex: 99999999,
                 //        revert: 'invalid',
                 //        containment: "parent",
-                        
+
                 //        drag: function (event, ui) {
-                          
+
                 //            var listHistoryBox = $('.wrapper-boxlink-edit .box-link');
                 //            if (listHistoryBox.length > 0) {
                 //                $.each(listHistoryBox, function (key, item) {
@@ -887,14 +896,14 @@
             $(".draggable").draggable({
 
                 containment: "parent",
-                
-          
-                   
+
+
+
                 start: function (event, ui) {
                     $(this).addClass('move');
 
                 },
-                
+
                 stop: function (event, ui) {
                     debugger;
                     $(this).removeClass('move');
@@ -915,9 +924,9 @@
                         BoxLinkEdit.box.box.attr('data-duplicate-pos', IsDuplicatePos);
                     }
                 },
-                
-            
-             
+
+
+
             });
             $("#droppable").droppable();
             $(".resize ").resizable({
@@ -935,54 +944,92 @@
 
         }
         $('#scroll').scrollLeft(0);
-        var today = new Date();
-        var time = today.getHours() + '-' + today.getMinutes() + '-' + today.getSeconds(); // đo thời gian hiện tại
+        //var today = new Date();
+        //var time = today.getHours() + '-' + today.getMinutes() + '-' + today.getSeconds(); // đo thời gian hiện tại
 
-        document.getElementById("time").innerHTML = time;
+        //document.getElementById("time").innerHTML = time;
 
         //function chuyển tab
-        $(document).ready(function () {
-            
-            function activeTab(obj) {  // Hàm active tab nào đó
-         
+        $(document).ready(function ()
+        {
+
+            function activeTab(obj)
+            {  // Hàm active tab nào đó
+
                 $('.tab-wrapper ul li').removeClass('active');  // Xóa class active tất cả các tab
 
-             
-                $(obj).addClass('active');  // Thêm class active vào tab đang click 
-                
+
+                $(obj).addClass('active');  // Thêm class active vào tab đang click
+
                 var id = $(obj).find('a').attr('href'); // Lấy href của tab để show content tương ứng
 
                 $('.tab-item').hide(100); // Ẩn hết nội dung các tab đang hiển thị
-               
-                
-                $(id).show(100); // Hiển thị nội dung của tab hiện tại
-               
-                //for (let i = 1; i <= 3; i++) {
-                //    let g = i;
-                //    if (i == 3) g = 0;
-                //    let d = new Date();
-                //    let $button = $('#tab1').clone();
-                //    $button.css("display", "inline-block");
-                    
-                //    if (i == d.getHours()) {
-                //        $button.addClass("active");
-                //    }
 
-                //    $(".tab").append($button);
-                //}
+
+                $(id).show(100); // Hiển thị nội dung của tab hiện tại
+
+
             }
-            
-            
-            $('.tab li').click(function () {  // Sự kiện click đổi tab
+
+
+            $('.tab li').click(function ()
+            {  // Sự kiện click đổi tab
                 activeTab(this);
                 return false;
             });
 
-            activeTab($('.tab li:first-child'));  // Active tab đầu tiên khi trang web được chạy
+            //điều kiện activeTab
+            if ($('#hours').val() >= 0 && $('#hours').val() < 3)
+            {
+                activeTab($('.tab li:first-child'));
+
+            }
+            if ($('#hours').val() >= 3 && $('#hours').val() < 6)
+            {
+                activeTab($('.tab li:first-child').next());
+
+            }
+            if ($('#hours').val() >= 6 && $('#hours').val() < 9)
+            {
+                activeTab($('.tab li').eq(2));
+
+            }
+            if ($('#hours').val() >= 9 && $('#hours').val() < 12)
+            {
+                activeTab($('.tab li').eq(3));
+
+            }
+            if ($('#hours').val() >= 12 && $('#hours').val() < 15)
+            {
+                activeTab($('.tab li').eq(4));
+
+            }
+            if ($('#hours').val() >= 15 && $('#hours').val() < 18)
+            {
+                activeTab($('.tab li').eq(5));
+
+            }
+            if ($('#hours').val() >= 18 && $('#hours').val() < 21)
+            {
+                activeTab($('.tab li').eq(6));
+
+            }
+            if ($('#hours').val() >= 21 && $('#hours').val() < 24)
+            {
+                activeTab($('.tab li').eq(7));
+
+            }
+
+
+            //activeTab($('.tab li:first-child'));  // Active tab đầu tiên khi trang web được chạy
+
         });
-     
+        
+
     </script>
 }
+
+
 
 <div class="config-wrap">
     <div class="config-title w-100 text-center">
@@ -1025,77 +1072,108 @@
 
 </div>
 
+
 @*<button id="kq" onclick="xuatKetQua()">KQ</button>*@
 
-   
-   
-        <ul class="menu-home list-inline" style="display:block;" id="scroll">
+<input type="number" id="hours" value="@hour" />
+
+
+<ul class="menu-home list-inline" style="display:block;" id="scroll">
+    <li>
+        <a href="" class="active" id="home">Trang chủ</a>
+    </li>
+    <li>
+        <a href="" id="mypham" class="">YES24 BEAUTY</a>
+    </li>
+    <li>
+        <a href="" id="yes24black" class="">YES24 BLACK</a>
+    </li>
+    <li>
+        <a href="" class="" id="shop-giao-nhanh">Yes24 Quick</a>
+    </li>
+    <li>
+        <a href="" class="" id="khuyenmai">Khuyến mãi</a>
+    </li>
+    <li>
+        <a href="" class="" id="magiamgia">Mã giảm giá</a>
+    </li>
+    <li>
+        <a href="" id="flashsale" class="">Flash Sale</a>
+    </li>
+    <li>
+        <a href="" class="" id="topseller">Bán chạy</a>
+    </li>
+    <li>
+        <a href="" class="" id="tatcathuonghieu">Thương hiệu</a>
+    </li>
+    <li>
+        <a href="" title="WEBTOON">WEBTOON</a>
+    </li>
+</ul>
+<div id="th-menu-fix-mobile"></div>
+
+
+
+<div class="divTab">
+    <div class="tab-wrapper">
+        <ul class="tab">
             <li>
-                <a href="" class="active" id="home">Trang chủ</a>
+                <a href="#tab-main">0h</a>
             </li>
             <li>
-                <a href="" id="mypham" class="" >YES24 BEAUTY</a>
+                <a href="#tab1">3h</a>
             </li>
             <li>
-                <a href="" id="yes24black" class="" >YES24 BLACK</a>
+                <a href="#tab2">6h</a>
             </li>
             <li>
-                <a href="" class="" id="shop-giao-nhanh" >Yes24 Quick</a>
+                <a href="#tab3">9h</a>
             </li>
             <li>
-                <a href="" class="" id="khuyenmai" >Khuyến mãi</a>
+                <a href="#tab4">12h</a>
             </li>
             <li>
-                <a href="" class="" id="magiamgia">Mã giảm giá</a>
+                <a href="#tab5">15h</a>
             </li>
             <li>
-                <a href="" id="flashsale" class="">Flash Sale</a>
+                <a href="#tab6">18h</a>
             </li>
             <li>
-                <a href="" class="" id="topseller" >Bán chạy</a>
-            </li>
-            <li>
-                <a href="" class="" id="tatcathuonghieu" >Thương hiệu</a>
-            </li>
-            <li>
-                <a href="" title="WEBTOON">WEBTOON</a>
+                <a href="#tab7">21h</a>
             </li>
         </ul>
-        <div id="th-menu-fix-mobile"></div>
-
-
-<p id="time"> </p>
-
-        <div class="divTab">
-            <div class="tab-wrapper">
-                <ul class="tab">
-                    <li>
-                        <a href="#tab-main">9h</a>
-                    </li>
-                    <li>
-                        <a href="#tab1">12h</a>
-                    </li>
-                    <li>
-                        <a href="#tab2">15h</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-item" id="tab-main">
-                       Sale 9h - 11h59
-                    </div>
-                    <div class="tab-item" id="tab1">
-                        Sale 12h - 14h59
-                    </div>
-                    <div class="tab-item" id="tab2">
-                        Sale 15h 
-                    </div>
-                </div>
+        <div class="tab-content">
+            <div class="tab-item" id="tab-main">
+                Sale 0h - 2h59
+            </div>
+            <div class="tab-item" id="tab1">
+                Sale 3h - 5h59
+            </div>
+            <div class="tab-item" id="tab2">
+                Sale 6h - 8h59
+            </div>
+            <div class="tab-item" id="tab3">
+                Sale 9h - 11h59
+            </div>
+            <div class="tab-item" id="tab4">
+                Sale 12h - 14h59
+            </div>
+            <div class="tab-item" id="tab5">
+                Sale 15h - 17h59
+            </div>
+            <div class="tab-item" id="tab6">
+                Sale 18h - 20h59
+            </div>
+            <div class="tab-item" id="tab7">
+                Sale 21h - 23h59
             </div>
         </div>
-        
+    </div>
+</div>
+
 <div class="module">
     <div id="droppable" class="ui-widget-header wrapper-boxlink-edit">
-        <div id="box-1" class="draggable resize box-link-edit " >
+        <div id="box-1" class="draggable resize box-link-edit ">
             <div id="count">
                 1
             </div>
@@ -1173,4 +1251,3 @@
         </div>
     </div>
 }
-

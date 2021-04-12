@@ -367,16 +367,20 @@ namespace ExportJsonFromExcel.Controllers
         #endregion
 
         #region setup layout
-        public ViewResult SetupLayout()
+        public ViewResult SetupLayout(int hour = 0)
         {
             ViewBag.ImageLink = string.Format("https://image.yes24.vn/Upload/Event/{0}/T{1}/", DateTime.Now.Year, DateTime.Now.Month);
             ViewBag.Controll = "SetupLayoutControll";
+
+            hour = DateTime.Now.Hour;
+            ViewBag.hour = hour;
+
             return View();
         }
-        public ActionResult SetupLayoutControll( int hour)
+        public ActionResult SetupLayoutControll()
         {
-            
-            ViewBag.hour = new DateTime(DateTime.Now.Hour,DateTime.Now.Minute, DateTime.Now.Second);
+
+          
             return PartialView();
         }
         #endregion
