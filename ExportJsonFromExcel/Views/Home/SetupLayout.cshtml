@@ -1,9 +1,10 @@
 ﻿@using ExportJsonFromExcel.App_GlobalResources
+@*@model ExportJsonFromExcel.Models.ModelProduct*@
 @{
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
     ViewBag.Header = "Setup layout";
 
-
+  
     int hour = ViewBag.hour;
 }
 
@@ -978,43 +979,72 @@
                 return false;
             });
 
+            let hour = $('#hours').val();
+
+            //if (hour < 21) {
+            //    activeTab($('.tab li').eq(6));
+            //}
+            //else if (hour < 18) {
+            //    activeTab($('.tab li').eq(5));
+            //}
+            //else if (hour < 15) {
+            //    activeTab($('.tab li').eq(4));
+            //}
+            //else if (hour < 12) {
+            //    activeTab($('.tab li').eq(3));
+            //}
+            //else if (hour < 9) {
+            //    activeTab($('.tab li').eq(2));
+            //}
+            //else if (hour < 6) {
+            //    activeTab($('.tab li:first-child').next());
+            //}
+            //else if (hour < 3) {
+            //    activeTab($('.tab li:first-child'));
+            //}
+            //else  {
+            //    activeTab($('.tab li').eq(7));
+            //}
+
+
+
             //điều kiện activeTab
-            if ($('#hours').val() >= 0 && $('#hours').val() < 3)
+            if (hour >= 0 && hour < 3)
             {
                 activeTab($('.tab li:first-child'));
 
             }
-            if ($('#hours').val() >= 3 && $('#hours').val() < 6)
+            if (hour >= 3 && hour < 6)
             {
                 activeTab($('.tab li:first-child').next());
 
             }
-            if ($('#hours').val() >= 6 && $('#hours').val() < 9)
+            if (hour >= 6 && hour < 9)
             {
                 activeTab($('.tab li').eq(2));
 
             }
-            if ($('#hours').val() >= 9 && $('#hours').val() < 12)
+            if (hour >= 9 && hour < 12)
             {
                 activeTab($('.tab li').eq(3));
 
             }
-            if ($('#hours').val() >= 12 && $('#hours').val() < 15)
+            if (hour >= 12 && hour < 15)
             {
                 activeTab($('.tab li').eq(4));
 
             }
-            if ($('#hours').val() >= 15 && $('#hours').val() < 18)
+            if (hour >= 15 && hour < 18)
             {
                 activeTab($('.tab li').eq(5));
 
             }
-            if ($('#hours').val() >= 18 && $('#hours').val() < 21)
+            if (hour >= 18 && hour < 21)
             {
                 activeTab($('.tab li').eq(6));
 
             }
-            if ($('#hours').val() >= 21 && $('#hours').val() < 24)
+            if (hour >= 21 && hour < 24)
             {
                 activeTab($('.tab li').eq(7));
 
@@ -1024,8 +1054,21 @@
             //activeTab($('.tab li:first-child'));  // Active tab đầu tiên khi trang web được chạy
 
         });
-        
 
+
+
+        function getData(id) {
+             $.ajax({
+                url: '@Url.Action("Product")',
+                type: 'GET',
+                dataType: 'json',
+                cache: false,
+                data: { id: id },
+                success: function(product) {
+                   
+        }
+    });
+        }
     </script>
 }
 

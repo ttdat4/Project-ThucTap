@@ -21,8 +21,10 @@ namespace ExportJsonFromExcel.Controllers
         }
         public ActionResult Index()
         {
+
             return View();
         }
+   
 
         #region export json
         [HttpGet]
@@ -372,9 +374,11 @@ namespace ExportJsonFromExcel.Controllers
             ViewBag.ImageLink = string.Format("https://image.yes24.vn/Upload/Event/{0}/T{1}/", DateTime.Now.Year, DateTime.Now.Month);
             ViewBag.Controll = "SetupLayoutControll";
 
-            hour = DateTime.Now.Hour;
+            if(hour == 0)
+                 hour = DateTime.Now.Hour;
             ViewBag.hour = hour;
 
+         
             return View();
         }
         public ActionResult SetupLayoutControll()
@@ -383,6 +387,60 @@ namespace ExportJsonFromExcel.Controllers
           
             return PartialView();
         }
+        public ActionResult Product(ListProduct model)
+        {
+            
+            return View();
+        }
+        
+        public class ModelProduct 
+        {
+            
+            public int ID { get; set; }
+            public string ProductName { get; set; }
+            public string ImageProduct { get; set; }
+            public double Price { get; set; }
+          
+        }
+        public class ListProduct
+        {
+            private List<ModelProduct> modelProducts = null;
+            public ListProduct()
+            {
+                modelProducts = new List<ModelProduct>();
+            }
+          
+        }
+        public class Example
+        {
+            public static void Main(string[] args)
+            {
+                List<ModelProduct> modelProducts = new List<ModelProduct>();
+
+                modelProducts.Add(new ModelProduct() { ID = 01, ProductName = "TTD", ImageProduct = "1", Price = 410 });
+                modelProducts.Add(new ModelProduct() { ID = 02, ProductName = "TTD2", ImageProduct = "2", Price = 410 });
+                modelProducts.Add(new ModelProduct() { ID = 03, ProductName = "TTD3", ImageProduct = "3", Price = 410 });
+                modelProducts.Add(new ModelProduct() { ID = 04, ProductName = "TTD4", ImageProduct = "4", Price = 410 });
+                modelProducts.Add(new ModelProduct() { ID = 05, ProductName = "TTD5", ImageProduct = "5", Price = 410 });
+                modelProducts.Add(new ModelProduct() { ID = 06, ProductName = "TTD6", ImageProduct = "6", Price = 410 });
+                modelProducts.Add(new ModelProduct() { ID = 07, ProductName = "TTD7", ImageProduct = "7", Price = 410 });
+                modelProducts.Add(new ModelProduct() { ID = 08, ProductName = "TTD8", ImageProduct = "8", Price = 410 });
+                modelProducts.Add(new ModelProduct() { ID = 09, ProductName = "TTD9", ImageProduct = "9", Price = 410 });
+                modelProducts.Add(new ModelProduct() { ID = 10, ProductName = "TTD10", ImageProduct = "10", Price = 410 });
+
+                foreach (var product in modelProducts)
+                
+                Console.WriteLine(product);
+               
+                
+            }
+           
+
+        }
+      
+        
+     
+
         #endregion
     }
 }
