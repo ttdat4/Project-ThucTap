@@ -19,9 +19,9 @@ namespace ExportJsonFromExcel.Controllers
         {
 
         }
-        public ActionResult Index()
+        public ActionResult Index( )
         {
-
+            
             return View();
         }
    
@@ -369,29 +369,37 @@ namespace ExportJsonFromExcel.Controllers
         #endregion
 
         #region setup layout
-        public ViewResult SetupLayout(int hour = 0)
+        public ViewResult SetupLayout(int hour = 0, )
         {
             ViewBag.ImageLink = string.Format("https://image.yes24.vn/Upload/Event/{0}/T{1}/", DateTime.Now.Year, DateTime.Now.Month);
             ViewBag.Controll = "SetupLayoutControll";
+            List<ModelProduct> modelProducts = new List<ModelProduct>();
 
-            if(hour == 0)
+            modelProducts.Add(new ModelProduct() { ID = 01, ProductName = "TTD", ImageProduct = "1", Price = 410 });
+            modelProducts.Add(new ModelProduct() { ID = 02, ProductName = "TTD2", ImageProduct = "2", Price = 410 });
+            modelProducts.Add(new ModelProduct() { ID = 03, ProductName = "TTD3", ImageProduct = "3", Price = 410 });
+            modelProducts.Add(new ModelProduct() { ID = 04, ProductName = "TTD4", ImageProduct = "4", Price = 410 });
+            modelProducts.Add(new ModelProduct() { ID = 05, ProductName = "TTD5", ImageProduct = "5", Price = 410 });
+            modelProducts.Add(new ModelProduct() { ID = 06, ProductName = "TTD6", ImageProduct = "6", Price = 410 });
+            modelProducts.Add(new ModelProduct() { ID = 07, ProductName = "TTD7", ImageProduct = "7", Price = 410 });
+            modelProducts.Add(new ModelProduct() { ID = 08, ProductName = "TTD8", ImageProduct = "8", Price = 410 });
+            modelProducts.Add(new ModelProduct() { ID = 09, ProductName = "TTD9", ImageProduct = "9", Price = 410 });
+            modelProducts.Add(new ModelProduct() { ID = 10, ProductName = "TTD10", ImageProduct = "10", Price = 410 });
+            if (hour == 0)
                  hour = DateTime.Now.Hour;
             ViewBag.hour = hour;
 
-         
-            return View();
+          
+            return View(modelProducts);
         }
+
         public ActionResult SetupLayoutControll()
         {
 
           
             return PartialView();
         }
-        public ActionResult Product(ListProduct model)
-        {
-            
-            return View();
-        }
+     
         
         public class ModelProduct 
         {

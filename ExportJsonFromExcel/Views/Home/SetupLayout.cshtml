@@ -1,10 +1,10 @@
 ﻿@using ExportJsonFromExcel.App_GlobalResources
-@*@model ExportJsonFromExcel.Models.ModelProduct*@
+@model List<ExportJsonFromExcel.Controllers.HomeController.ModelProduct>
 @{
     Layout = "~/Views/Shared/_LayoutHomePage.cshtml";
     ViewBag.Header = "Setup layout";
 
-  
+
     int hour = ViewBag.hour;
 }
 
@@ -434,6 +434,28 @@
         float: left;
         width: 100%;
     }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    tr:nth-of-type(odd) {
+        background: #eee;
+    }
+
+    th {
+        background: #333;
+        color: white;
+        font-weight: bold;
+    }
+
+    td, th {
+        padding: 6px;
+        border: 1px solid #ccc;
+        text-align: left;
+    }
+
 </style>
 
 
@@ -1055,20 +1077,33 @@
 
         });
 
+        //function getData(id) {
+
+        //    //var product = {
+        //    //    id: $("#id").val(),
+        //    //    name: $("#name").val(),
+        //    //    image: $("#image").val(),
+        //    //    price: $("#price").val(),
+        //    //}
+        //    var set_data = '';
+        //    var element = $(this);
+        //    var id = element.attr("id");
+        //    $.ajax({
+
+        //        url: 'Home/SetupLayout?id'+id,
+        //        method: 'POST',
+        //        data: {
+        //            id:id
+        //        },
+        //        success: function (data) {
+        //            set_data = data;
+        //        }
+
+        //    });
+        //    return set_data;
+        //}
 
 
-        function getData(id) {
-             $.ajax({
-                url: '@Url.Action("Product")',
-                type: 'GET',
-                dataType: 'json',
-                cache: false,
-                data: { id: id },
-                success: function(product) {
-                   
-        }
-    });
-        }
     </script>
 }
 
@@ -1155,7 +1190,7 @@
 </ul>
 <div id="th-menu-fix-mobile"></div>
 
-
+<input type="text" class="live-search-box" placeholder="search here" />
 
 <div class="divTab">
     <div class="tab-wrapper">
@@ -1212,6 +1247,17 @@
             </div>
         </div>
     </div>
+</div>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <p><label>ID : </label>@item.ID </p>
+        <p><label>ProductName : </label>@item.ProductName </p>
+        <p><label>Image : </label>@item.ImageProduct</p>
+        <p><label>Price : </label>@item.Price</p> 
+    }
+
 </div>
 
 <div class="module">
