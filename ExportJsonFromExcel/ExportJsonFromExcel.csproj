@@ -325,6 +325,7 @@
     <Content Include="Views\TestLinhTinh\Index.cshtml" />
     <Content Include="Views\Home\SetupLayoutControll.cshtml" />
     <Content Include="Views\Home\CreateTabControll.cshtml" />
+    <Content Include="Views\Home\_getDataProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

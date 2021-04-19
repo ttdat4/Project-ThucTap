@@ -1,0 +1,43 @@
+﻿@model List<ExportJsonFromExcel.Controllers.HomeController.ModelProduct>
+
+
+
+<div class="chia52hang" id="tr-prd-bottomt1">
+    <div class="full left tr-prd-bottom tr-prd-bottom1">
+        <div class="item">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="tr-col-50" style="">
+
+                        <div class="tr-img-price full left">
+                            <a href="" class="full left" target="_blank" title="3W CLNIC Collagen Whitening Cream- Kem làm trắng da 60ml"><img class="full left lazyloaded" src="https://image.yes24.vn/Upload/ProductImage/thethaochinhang/2000596_M.jpg" alt="3W CLNIC Collagen Whitening Cream- Kem làm trắng da 60ml"> </a>
+                        </div>
+                        <div class="tr-price-prd2 full left">
+                            <h3><a href="" class="full left" target="_blank" title="3W CLNIC Collagen Whitening Cream- Kem làm trắng da 60ml"> @item.ProductName </a></h3>
+                            <div class="tr-price-km"> @item.PriceDiscount </div>
+                            <div class="tr-line-though"> @item.Price </div>
+                            <div class="nhapma">
+                                Nhập<span style="color: #000;"> @item.Code </span> còn <span style="color: #d3364a">@item.PriceCode </span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

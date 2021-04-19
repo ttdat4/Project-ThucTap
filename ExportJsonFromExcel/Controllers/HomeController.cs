@@ -10,6 +10,7 @@ using System.Data;
 using System.Text.RegularExpressions;
 using ExportJsonFromExcel.StaticData;
 
+
 namespace ExportJsonFromExcel.Controllers
 {
     public class HomeController : BaseController
@@ -369,28 +370,17 @@ namespace ExportJsonFromExcel.Controllers
         #endregion
 
         #region setup layout
-        public ViewResult SetupLayout(int hour = 0, )
+        public ViewResult SetupLayout(int hour = 0)
         {
             ViewBag.ImageLink = string.Format("https://image.yes24.vn/Upload/Event/{0}/T{1}/", DateTime.Now.Year, DateTime.Now.Month);
             ViewBag.Controll = "SetupLayoutControll";
-            List<ModelProduct> modelProducts = new List<ModelProduct>();
 
-            modelProducts.Add(new ModelProduct() { ID = 01, ProductName = "TTD", ImageProduct = "1", Price = 410 });
-            modelProducts.Add(new ModelProduct() { ID = 02, ProductName = "TTD2", ImageProduct = "2", Price = 410 });
-            modelProducts.Add(new ModelProduct() { ID = 03, ProductName = "TTD3", ImageProduct = "3", Price = 410 });
-            modelProducts.Add(new ModelProduct() { ID = 04, ProductName = "TTD4", ImageProduct = "4", Price = 410 });
-            modelProducts.Add(new ModelProduct() { ID = 05, ProductName = "TTD5", ImageProduct = "5", Price = 410 });
-            modelProducts.Add(new ModelProduct() { ID = 06, ProductName = "TTD6", ImageProduct = "6", Price = 410 });
-            modelProducts.Add(new ModelProduct() { ID = 07, ProductName = "TTD7", ImageProduct = "7", Price = 410 });
-            modelProducts.Add(new ModelProduct() { ID = 08, ProductName = "TTD8", ImageProduct = "8", Price = 410 });
-            modelProducts.Add(new ModelProduct() { ID = 09, ProductName = "TTD9", ImageProduct = "9", Price = 410 });
-            modelProducts.Add(new ModelProduct() { ID = 10, ProductName = "TTD10", ImageProduct = "10", Price = 410 });
             if (hour == 0)
                  hour = DateTime.Now.Hour;
             ViewBag.hour = hour;
 
           
-            return View(modelProducts);
+            return View();
         }
 
         public ActionResult SetupLayoutControll()
@@ -398,6 +388,23 @@ namespace ExportJsonFromExcel.Controllers
 
           
             return PartialView();
+        }
+
+        public ActionResult _getDataProduct()
+        {
+            List<ModelProduct> modelProducts = new List<ModelProduct>();
+
+            modelProducts.Add(new ModelProduct() { ID = 01, ProductName = "TTD", ImageProduct = "1", Price = 250000,PriceDiscount= 200000,PriceCode = 190000,Code="TTD" });
+            modelProducts.Add(new ModelProduct() { ID = 02, ProductName = "TTD2", ImageProduct = "2", Price = 150000, PriceDiscount =140000 , PriceCode =130000 , Code = "TTD" });
+            modelProducts.Add(new ModelProduct() { ID = 03, ProductName = "TTD3", ImageProduct = "3", Price = 350000, PriceDiscount = 320000, PriceCode = 310000, Code = "TTD" });
+            modelProducts.Add(new ModelProduct() { ID = 04, ProductName = "TTD4", ImageProduct = "4", Price = 350000, PriceDiscount = 330000, PriceCode = 320000, Code = "TTD" });
+            modelProducts.Add(new ModelProduct() { ID = 05, ProductName = "TTD5", ImageProduct = "5", Price = 450000, PriceDiscount = 410000, PriceCode = 400000, Code = "TTD" });
+            modelProducts.Add(new ModelProduct() { ID = 06, ProductName = "TTD6", ImageProduct = "6", Price = 400000, PriceDiscount = 380000, PriceCode = 370000, Code = "TTD" });
+            modelProducts.Add(new ModelProduct() { ID = 07, ProductName = "TTD7", ImageProduct = "7", Price = 300000, PriceDiscount = 270000, PriceCode = 260000, Code = "TTD" });
+            modelProducts.Add(new ModelProduct() { ID = 08, ProductName = "TTD8", ImageProduct = "8", Price = 1100000, PriceDiscount = 1000000, PriceCode =990000 , Code = "TTD" });
+            modelProducts.Add(new ModelProduct() { ID = 09, ProductName = "TTD9", ImageProduct = "9", Price = 1500000, PriceDiscount = 1200000, PriceCode =1190000 , Code = "TTD" });
+            modelProducts.Add(new ModelProduct() { ID = 10, ProductName = "TTD10", ImageProduct = "10", Price = 2700000, PriceDiscount = 2621000, PriceCode = 2611000, Code = "TTD" });
+            return PartialView("_getDataProduct", modelProducts);
         }
      
         
@@ -408,7 +415,11 @@ namespace ExportJsonFromExcel.Controllers
             public string ProductName { get; set; }
             public string ImageProduct { get; set; }
             public double Price { get; set; }
-          
+            public double PriceDiscount { get; set; }
+            public double PriceCode { get; set; }
+            public string Code { get; set; }
+
+
         }
         public class ListProduct
         {
@@ -425,24 +436,22 @@ namespace ExportJsonFromExcel.Controllers
             {
                 List<ModelProduct> modelProducts = new List<ModelProduct>();
 
-                modelProducts.Add(new ModelProduct() { ID = 01, ProductName = "TTD", ImageProduct = "1", Price = 410 });
-                modelProducts.Add(new ModelProduct() { ID = 02, ProductName = "TTD2", ImageProduct = "2", Price = 410 });
-                modelProducts.Add(new ModelProduct() { ID = 03, ProductName = "TTD3", ImageProduct = "3", Price = 410 });
-                modelProducts.Add(new ModelProduct() { ID = 04, ProductName = "TTD4", ImageProduct = "4", Price = 410 });
-                modelProducts.Add(new ModelProduct() { ID = 05, ProductName = "TTD5", ImageProduct = "5", Price = 410 });
-                modelProducts.Add(new ModelProduct() { ID = 06, ProductName = "TTD6", ImageProduct = "6", Price = 410 });
-                modelProducts.Add(new ModelProduct() { ID = 07, ProductName = "TTD7", ImageProduct = "7", Price = 410 });
-                modelProducts.Add(new ModelProduct() { ID = 08, ProductName = "TTD8", ImageProduct = "8", Price = 410 });
-                modelProducts.Add(new ModelProduct() { ID = 09, ProductName = "TTD9", ImageProduct = "9", Price = 410 });
-                modelProducts.Add(new ModelProduct() { ID = 10, ProductName = "TTD10", ImageProduct = "10", Price = 410 });
+                modelProducts.Add(new ModelProduct() { ID = 01, ProductName = "TTD", ImageProduct = "data:https://image.yes24.vn/Upload/ProductImage/vietsaomai201608/1016320_L.jpg", Price = 250000, PriceDiscount = 200000, PriceCode = 190000, Code = "TTD" });
+                modelProducts.Add(new ModelProduct() { ID = 02, ProductName = "TTD2", ImageProduct = "2", Price = 150000, PriceDiscount = 140000, PriceCode = 130000, Code = "TTD" });
+                modelProducts.Add(new ModelProduct() { ID = 03, ProductName = "TTD3", ImageProduct = "3", Price = 350000, PriceDiscount = 320000, PriceCode = 310000, Code = "TTD" });
+                modelProducts.Add(new ModelProduct() { ID = 04, ProductName = "TTD4", ImageProduct = "4", Price = 350000, PriceDiscount = 330000, PriceCode = 320000, Code = "TTD" });
+                modelProducts.Add(new ModelProduct() { ID = 05, ProductName = "TTD5", ImageProduct = "5", Price = 450000, PriceDiscount = 410000, PriceCode = 400000, Code = "TTD" });
+                modelProducts.Add(new ModelProduct() { ID = 06, ProductName = "TTD6", ImageProduct = "6", Price = 400000, PriceDiscount = 380000, PriceCode = 370000, Code = "TTD" });
+                modelProducts.Add(new ModelProduct() { ID = 07, ProductName = "TTD7", ImageProduct = "7", Price = 300000, PriceDiscount = 270000, PriceCode = 260000, Code = "TTD" });
+                modelProducts.Add(new ModelProduct() { ID = 08, ProductName = "TTD8", ImageProduct = "8", Price = 1100000, PriceDiscount = 1000000, PriceCode = 990000, Code = "TTD" });
+                modelProducts.Add(new ModelProduct() { ID = 09, ProductName = "TTD9", ImageProduct = "9", Price = 1500000, PriceDiscount = 1200000, PriceCode = 1190000, Code = "TTD" });
+                modelProducts.Add(new ModelProduct() { ID = 10, ProductName = "TTD10", ImageProduct = "10", Price = 2700000, PriceDiscount = 2621000, PriceCode = 2611000, Code = "TTD" });
 
-                foreach (var product in modelProducts)
-                
-                Console.WriteLine(product);
-               
+  
                 
             }
-           
+      
+
 
         }
       
