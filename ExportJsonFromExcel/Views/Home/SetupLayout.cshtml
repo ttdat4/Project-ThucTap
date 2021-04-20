@@ -382,7 +382,7 @@
         margin: 50px auto;
         border: solid 1px #acacac;
         border-radius: 5px;
-        width: 780px;
+        width: 850px;
         height: 100%;
         margin-left: 10px;
     }
@@ -433,7 +433,7 @@
         width: 1240px;
         position: relative;
         float: left;
-        width: 100%;
+        height: 100%;
     }
 
     table {
@@ -547,14 +547,15 @@
 
 
     #tr-prd-bottomt1 .tr-col-50 {
-        width: 231px !important;
+        width: 245px !important;
+        height: 359px !important;
         margin-left: 5px !important;
     }
 
     .chia52hang .tr-prd-bottom .tr-col-50 {
         width: 223px;
         margin-right: -8px;
-        height: 300px;
+        height: 100%;
         position: relative;
         border: none;
         margin: 1px;
@@ -654,7 +655,7 @@
         color: #999999;
         margin-top: 5px;
         font-size: 12px;
-        margin-right: 0;
+        margin-right: 15px;
     }
 
     .tr-prd-bottom .tr-line-though {
@@ -743,6 +744,118 @@
 
     .clear {
         clear: both;
+    }
+    .th-home-best .th-product-item .th-product-price .tr-wrapper-shopping-today .th-product-item .th-product-price span.tr-product-discount {
+        background-color: unset;
+        color: #000;
+        width: unset;
+        font-family: RobotoRegular;
+        padding: 0 2px;
+        font-size: 13px;
+        display: inline-block;
+        float: left;
+        margin-left: 5px;
+    }
+
+    .th-product-item .th-product-price span.tr-product-discount {
+        background-color: unset;
+        color: #000;
+        width: unset;
+        font-family: RobotoRegular;
+        padding: 0 2px;
+        font-size: 13px;
+        display: inline-block;
+        float: left;
+
+    }
+
+    .th-product-item .th-product-price span.tr-product-discount {
+        background-color: #d3364a;
+        color: #fff;
+        float: right;
+        text-align: center;
+        font-family: RobotoBold;
+        padding: 0 2px;
+       
+        margin-top: 10px;
+       
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .th-product-item .th-product-price {
+        height: 22px;
+        line-height: 22px;
+        margin-top: 5px;
+    }
+
+
+    .th-product-wrapp .th-product-item {
+        width: -webkit-calc(100% - 26px);
+        width: -o-calc(100% - 26px);
+        width: calc(100% - 26px);
+        padding: 12px;
+        float: left;
+        border: solid 1px #fff;
+        background: #fff;
+        text-align: center;
+    }
+
+    user agent stylesheet
+    li {
+        text-align: -webkit-match-parent;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+    user agent stylesheet
+    ul {
+        list-style-type: disc;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: RobotoRegular,arial,sans-serif;
+    }
+    div {
+        display: block;
+    }
+
+    .th-product-wrapp .th-product-item {
+        width: -webkit-calc(100% - 26px);
+        width: -o-calc(100% - 26px);
+        width: calc(100% - 26px);
+        padding: 12px;
+        float: left;
+        border: solid 1px #fff;
+        background: #fff;
+        text-align: center;
+    }
+
+    user agent stylesheet
+    li {
+        text-align: -webkit-match-parent;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+    user agent stylesheet
+    ul {
+        list-style-type: disc;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: RobotoRegular,arial,sans-serif;
     }
 
 </style>
@@ -1479,7 +1592,7 @@
 </ul>
 <div id="th-menu-fix-mobile"></div>
 
-<input type="text" class="live-search-box" placeholder="search here" />
+
 
 <div class="divTab">
     <div class="tab-wrapper">
@@ -1517,10 +1630,11 @@
                 Sale 3h - 5h59
             </div>
             <div class="tab-item" id="tab2">
-                Sale 6h - 8h59
+                @Html.Action("_getDataProduct", "Home");
+
             </div>
             <div class="tab-item" id="tab3">
-                Sale 9h - 11h59
+                @Html.Action("_getDataProduct", "Home");
             </div>
             <div class="tab-item" id="tab4">
                 @Html.Action("_getDataProduct", "Home");
@@ -1538,7 +1652,7 @@
     </div>
 </div>
 
-<div>
+
     @*@foreach (var item in Model)
         {
             <p><label>ID : </label>@item.ID </p>
@@ -1547,9 +1661,6 @@
             <p><label>Price : </label>@item.Price</p>
         }*@
 
-   
-
-</div>
 
 <div class="module">
     <div id="droppable" class="ui-widget-header wrapper-boxlink-edit">

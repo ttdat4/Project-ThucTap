@@ -12,19 +12,24 @@
                     <div class="tr-col-50" style="">
 
                         <div class="tr-img-price full left">
-                            <a href="" class="full left" target="_blank" title="3W CLNIC Collagen Whitening Cream- Kem làm trắng da 60ml"><img class="full left lazyloaded" src="https://image.yes24.vn/Upload/ProductImage/thethaochinhang/2000596_M.jpg" alt="3W CLNIC Collagen Whitening Cream- Kem làm trắng da 60ml"> </a>
+                            <a href="" class="full left" target="_blank" title=""><img class="full left lazyloaded" src="@item.ImageProduct" alt=""> </a>
                         </div>
                         <div class="tr-price-prd2 full left">
-                            <h3><a href="" class="full left" target="_blank" title="3W CLNIC Collagen Whitening Cream- Kem làm trắng da 60ml"> @item.ProductName </a></h3>
-                            <div class="tr-price-km"> @item.PriceDiscount </div>
-                            <div class="tr-line-though"> @item.Price </div>
-                            <div class="nhapma">
-                                Nhập<span style="color: #000;"> @item.Code </span> còn <span style="color: #d3364a">@item.PriceCode </span>
+                            <h3><a href="" class="full left" target="_blank" title=""> @item.ProductName </a></h3>
+                            <div class="th-product-price full left">
+                                <span class="tr-price-km"> @item.PriceDiscount.ToString("#,### đ") </span>
+                                <span class="tr-line-though"> @item.Price.ToString("#,### đ") </span>
+                                <span class="tr-product-discount">-@item.RateDiscount% </span>
                             </div>
+                            
+                            <div class="nhapma">
+                                Nhập mã<span style="color: #000;"> @item.Code </span>còn <span style="color: #000">@item.PriceCode.ToString("#,### đ")</span>
+                            </div>
+
                             <div class="clear"></div>
                         </div>
                     </div>
-
+                    
                 }
             }
         </div>
