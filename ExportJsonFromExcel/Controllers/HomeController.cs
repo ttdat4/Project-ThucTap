@@ -390,52 +390,492 @@ namespace ExportJsonFromExcel.Controllers
             return PartialView();
         }
         
-        public ActionResult _getDataProduct()
+        public ActionResult _getDataProduct(int hour = 0)
         {
             List<ModelProduct> modelProducts = new List<ModelProduct>();
-            
-            modelProducts.Add(new ModelProduct() { ID = 01, ProductName = "Hồng sâm lát 6 năm tuổi mật ong KGC 6 gói Cheong Kwan Jang",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/JMKOREA2020/1941522_L.png?width=550&height=550",
-                Price = 250000,PriceDiscount= 2,PriceCode =8 ,
-                Code="TTD" , RateDiscount= 20 });
-            modelProducts.Add(new ModelProduct() { ID = 02, ProductName = "Ly nhựa có ống hút Lock&Lock HAP507BLU 750ml",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/2053846_L.jpg",
-                Price = 150000, PriceDiscount =140000 , PriceCode =130000 , Code = "TTD",
-                RateDiscount = 15 });
-            modelProducts.Add(new ModelProduct() { ID = 03, ProductName = "[HONEYDEAL19] Hoa tai đá ross màu bạc đính đá trắng Opal - T1017_07",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/opalshop/1864012_L.png",
-                Price = 350000, PriceDiscount = 320000, PriceCode = 310000, Code = "TTD",
-                RateDiscount = 20 });
-            modelProducts.Add(new ModelProduct() { ID = 04, ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
-                Price = 350000, PriceDiscount = 330000, PriceCode = 320000, Code = "TTD",
-                RateDiscount = 22  });
-            modelProducts.Add(new ModelProduct() { ID = 05, ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/maynhabe2017/2096794_L.JPG?width=550&height=550",
-                Price = 450000, PriceDiscount = 410000, PriceCode = 400000, Code = "TTD",
-                RateDiscount = 13 });
-            modelProducts.Add(new ModelProduct() { ID = 06, ProductName = "Đồng hồ nam Julius Homme Hàn Quốc JAH-117C dây thép Đen mặt xanh",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2109172_L.jpg?width=550&height=550",
-                Price = 400000, PriceDiscount = 380000, PriceCode = 370000, Code = "TTD",
-                RateDiscount = 26});
-            modelProducts.Add(new ModelProduct() { ID = 07, ProductName = "Đồng hồ nam Royal Crown dây da đen mặt đen vỏ vàng hồng - 8425-ST-RG-BD-B",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/vananh476/2092811_L.jpg?width=550&height=550",
-                Price = 300000, PriceDiscount = 270000, PriceCode = 260000, Code = "TTD",
-                RateDiscount = 11 });
-            modelProducts.Add(new ModelProduct() { ID = 08, ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
-                Price = 1100000, PriceDiscount = 1000000, PriceCode =990000 , Code = "TTD",
-                RateDiscount = 5 });
-            modelProducts.Add(new ModelProduct() { ID = 09, ProductName = "Đồng hồ nam SKMEI 9187 màu vàng",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/LeThiPhuongUyen2019/2067278_L.jpg?width=550&height=550",
-                Price = 1500000, PriceDiscount = 1200000, PriceCode =1190000 , Code = "TTD",
-                RateDiscount = 15 });
-            modelProducts.Add(new ModelProduct() { ID = 10, ProductName = "Giày Adidas Ultraboost 19 nam G27504",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
-                Price = 2700000, PriceDiscount = 2621000, PriceCode = 2611000, Code = "TTD",
-                RateDiscount = 18 });
 
-            foreach(var item in modelProducts)
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 01,
+                ProductName = "Hồng sâm lát 6 năm tuổi mật ong KGC 6 gói Cheong Kwan Jang",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/JMKOREA2020/1941522_L.png?width=550&height=550",
+                Price = 250000,
+                PriceDiscount = 2,
+                PriceCode = 8,
+                Code = "TTD",
+                RateDiscount = 20,
+                Hour = 0
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 02,
+                ProductName = "Ly nhựa có ống hút Lock&Lock HAP507BLU 750ml",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/2053846_L.jpg",
+                Price = 150000,
+                PriceDiscount = 140000,
+                PriceCode = 130000,
+                Code = "TTD",
+                RateDiscount = 15,
+                Hour = 3
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 03,
+                ProductName = "[HONEYDEAL19] Hoa tai đá ross màu bạc đính đá trắng Opal - T1017_07",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/opalshop/1864012_L.png",
+                Price = 350000,
+                PriceDiscount = 320000,
+                PriceCode = 310000,
+                Code = "TTD",
+                RateDiscount = 20,
+                Hour = 6
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 05,
+                ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/maynhabe2017/2096794_L.JPG?width=550&height=550",
+                Price = 450000,
+                PriceDiscount = 410000,
+                PriceCode = 400000,
+                Code = "TTD",
+                RateDiscount = 13,
+                Hour = 12
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 05,
+                ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/1935886_L.jpg?width=550&height=550",
+                Price = 450000,
+                PriceDiscount = 410000,
+                PriceCode = 400000,
+                Code = "TTD",
+                RateDiscount = 13,
+                Hour = 12
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 05,
+                ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/maynhabe2017/2096794_L.JPG?width=550&height=550",
+                Price = 450000,
+                PriceDiscount = 410000,
+                PriceCode = 400000,
+                Code = "TTD",
+                RateDiscount = 13,
+                Hour = 12
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 05,
+                ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/1935886_L.jpg?width=550&height=550",
+                Price = 450000,
+                PriceDiscount = 410000,
+                PriceCode = 400000,
+                Code = "TTD",
+                RateDiscount = 13,
+                Hour = 12
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 05,
+                ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/maynhabe2017/2096794_L.JPG?width=550&height=550",
+                Price = 450000,
+                PriceDiscount = 410000,
+                PriceCode = 400000,
+                Code = "TTD",
+                RateDiscount = 13,
+                Hour = 12
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 05,
+                ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/1935886_L.jpg?width=550&height=550",
+                Price = 450000,
+                PriceDiscount = 410000,
+                PriceCode = 400000,
+                Code = "TTD",
+                RateDiscount = 13,
+                Hour = 12
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 05,
+                ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/maynhabe2017/2096794_L.JPG?width=550&height=550",
+                Price = 450000,
+                PriceDiscount = 410000,
+                PriceCode = 400000,
+                Code = "TTD",
+                RateDiscount = 13,
+                Hour = 12
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 05,
+                ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/1935886_L.jpg?width=550&height=550",
+                Price = 450000,
+                PriceDiscount = 410000,
+                PriceCode = 400000,
+                Code = "TTD",
+                RateDiscount = 13,
+                Hour = 12
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 06,
+                ProductName = "Đồng hồ nam Julius Homme Hàn Quốc JAH-117C dây thép Đen mặt xanh",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2109172_L.jpg?width=550&height=550",
+                Price = 400000,
+                PriceDiscount = 380000,
+                PriceCode = 370000,
+                Code = "TTD",
+                RateDiscount = 26,
+                Hour = 15
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 06,
+                ProductName = "Đồng hồ nam Julius Homme Hàn Quốc JAH-117C dây thép Đen mặt xanh",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2109172_L.jpg?width=550&height=550",
+                Price = 400000,
+                PriceDiscount = 380000,
+                PriceCode = 370000,
+                Code = "TTD",
+                RateDiscount = 26,
+                Hour = 15
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 06,
+                ProductName = "Đồng hồ nam Julius Homme Hàn Quốc JAH-117C dây thép Đen mặt xanh",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2109172_L.jpg?width=550&height=550",
+                Price = 400000,
+                PriceDiscount = 380000,
+                PriceCode = 370000,
+                Code = "TTD",
+                RateDiscount = 26,
+                Hour = 15
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 06,
+                ProductName = "Đồng hồ nam Julius Homme Hàn Quốc JAH-117C dây thép Đen mặt xanh",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2109172_L.jpg?width=550&height=550",
+                Price = 400000,
+                PriceDiscount = 380000,
+                PriceCode = 370000,
+                Code = "TTD",
+                RateDiscount = 26,
+                Hour = 15
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 06,
+                ProductName = "Đồng hồ nam Julius Homme Hàn Quốc JAH-117C dây thép Đen mặt xanh",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2109172_L.jpg?width=550&height=550",
+                Price = 400000,
+                PriceDiscount = 380000,
+                PriceCode = 370000,
+                Code = "TTD",
+                RateDiscount = 26,
+                Hour = 15
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 06,
+                ProductName = "Đồng hồ nam Julius Homme Hàn Quốc JAH-117C dây thép Đen mặt xanh",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2109172_L.jpg?width=550&height=550",
+                Price = 400000,
+                PriceDiscount = 380000,
+                PriceCode = 370000,
+                Code = "TTD",
+                RateDiscount = 26,
+                Hour = 15
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 06,
+                ProductName = "Đồng hồ nam Julius Homme Hàn Quốc JAH-117C dây thép Đen mặt xanh",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2109172_L.jpg?width=550&height=550",
+                Price = 400000,
+                PriceDiscount = 380000,
+                PriceCode = 370000,
+                Code = "TTD",
+                RateDiscount = 26,
+                Hour = 15
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 06,
+                ProductName = "Đồng hồ nam Julius Homme Hàn Quốc JAH-117C dây thép Đen mặt xanh",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2109172_L.jpg?width=550&height=550",
+                Price = 400000,
+                PriceDiscount = 380000,
+                PriceCode = 370000,
+                Code = "TTD",
+                RateDiscount = 26,
+                Hour = 15
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 07,
+                ProductName = "Đồng hồ nam Royal Crown dây da đen mặt đen vỏ vàng hồng - 8425-ST-RG-BD-B",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/vananh476/2092811_L.jpg?width=550&height=550",
+                Price = 300000,
+                PriceDiscount = 270000,
+                PriceCode = 260000,
+                Code = "TTD",
+                RateDiscount = 11,
+                Hour = 18
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 08,
+                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                Price = 1100000,
+                PriceDiscount = 1000000,
+                PriceCode = 990000,
+                Code = "TTD",
+                RateDiscount = 5,
+                Hour = 21
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 08,
+                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                Price = 1100000,
+                PriceDiscount = 1000000,
+                PriceCode = 990000,
+                Code = "TTD",
+                RateDiscount = 5,
+                Hour = 21
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 08,
+                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                Price = 1100000,
+                PriceDiscount = 1000000,
+                PriceCode = 990000,
+                Code = "TTD",
+                RateDiscount = 5,
+                Hour = 21
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 08,
+                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                Price = 1100000,
+                PriceDiscount = 1000000,
+                PriceCode = 990000,
+                Code = "TTD",
+                RateDiscount = 5,
+                Hour = 21
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 08,
+                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                Price = 1100000,
+                PriceDiscount = 1000000,
+                PriceCode = 990000,
+                Code = "TTD",
+                RateDiscount = 5,
+                Hour = 21
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 08,
+                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                Price = 1100000,
+                PriceDiscount = 1000000,
+                PriceCode = 990000,
+                Code = "TTD",
+                RateDiscount = 5,
+                Hour = 21
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 08,
+                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                Price = 1100000,
+                PriceDiscount = 1000000,
+                PriceCode = 990000,
+                Code = "TTD",
+                RateDiscount = 5,
+                Hour = 21
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 08,
+                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                Price = 1100000,
+                PriceDiscount = 1000000,
+                PriceCode = 990000,
+                Code = "TTD",
+                RateDiscount = 5,
+                Hour = 21
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 08,
+                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                Price = 1100000,
+                PriceDiscount = 1000000,
+                PriceCode = 990000,
+                Code = "TTD",
+                RateDiscount = 5,
+                Hour = 21
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 09,
+                ProductName = "Đồng hồ nam SKMEI 9187 màu vàng",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/LeThiPhuongUyen2019/2067278_L.jpg?width=550&height=550",
+                Price = 1500000,
+                PriceDiscount = 1200000,
+                PriceCode = 1190000,
+                Code = "TTD",
+                RateDiscount = 15,
+                Hour = 15
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 10,
+                ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                Price = 2700000,
+                PriceDiscount = 2621000,
+                PriceCode = 2611000,
+                Code = "TTD",
+                RateDiscount = 18,
+                Hour = 3
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 10,
+                ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                Price = 2700000,
+                PriceDiscount = 2621000,
+                PriceCode = 2611000,
+                Code = "TTD",
+                RateDiscount = 18,
+                Hour = 3
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 10,
+                ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                Price = 2700000,
+                PriceDiscount = 2621000,
+                PriceCode = 2611000,
+                Code = "TTD",
+                RateDiscount = 18,
+                Hour = 3
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 10,
+                ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                Price = 2700000,
+                PriceDiscount = 2621000,
+                PriceCode = 2611000,
+                Code = "TTD",
+                RateDiscount = 18,
+                Hour = 3
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 10,
+                ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                Price = 2700000,
+                PriceDiscount = 2621000,
+                PriceCode = 2611000,
+                Code = "TTD",
+                RateDiscount = 18,
+                Hour = 3
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 10,
+                ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                Price = 2700000,
+                PriceDiscount = 2621000,
+                PriceCode = 2611000,
+                Code = "TTD",
+                RateDiscount = 18,
+                Hour = 3
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 10,
+                ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                Price = 2700000,
+                PriceDiscount = 2621000,
+                PriceCode = 2611000,
+                Code = "TTD",
+                RateDiscount = 18,
+                Hour = 3
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 10,
+                ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                Price = 2700000,
+                PriceDiscount = 2621000,
+                PriceCode = 2611000,
+                Code = "TTD",
+                RateDiscount = 18,
+                Hour = 3
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 10,
+                ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                Price = 2700000,
+                PriceDiscount = 2621000,
+                PriceCode = 2611000,
+                Code = "TTD",
+                RateDiscount = 18,
+                Hour = 3
+            });
+            foreach (var item in modelProducts)
             {
                 item.PriceDiscount = Convert.ToInt32(item.Price - ((item.Price * item.RateDiscount) / 100));
 
@@ -450,12 +890,12 @@ namespace ExportJsonFromExcel.Controllers
             }
 
 
-
+            modelProducts = modelProducts.Where(x => x.Hour == hour).ToList();
 
             return PartialView("_getDataProduct", modelProducts);
         }
-     
-        
+
+      
         public class ModelProduct 
         {
             
@@ -494,10 +934,11 @@ namespace ExportJsonFromExcel.Controllers
                     ProductName = "Hồng sâm lát 6 năm tuổi mật ong KGC 6 gói Cheong Kwan Jang",
                     ImageProduct = "https://image.yes24.vn/Upload/ProductImage/JMKOREA2020/1941522_L.png?width=550&height=550",
                     Price = 250000,
-                    PriceDiscount = 200000,
+                    PriceDiscount = 2,
                     PriceCode = 8,
                     Code = "TTD",
-                    RateDiscount = 20
+                    RateDiscount = 20,
+                    Hour = 0
                 });
                 modelProducts.Add(new ModelProduct()
                 {
@@ -508,7 +949,8 @@ namespace ExportJsonFromExcel.Controllers
                     PriceDiscount = 140000,
                     PriceCode = 130000,
                     Code = "TTD",
-                    RateDiscount = 15
+                    RateDiscount = 15,
+                    Hour = 3
                 });
                 modelProducts.Add(new ModelProduct()
                 {
@@ -519,7 +961,8 @@ namespace ExportJsonFromExcel.Controllers
                     PriceDiscount = 320000,
                     PriceCode = 310000,
                     Code = "TTD",
-                    RateDiscount = 20
+                    RateDiscount = 20,
+                    Hour = 6
                 });
                 modelProducts.Add(new ModelProduct()
                 {
@@ -530,7 +973,33 @@ namespace ExportJsonFromExcel.Controllers
                     PriceDiscount = 330000,
                     PriceCode = 320000,
                     Code = "TTD",
-                    RateDiscount = 22
+                    RateDiscount = 22,
+                    Hour = 9
+                });
+
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 05,
+                    ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/maynhabe2017/2096794_L.JPG?width=550&height=550",
+                    Price = 450000,
+                    PriceDiscount = 410000,
+                    PriceCode = 400000,
+                    Code = "TTD",
+                    RateDiscount = 13,
+                    Hour = 12
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 05,
+                    ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/1935886_L.jpg?width=550&height=550",
+                    Price = 450000,
+                    PriceDiscount = 410000,
+                    PriceCode = 400000,
+                    Code = "TTD",
+                    RateDiscount = 13,
+                    Hour = 12
                 });
                 modelProducts.Add(new ModelProduct()
                 {
@@ -541,7 +1010,68 @@ namespace ExportJsonFromExcel.Controllers
                     PriceDiscount = 410000,
                     PriceCode = 400000,
                     Code = "TTD",
-                    RateDiscount = 13
+                    RateDiscount = 13,
+                    Hour = 12
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 05,
+                    ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/1935886_L.jpg?width=550&height=550",
+                    Price = 450000,
+                    PriceDiscount = 410000,
+                    PriceCode = 400000,
+                    Code = "TTD",
+                    RateDiscount = 13,
+                    Hour = 12
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 05,
+                    ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/maynhabe2017/2096794_L.JPG?width=550&height=550",
+                    Price = 450000,
+                    PriceDiscount = 410000,
+                    PriceCode = 400000,
+                    Code = "TTD",
+                    RateDiscount = 13,
+                    Hour = 12
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 05,
+                    ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/1935886_L.jpg?width=550&height=550",
+                    Price = 450000,
+                    PriceDiscount = 410000,
+                    PriceCode = 400000,
+                    Code = "TTD",
+                    RateDiscount = 13,
+                    Hour = 12
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 05,
+                    ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/maynhabe2017/2096794_L.JPG?width=550&height=550",
+                    Price = 450000,
+                    PriceDiscount = 410000,
+                    PriceCode = 400000,
+                    Code = "TTD",
+                    RateDiscount = 13,
+                    Hour = 12
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 05,
+                    ProductName = "Áo sơ mi nam Novelty dài tay trơn màu xanh xám NSMMMDMTCC200040D",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/1935886_L.jpg?width=550&height=550",
+                    Price = 450000,
+                    PriceDiscount = 410000,
+                    PriceCode = 400000,
+                    Code = "TTD",
+                    RateDiscount = 13,
+                    Hour = 12
                 });
                 modelProducts.Add(new ModelProduct()
                 {
@@ -552,7 +1082,8 @@ namespace ExportJsonFromExcel.Controllers
                     PriceDiscount = 380000,
                     PriceCode = 370000,
                     Code = "TTD",
-                    RateDiscount = 26
+                    RateDiscount = 26,
+                    Hour = 15
                 });
                 modelProducts.Add(new ModelProduct()
                 {
@@ -563,7 +1094,8 @@ namespace ExportJsonFromExcel.Controllers
                     PriceDiscount = 270000,
                     PriceCode = 260000,
                     Code = "TTD",
-                    RateDiscount = 11
+                    RateDiscount = 11,
+                    Hour = 18
                 });
                 modelProducts.Add(new ModelProduct()
                 {
@@ -574,7 +1106,8 @@ namespace ExportJsonFromExcel.Controllers
                     PriceDiscount = 1000000,
                     PriceCode = 990000,
                     Code = "TTD",
-                    RateDiscount = 5
+                    RateDiscount = 5,
+                    Hour = 21
                 });
                 modelProducts.Add(new ModelProduct()
                 {
@@ -585,7 +1118,8 @@ namespace ExportJsonFromExcel.Controllers
                     PriceDiscount = 1200000,
                     PriceCode = 1190000,
                     Code = "TTD",
-                    RateDiscount = 15
+                    RateDiscount = 15,
+                    Hour = 15
                 });
                 modelProducts.Add(new ModelProduct()
                 {
@@ -596,7 +1130,104 @@ namespace ExportJsonFromExcel.Controllers
                     PriceDiscount = 2621000,
                     PriceCode = 2611000,
                     Code = "TTD",
-                    RateDiscount = 18
+                    RateDiscount = 18,
+                    Hour = 3
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 10,
+                    ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                    Price = 2700000,
+                    PriceDiscount = 2621000,
+                    PriceCode = 2611000,
+                    Code = "TTD",
+                    RateDiscount = 18,
+                    Hour = 3
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 10,
+                    ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                    Price = 2700000,
+                    PriceDiscount = 2621000,
+                    PriceCode = 2611000,
+                    Code = "TTD",
+                    RateDiscount = 18,
+                    Hour = 3
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 10,
+                    ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                    Price = 2700000,
+                    PriceDiscount = 2621000,
+                    PriceCode = 2611000,
+                    Code = "TTD",
+                    RateDiscount = 18,
+                    Hour = 3
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 10,
+                    ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                    Price = 2700000,
+                    PriceDiscount = 2621000,
+                    PriceCode = 2611000,
+                    Code = "TTD",
+                    RateDiscount = 18,
+                    Hour = 3
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 10,
+                    ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                    Price = 2700000,
+                    PriceDiscount = 2621000,
+                    PriceCode = 2611000,
+                    Code = "TTD",
+                    RateDiscount = 18,
+                    Hour = 3
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 10,
+                    ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                    Price = 2700000,
+                    PriceDiscount = 2621000,
+                    PriceCode = 2611000,
+                    Code = "TTD",
+                    RateDiscount = 18,
+                    Hour = 3
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 10,
+                    ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                    Price = 2700000,
+                    PriceDiscount = 2621000,
+                    PriceCode = 2611000,
+                    Code = "TTD",
+                    RateDiscount = 18,
+                    Hour = 3
+                });
+                modelProducts.Add(new ModelProduct()
+                {
+                    ID = 10,
+                    ProductName = "Giày Adidas Ultraboost 19 nam G27504",
+                    ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                    Price = 2700000,
+                    PriceDiscount = 2621000,
+                    PriceCode = 2611000,
+                    Code = "TTD",
+                    RateDiscount = 18,
+                    Hour = 3
                 });
 
 

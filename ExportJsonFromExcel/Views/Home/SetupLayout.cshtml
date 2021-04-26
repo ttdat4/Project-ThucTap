@@ -493,7 +493,7 @@
         margin: 0 auto;
     }
 
-  
+
 
 
     user agent stylesheet
@@ -671,7 +671,7 @@
         margin-top: 5px;
     }
 
-  
+
     user agent stylesheet
     div {
         display: block;
@@ -698,7 +698,7 @@
         padding: 0;
     }
 
-   
+
     user agent stylesheet
     div {
         display: block;
@@ -745,6 +745,7 @@
     .clear {
         clear: both;
     }
+
     .th-home-best .th-product-item .th-product-price .tr-wrapper-shopping-today .th-product-item .th-product-price span.tr-product-discount {
         background-color: unset;
         color: #000;
@@ -766,7 +767,6 @@
         font-size: 13px;
         display: inline-block;
         float: left;
-
     }
 
     .th-product-item .th-product-price span.tr-product-discount {
@@ -776,9 +776,7 @@
         text-align: center;
         font-family: RobotoBold;
         padding: 0 2px;
-       
         margin-top: 10px;
-       
     }
 
     * {
@@ -823,6 +821,7 @@
         padding: 0;
         font-family: RobotoRegular,arial,sans-serif;
     }
+
     div {
         display: block;
     }
@@ -858,6 +857,26 @@
         font-family: RobotoRegular,arial,sans-serif;
     }
 
+
+    /*owl-carousel*/
+    .carousel-wrap {
+        margin-left: 0px;
+        margin-right: 0px;
+        padding: initial;
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .owl-carousel .item {
+        background: #4DC7A0;
+        padding: 1rem;
+    }
+
+    /* fix blank or flashing items on carousel */
+
+
+
 </style>
 
 
@@ -865,6 +884,7 @@
 
 
     <script>
+
         $.fn.extend({
             jqueryGetBoundingClientRect: function () {
                 var elem = $(this);
@@ -1504,12 +1524,32 @@
         //    });
         //    return set_data;
         //}
+    function getDataTab(hour) {
+        $.ajax({
 
-       
+            url: 'Home/_getDataProduct/',
+            method: 'GET',
+            data: {
+                hour: hour
+            },
+            success: function (data) {
+                $('.tab-content').html(data);
+            }
+
+        });
+
+        }
+        $(".owl-carousel").owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            
+            
+            items: 3,
+        });
+
     </script>
 }
-
-
 
 <div class="config-wrap">
     <div class="config-title w-100 text-center">
@@ -1553,6 +1593,7 @@
 </div>
 
 
+
 @*<button id="kq" onclick="xuatKetQua()">KQ</button>*@
 
 <input type="number" id="hours" value="@hour" />
@@ -1593,74 +1634,71 @@
 <div id="th-menu-fix-mobile"></div>
 
 
+@*<div class="carousel-wrap">
+    <div class="owl-carousel">
+
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/hanacobivina/1935886_L.jpg?width=550&height=550"></div>
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/hanacobivina/2053846_L.jpg"></div>
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/opalshop/1864012_L.png"></div>
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550"></div>
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/maynhabe2017/2096794_L.JPG?width=550&height=550"></div>
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/julius2017/2109172_L.jpg?width=550&height=550"></div>
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/vananh476/2092811_L.jpg?width=550&height=550"></div>
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550"></div>
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/LeThiPhuongUyen2019/2067278_L.jpg?width=550&height=550"></div>
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550"></div>
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/hanacobivina/2154150_L.jpg?width=550&height=550"></div>
+        <div class="item"><img src="https://image.yes24.vn/Upload/ProductImage/nutrilife/2034630_L.jpg?width=550&height=550"></div>
+    </div>
+</div>*@
+
 
 <div class="divTab">
-    <div class="tab-wrapper">
-        <ul class="tab">
-            <li>
-                <a href="#tab-main">0h</a>
-            </li>
-            <li>
-                <a href="#tab1">3h</a>
-            </li>
-            <li>
-                <a href="#tab2">6h</a>
-            </li>
-            <li>
-                <a href="#tab3">9h</a>
-            </li>
-            <li>
-                <a href="#tab4">12h</a>
-            </li>
-            <li>
-                <a href="#tab5">15h</a>
-            </li>
-            <li>
-                <a href="#tab6">18h</a>
-            </li>
-            <li>
-                <a href="#tab7">21h</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-item" id="tab-main">
-                Sale 0h - 2h59
-            </div>
-            <div class="tab-item" id="tab1">
-                Sale 3h - 5h59
-            </div>
-            <div class="tab-item" id="tab2">
-                @Html.Action("_getDataProduct", "Home");
+        <div class="tab-wrapper">
+            <ul class="tab">
+                <li onclick="getDataTab(0)">
+                    <a href="#tab-main">0h</a>
+                </li>
+                <li onclick="getDataTab(3)">
+                    <a href="#tab1">3h</a>
+                </li>
+                <li onclick="getDataTab(6)">
+                    <a href="#tab2">6h</a>
+                </li>
+                <li onclick="getDataTab(9)">
+                    <a href="#tab3">9h</a>
+                </li>
+                <li onclick="getDataTab(12)">
+                    <a href="#tab4">12h</a>
+                </li>
+                <li onclick="getDataTab(15)">
+                    <a href="#tab5">15h</a>
+                </li>
+                <li onclick="getDataTab(18)">
+                    <a href="#tab6">18h</a>
+                </li>
+                <li onclick="getDataTab(21)">
+                    <a href="#tab7">21h</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="carousel-wrap">
+                    <div class="owl-carousel">
 
-            </div>
-            <div class="tab-item" id="tab3">
-                @Html.Action("_getDataProduct", "Home");
-            </div>
-            <div class="tab-item" id="tab4">
-                @Html.Action("_getDataProduct", "Home");
-            </div>
-            <div class="tab-item" id="tab5">
-                @Html.Action("_getDataProduct", "Home");
-            </div>
-            <div class="tab-item" id="tab6">
-                Sale 18h - 20h59
-            </div>
-            <div class="tab-item" id="tab7">
-                Sale 21h - 23h59
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-    @*@foreach (var item in Model)
-        {
-            <p><label>ID : </label>@item.ID </p>
-            <p><label>ProductName : </label>@item.ProductName </p>
-            <p><label>Image : </label>@item.ImageProduct</p>
-            <p><label>Price : </label>@item.Price</p>
-        }*@
-
+@*@foreach (var item in Model)
+    {
+        <p><label>ID : </label>@item.ID </p>
+        <p><label>ProductName : </label>@item.ProductName </p>
+        <p><label>Image : </label>@item.ImageProduct</p>
+        <p><label>Price : </label>@item.Price</p>
+    }*@
 
 <div class="module">
     <div id="droppable" class="ui-widget-header wrapper-boxlink-edit">
