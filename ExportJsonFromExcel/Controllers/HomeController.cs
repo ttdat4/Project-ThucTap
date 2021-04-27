@@ -442,6 +442,103 @@ namespace ExportJsonFromExcel.Controllers
                 RateDiscount = 22,
                 Hour = 9
             });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+
 
             modelProducts.Add(new ModelProduct()
             {
