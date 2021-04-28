@@ -218,10 +218,12 @@
         outline: 0;
         background: transparent;
         vertical-align: baseline;
-        scroll-behavior: smooth !important;
+        /*scroll-behavior: smooth !important;*/
     }
 
     * {
+
+
         margin: 0;
         padding: 0;
     }
@@ -284,18 +286,16 @@
     }
 
     ul.menu-home {
-        padding: 5px 0 10px 10px;
+        padding: 5px 5px 5px 5px;
     }
 
     ul.menu-home {
         display: block;
-        width: -webkit-calc(100% - 10px);
-        width: -o-calc(100% - 10px);
-        width: calc(100% - 10px);
+        width: 700px;
         overflow-x: scroll;
         overflow-y: hidden;
         white-space: nowrap;
-        padding: 0 0 0 10px;
+      
         background: #d33649;
         border-bottom: none;
         padding-bottom: 15px;
@@ -303,9 +303,7 @@
 
     ul.menu-home {
         display: block;
-        width: -webkit-calc(100% - 10px);
-        width: -o-calc(100% - 10px);
-        width: calc(100% - 10px);
+        width: 700px;
         overflow-x: scroll;
         overflow-y: hidden;
         white-space: nowrap;
@@ -328,12 +326,13 @@
         }
 
         ul.menu-home li {
-            margin-right: 10px;
+            
             text-transform: uppercase;
         }
 
         ul.list-inline li {
             display: inline-block;
+            width:50px;
         }
 
         ul li {
@@ -560,6 +559,7 @@
         position: relative;
         border: none;
         margin: 1px;
+        display: none;
        
     }
 
@@ -910,7 +910,7 @@
         var count = 1;
 
         function addModule() {
-            debugger
+        
             var wrapResult = $('#droppable');
 
             count++;
@@ -982,6 +982,7 @@
 
 
         $(function () {
+
 
             Add();
 
@@ -1394,7 +1395,19 @@
             });
 
         }
-        $('#scroll').scrollLeft(0);
+        //$('#scroll').scrollLeft(100000);
+
+        $("#scroll" ).owlCarousel({
+            navigation: false,
+            slideSpeed: 100,
+            items: 3,
+            paginationSpeed: 100,
+            pagination: true,
+            autoPlay: false,
+            goToFirst: true,
+            mouseDrag: true,
+            touchDrag: true,
+        });
         //var today = new Date();
         //var time = today.getHours() + '-' + today.getMinutes() + '-' + today.getSeconds(); // đo thời gian hiện tại
 
@@ -1403,7 +1416,7 @@
         //function chuyển tab
         $(document).ready(function ()
         {
-
+            getDataTab(9);
             function activeTab(obj)
             {  // Hàm active tab nào đó
 
@@ -1530,35 +1543,37 @@
         //    });
         //    return set_data;
         //}
-    function getDataTab(hour,num) {
+        function getDataTab(hour) {
+        debugger
         $.ajax({
             type: 'POST',
             url: 'Home/_getDataProduct/',
             data: {
                 hour:hour,
-                pos:num,
+               
             },
 
-            success: function (data,result) {
+            success: function (data/*,result*/) {
                 debugger
                
 
                 $('.tab-content').html(data);
-                $('#tr-prd-bottomt1' + num).html(result);
+                //$('#tr-prd-bottomt1' ).html(result);
 
                 var x = 3;
-                var xShow = 6;
-                $('#tr-prd-bottomt1' + num + '.tr-col-50:lt(' + x + ')').show();
-                $('#loadMoret' + num).click(function () {
-                    var sizet1 = $('#tr-prd-bottomt1' + num + '.tr-col-50').size();
+                var xShow = 3;
+                $('#tr-prd-bottomt1  .tr-col-50:lt(' + x + ')').show();
+                $('#loadMoret').click(function () {
+                    debugger
+                    var sizet1 = $('.tr-prd-bottom1 .tr-col-50').length;
                     xShow = (xShow + x <= sizet1) ? xShow + x : sizet1;
-                    $('#tr-prd-bottomt1' + num + '.tr-col-50:lt(' + xShow + ')').fadeIn("slow");
+                    $('#tr-prd-bottomt1 .tr-col-50:lt(' + xShow + ')').fadeIn(100);
 
                     if (xShow === sizet1) {
-                        $('#loadMoret' + num).hide();
+                        $('#loadMoret' ).hide();
                     }
                     else {
-                        $('#loadMoret' + num).show();
+                        $('#loadMoret' ).show();
                     }
                 });
             },
@@ -1659,35 +1674,65 @@
 
 
 <ul class="menu-home list-inline" style="display:block;" id="scroll">
-    <li>
+    <li style="width: 100px;">
         <a href="" class="active" id="home">Trang chủ</a>
     </li>
-    <li>
+    <li style="width: 100px;">
         <a href="" id="mypham" class="">YES24 BEAUTY</a>
     </li>
-    <li>
+    <li style="width: 100px;">
         <a href="" id="yes24black" class="">YES24 BLACK</a>
     </li>
-    <li>
+    <li style="width: 100px;">
         <a href="" class="" id="shop-giao-nhanh">Yes24 Quick</a>
     </li>
-    <li>
+    <li style="width: 100px;">
         <a href="" class="" id="khuyenmai">Khuyến mãi</a>
     </li>
-    <li>
+    <li style="width: 100px;">
         <a href="" class="" id="magiamgia">Mã giảm giá</a>
     </li>
-    <li>
+    <li style="width: 100px;">
         <a href="" id="flashsale" class="">Flash Sale</a>
     </li>
-    <li>
+    <li style="width: 100px;">
         <a href="" class="" id="topseller">Bán chạy</a>
     </li>
-    <li>
+    <li style="width: 100px;">
         <a href="" class="" id="tatcathuonghieu">Thương hiệu</a>
     </li>
-    <li>
+    <li style="width: 100px;">
         <a href="" title="WEBTOON">WEBTOON</a>
+    </li>
+    <li style="width: 100px;">
+        <a href="" class="" id="home">A</a>
+    </li>
+    <li style="width: 100px;">
+        <a href="" id="mypham" class="">b</a>
+    </li>
+    <li style="width: 100px;">
+        <a href="" id="yes24black" class="">c</a>
+    </li>
+    <li style="width: 100px;">
+        <a href="" class="" id="shop-giao-nhanh">d</a>
+    </li>
+    <li style="width: 100px;">
+        <a href="" class="" id="khuyenmai">e</a>
+    </li>
+    <li style="width: 100px;">
+        <a href="" class="" id="magiamgia">f</a>
+    </li>
+    <li style="width: 100px;">
+        <a href="" id="flashsale" class="">g</a>
+    </li>
+    <li style="width: 100px;">
+        <a href="" class="" id="topseller">h</a>
+    </li>
+    <li style="width: 100px;">
+        <a href="" class="" id="tatcathuonghieu">i</a>
+    </li>
+    <li style="width: 100px;">
+        <a href="" title="WEBTOON">j</a>
     </li>
 </ul>
 <div id="th-menu-fix-mobile"></div>
@@ -1724,7 +1769,7 @@
             <li onclick="getDataTab(6)">
                 <a href="#tab2">6h</a>
             </li>
-            <li onclick="getDataTab(9)">
+            <li class="active" onclick="getDataTab(9)">
                 <a href="#tab3">9h</a>
             </li>
             <li onclick="getDataTab(12)">
@@ -1747,7 +1792,7 @@
 
         </div>
        
-            <img id="loadMoret" class="viewMore" src="https://image.yes24.vn/Upload/Event/2020/btn_Slide/btn_ViewMore_01.png" onclick="getDataTab(9,1);" alt="Xem thêm">
+            <img id="loadMoret" class="viewMore" src="https://image.yes24.vn/Upload/Event/2020/btn_Slide/btn_ViewMore_01.png" alt="Xem thêm">
     
 
     </div>

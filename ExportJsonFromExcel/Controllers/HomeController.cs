@@ -446,7 +446,19 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 04,
                 ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/1789881_L.jpg?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/hanacobivina/1948884_L.jpg?width=550&height=550",
                 Price = 350000,
                 PriceDiscount = 330000,
                 PriceCode = 320000,
@@ -470,7 +482,67 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 04,
                 ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1601642_L.png?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1872255_L.png?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/daiphatloctho/1931925_L.jpg?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/daiphatloctho/1931934_L.jpg?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/daiphatloctho/1931927_L.jpg?width=550&height=550",
+                Price = 350000,
+                PriceDiscount = 330000,
+                PriceCode = 320000,
+                Code = "TTD",
+                RateDiscount = 22,
+                Hour = 9
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 04,
+                ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/daiphatloctho/1931927_L.jpg?width=550&height=550",
                 Price = 350000,
                 PriceDiscount = 330000,
                 PriceCode = 320000,
@@ -494,7 +566,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 04,
                 ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/daiphatloctho/1931930_1_L.jpg",
                 Price = 350000,
                 PriceDiscount = 330000,
                 PriceCode = 320000,
@@ -506,7 +578,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 04,
                 ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/daiphatloctho/1931930_2_L.jpg",
                 Price = 350000,
                 PriceDiscount = 330000,
                 PriceCode = 320000,
@@ -518,7 +590,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 04,
                 ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1872249_L.png?width=550&height=550",
                 Price = 350000,
                 PriceDiscount = 330000,
                 PriceCode = 320000,
@@ -530,7 +602,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 04,
                 ProductName = "Bình thủy bơm rót Zojirushi 1.85L - Trắng bạc - ZOBT-AAPE-19-OK",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806249_L.png?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/loclehai/1806777_L.png?width=550&height=550",
                 Price = 350000,
                 PriceDiscount = 330000,
                 PriceCode = 320000,
@@ -760,7 +832,31 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 08,
                 ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/1957208_L.jpg?width=550&height=550",
+                Price = 1100000,
+                PriceDiscount = 1000000,
+                PriceCode = 990000,
+                Code = "TTD",
+                RateDiscount = 5,
+                Hour = 21
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 08,
+                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/1922312_L.jpg?width=550&height=550",
+                Price = 1100000,
+                PriceDiscount = 1000000,
+                PriceCode = 990000,
+                Code = "TTD",
+                RateDiscount = 5,
+                Hour = 21
+            });
+            modelProducts.Add(new ModelProduct()
+            {
+                ID = 08,
+                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/1957186_L.jpg?width=550&height=550",
                 Price = 1100000,
                 PriceDiscount = 1000000,
                 PriceCode = 990000,
@@ -784,7 +880,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 08,
                 ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/1957189_L.jpg?width=550&height=550",
                 Price = 1100000,
                 PriceDiscount = 1000000,
                 PriceCode = 990000,
@@ -796,7 +892,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 08,
                 ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/1973002_L.jpg?width=550&height=550",
                 Price = 1100000,
                 PriceDiscount = 1000000,
                 PriceCode = 990000,
@@ -808,7 +904,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 08,
                 ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/namtien2017/1976314_L.jpg?width=550&height=550",
                 Price = 1100000,
                 PriceDiscount = 1000000,
                 PriceCode = 990000,
@@ -820,31 +916,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 08,
                 ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
-                Price = 1100000,
-                PriceDiscount = 1000000,
-                PriceCode = 990000,
-                Code = "TTD",
-                RateDiscount = 5,
-                Hour = 21
-            });
-            modelProducts.Add(new ModelProduct()
-            {
-                ID = 08,
-                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
-                Price = 1100000,
-                PriceDiscount = 1000000,
-                PriceCode = 990000,
-                Code = "TTD",
-                RateDiscount = 5,
-                Hour = 21
-            });
-            modelProducts.Add(new ModelProduct()
-            {
-                ID = 08,
-                ProductName = "Đồng hồ nam Henry London Regency HL40-S-0366",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061147_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/julius2017/2061158_L.jpg?width=550&height=550",
                 Price = 1100000,
                 PriceDiscount = 1000000,
                 PriceCode = 990000,
@@ -880,7 +952,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 10,
                 ProductName = "Giày Adidas Ultraboost 19 nam G27504",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/NLYPHUC2020/2111107_L.jpg?width=550&height=550",
                 Price = 2700000,
                 PriceDiscount = 2621000,
                 PriceCode = 2611000,
@@ -892,7 +964,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 10,
                 ProductName = "Giày Adidas Ultraboost 19 nam G27504",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/Asics/2156137_L.jpg?width=550&height=550",
                 Price = 2700000,
                 PriceDiscount = 2621000,
                 PriceCode = 2611000,
@@ -904,7 +976,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 10,
                 ProductName = "Giày Adidas Ultraboost 19 nam G27504",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/ketnoiaau2018/2139284_L.jpg?width=550&height=550",
                 Price = 2700000,
                 PriceDiscount = 2621000,
                 PriceCode = 2611000,
@@ -916,7 +988,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 10,
                 ProductName = "Giày Adidas Ultraboost 19 nam G27504",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/ketnoiaau2018/2140818_L.jpg?width=550&height=550",
                 Price = 2700000,
                 PriceDiscount = 2621000,
                 PriceCode = 2611000,
@@ -928,7 +1000,7 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 10,
                 ProductName = "Giày Adidas Ultraboost 19 nam G27504",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/anvietshAokang2020/2136316_L.jpg?width=550&height=550",
                 Price = 2700000,
                 PriceDiscount = 2621000,
                 PriceCode = 2611000,
@@ -940,19 +1012,19 @@ namespace ExportJsonFromExcel.Controllers
             {
                 ID = 10,
                 ProductName = "Giày Adidas Ultraboost 19 nam G27504",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/thethaochinhang/2000596_L.jpg?width=550&height=550",
                 Price = 2700000,
                 PriceDiscount = 2621000,
                 PriceCode = 2611000,
                 Code = "TTD",
-                RateDiscount = 18,
+                RateDiscount = 18, 
                 Hour = 3
             });
             modelProducts.Add(new ModelProduct()
             {
                 ID = 10,
                 ProductName = "Giày Adidas Ultraboost 19 nam G27504",
-                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/VASPORT/2149809_L.jpg?width=550&height=550",
+                ImageProduct = "https://image.yes24.vn/Upload/ProductImage/thethaochinhang/1992077_L.jpg?width=550&height=550",
                 Price = 2700000,
                 PriceDiscount = 2621000,
                 PriceCode = 2611000,
